@@ -10,5 +10,6 @@ router.post("/email/forgot", authController.forgotPassword); //Getting Email fro
 router.post("/email/reset/:token", authController.resetPassword); //Getting passwords and confirm passwords for password rest
 router.get("/oauth/:id", authController.getUser); //getting userBy id ;
 router.get("/email/confirm/:id", authController.confirmEmail); //For Confirmation of email
+router.post("/recaptcha", authController.validateCaptcha); //post req captchaValidation
 
 module.exports = router;

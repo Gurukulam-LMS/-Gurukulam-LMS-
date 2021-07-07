@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const async = require("async");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const fetch = require("node-fetch");
 
 const User = require("../models/User"); //Model
 const HttpError = require("../misc/HttpError"); //Helper function for Handle error
@@ -249,5 +250,28 @@ module.exports.getUser = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+//recaptcha verification
+module.exports.validateCaptcha = async (req, res) => {
+  const { token } = req.body;
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+
+  //validatingHuman
+  try {
+    const response = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`,
+      {
+        method: "post",
+      }
+    );
+    const data = await response.json();
+    const isHuman = data.success;
+    if (isHuman) return res.json({ isHuman: true, ok: true });
+    else return res.json({ isHuman: false, ok: true });
+  } catch (error) {
+    console.log(error);
+    return res.json({ ok: false });
   }
 };
