@@ -39,7 +39,7 @@ const createToken = (id) => {
 //SignUp Controller
 module.exports.signup_post = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { userName, email, password, confirmPassword } = req.body;
     if (!userName || !email || !password || !confirmPassword)
       return res.json({ message: "Please Enter all details", ok: false });
     if (password != confirmPassword)
