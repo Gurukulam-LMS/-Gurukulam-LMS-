@@ -45,6 +45,17 @@ module.exports.signup_post = async (req, res, next) => {
       return res.json({ message: "Please Enter all details", ok: false });
     if (password != confirmPassword)
       return res.json({ message: "Passwords not matched", ok: false });
+    if (
+      !password.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+      )
+    ) {
+      return res.json({
+        message:
+          "Password must contain minimum eight characters, at least one letter, one number and one special character",
+        ok: false,
+      });
+    }
     const exsistingUser = await User.findOne({
       "local.email": email,
     });
@@ -63,7 +74,7 @@ module.exports.signup_post = async (req, res, next) => {
     //Sending-Confirmation-Email
     await sendEmail(
       email,
-      emailTemplates.confirmEmailTemp(user._id, user.local.name)
+      emailTemplates.confirmEmailTemp(user._id, user.local.userName)
     );
 
     return res.status(201).json({
