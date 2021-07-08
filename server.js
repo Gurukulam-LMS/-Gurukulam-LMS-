@@ -3,9 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const oAuthRoutes = require("./routes/oAuthRoutes");
+const limiter = require("./config/rateLimiter");
+const passport = require("passport");
 
 const app = express();
 app.use(express.json());
+
+//Initializing Passport
+app.use(passport.initialize());
+//passport template
+require("./config/passport");
 
 //CORS Policy
 app.use((req, res, next) => {
@@ -17,6 +24,9 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
+
+//Rate limiter
+app.use(limiter.globalLimiter);
 
 //Routes
 app.use("/api/auth", authRoutes);
