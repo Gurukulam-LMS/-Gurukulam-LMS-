@@ -7,6 +7,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const api_key = require("./config/config");
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // To remove CROS (cross-resource-origin-platform) problem
 app.use((req, res, next) => {
@@ -38,22 +42,24 @@ app.use((error, req, res, next) => {
   res.status(500).json({ message: error.message || "Something went wrong" });
 });
 
-const MONGODB_URI = api_key.mongo;
+//Setting up database and backend Server
+const PORT = process.env.PORT || 8000;
+const CONNECTION_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.kyz02.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+
 mongoose
-  .connect(MONGODB_URI, {
+  .connect(CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
   .then(() => {
-    console.log("MongoDB! connected !!!");
+    app.listen(PORT, () => {
+      console.log(`MongoDB Connected and Connection started at ${PORT}`);
+      console.log(`Local -> http://localhost:8000`);
+      console.log(`Client Origin -> ${process.env.CLIENT_ORIGIN}`);
+    });
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    console.log(error);
   });
-
-const PORT = process.env.port || 8000;
-app.listen(PORT, () => {
-  console.log("Server running on port  http://localhost:" + PORT);
-});

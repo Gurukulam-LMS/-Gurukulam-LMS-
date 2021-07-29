@@ -108,20 +108,19 @@ exports.verifyToken = (req, res, next) => {
     });
 };
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email, password);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ message: "Invalid Credentials" });
+    return res.status(422).json({ message: "Invalid Credentials", ok: false });
   }
 
   Admin.findOne({ email: email })
     .then((admin_found) => {
       if (!admin_found) {
-        res.status(401).json("Invalid email id ");
+        res.status(401).json({ message: "Invalid email id ", ok: false });
       }
 
       bcrypt.compare(password, admin_found.password).then((matchPass) => {
@@ -149,13 +148,14 @@ exports.login = (req, res, next) => {
           const { adminname, email, role } = admin_found;
           res.status(201).json({
             message: " logged in  Successfully ",
+            ok: true,
             access_token: access_token,
             referesh_token: referesh_token,
             Admin: { adminname, email, role },
             adminId: admin_found._id,
           });
         } else {
-          res.status(401).json({ message: "password don't match" });
+          res.status(401).json({ message: "password don't match", ok: false });
         }
       });
     })
