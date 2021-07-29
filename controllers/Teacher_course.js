@@ -3,7 +3,7 @@ const Course = require("../model/course");
 exports.uploadCourse = (req, res, next) => {
   console.log(req.body);
   console.log("getting request 1");
-  const imageurl = "some link ";
+  const imageurl = req.file.path;
   const userId = req.body._id;
   console.log("getting request 2");
   const {
@@ -23,7 +23,6 @@ exports.uploadCourse = (req, res, next) => {
     category: category,
     imageurl: imageurl,
     name: name,
-
     discription: discription,
     discriptionLong: discriptionLong,
     requirement: requirement,
