@@ -1,6 +1,7 @@
 const Course = require("../model/course");
 
 exports.uploadCourse = (req, res, next) => {
+<<<<<<< HEAD
   try {
     console.log(req.body);
     console.log("getting request 1");
@@ -30,6 +31,48 @@ exports.uploadCourse = (req, res, next) => {
       rating: 0,
       price: price,
       creator: userId,
+=======
+  console.log(req.body);
+  console.log("getting request 1");
+  const imageurl = req.file.path;
+  const userId = req.body._id;
+  console.log("getting request 2");
+  const {
+    title,
+    category,
+    name,
+    discription,
+    discriptionLong,
+    requirement,
+    price,
+  } = req.body;
+
+  console.log(userId, title);
+
+  const course = new Course({
+    title: title,
+    category: category,
+    imageurl: imageurl,
+    name: name,
+    discription: discription,
+    discriptionLong: discriptionLong,
+    requirement: requirement,
+    rating: 0,
+    price: price,
+    creator: userId,
+  });
+  console.log("getting request 3 " + course);
+  course
+    .save()
+    .then((result) => {
+      console.log(result);
+      res
+        .status(201)
+        .json({ message: "Course created successfully", newCourse: result });
+    })
+    .catch((err) => {
+      console.log(err);
+>>>>>>> a447eb2ad180abb1b6010f19abf1b8bcebc8eb85
     });
     console.log("getting request 3 " + course);
     course
