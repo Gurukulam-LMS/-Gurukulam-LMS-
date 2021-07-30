@@ -7,8 +7,8 @@ exports.sendverficationLink = (email, otp) => {
   const msg = {
     from: "ashu972040@gmail.com",
     to: email,
-    subject: "OTP Verification",
-    text: "Welcome to cousera ",
+    subject: "verification link ",
+    text: "Welcome to GURUKULAM ",
     html: `<h4 style="display:inline-block" >Please Verify your account using this OTP:</h4>
 					<p style=" width:fit-content;letter-spacing:0.8px;color:#14213d; background-color: #f8edeb; border: 3px dashed orange; padding:10px 15px ; font-size:20px; font-weight:700;">${otp}</p>`,
   };

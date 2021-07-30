@@ -7,7 +7,7 @@ exports.allCourses = (req, res) => {
       res.status(200).json({ course: course });
     })
     .catch((err) => {
-      res.json(500).json({ message: "Faile to Fetch Courses " });
+      res.json(500).json({ message: "Failed to Fetch Courses " });
       console.log(err);
     });
 };

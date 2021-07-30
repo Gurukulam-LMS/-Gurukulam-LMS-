@@ -7,6 +7,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const api_key = require("./config/config");
+const path = require("path");
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // To remove CROS (cross-resource-origin-platform) problem
 app.use((req, res, next) => {

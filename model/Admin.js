@@ -46,6 +46,10 @@ const AdminSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  fa2: {
+    type: Boolean,
+    default: false,
+  },
   //Token:String,
   //resetToken:String,
   //resetTokenExpiration:Date,

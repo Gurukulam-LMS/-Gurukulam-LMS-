@@ -1,48 +1,51 @@
 const Course = require("../model/course");
 
 exports.uploadCourse = (req, res, next) => {
-  console.log(req.body);
-  console.log("getting request 1");
-  const imageurl = "some link ";
-  const userId = req.body._id;
-  console.log("getting request 2");
-  const {
-    title,
-    category,
-    name,
-    discription,
-    discriptionLong,
-    requirement,
-    price,
-  } = req.body;
+  try {
+    console.log(req.body);
+    console.log("getting request 1");
+    const imageurl = req.file.path;
+    const userId = req.body._id;
 
-  console.log(userId, title);
+    console.log("getting request 2");
+    const {
+      title,
+      category,
+      name,
+      discription,
+      discriptionLong,
+      requirement,
+      price,
+    } = req.body;
 
-  const course = new Course({
-    title: title,
-    category: category,
-    imageurl: imageurl,
-    name: name,
+    const course = new Course({
+      title: title,
+      category: category,
+      imageurl: imageurl,
+      name: name,
 
-    discription: discription,
-    discriptionLong: discriptionLong,
-    requirement: requirement,
-    rating: 0,
-    price: price,
-    creator: userId,
-  });
-  console.log("getting request 3 " + course);
-  course
-    .save()
-    .then((result) => {
-      console.log(result);
-      res
-        .status(201)
-        .json({ message: "Course created successfully", newCourse: result });
-    })
-    .catch((err) => {
-      console.log(err);
+      discription: discription,
+      discriptionLong: discriptionLong,
+      requirement: requirement,
+      rating: 0,
+      price: price,
+      creator: userId,
     });
+    console.log("getting request 3 " + course);
+    course
+      .save()
+      .then((result) => {
+        console.log(result);
+        res
+          .status(201)
+          .json({ message: "Course created successfully", newCourse: result });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.uploadVideo = (req, res, next) => {

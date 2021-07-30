@@ -40,7 +40,7 @@ const courseSchema = new Schema(
       //for refrencing the person who created it
       required: true,
       type: Schema.Types.ObjectId,
-      ref: "Teacher",
+      ref: "Admin",
     },
     bookmark: [
       // how many Student have books mark this question
