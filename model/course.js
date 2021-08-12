@@ -50,20 +50,35 @@ const courseSchema = new Schema(
       },
     ],
 
-    videoContent: [
+    courseTopic: [
       {
-        videoUrl: {
+        topicname: {
           type: String,
           required: false,
         },
-        StudentsWatched: [
-          // like how many Student watched this vedio , it is optional we can remove it if not needed
+        videoUrl: [
           {
-            type: Schema.Types.ObjectId,
+            // chnage it to array
+            type: String,
             required: false,
-            ref: "Student",
           },
         ],
+        pdfUrl: [
+          {
+            // chnage it to array
+            type: String,
+            required: false,
+          },
+        ],
+
+        // StudentsWatched: [
+        //   // to know the progess of student in any course , it is optional we can remove it if not needed
+        //   {
+        //     type: Schema.Types.ObjectId,
+        //     required: false,
+        //     ref: "Student",
+        //   },
+        // ],
       },
     ],
     rating: {

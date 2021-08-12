@@ -1,5 +1,5 @@
 {
-  "name": "game_nodejs",
+  "name": "lms_nodejs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.4.5",
+    "aws-sdk": "^2.958.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.4.1",
@@ -25,11 +26,13 @@
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemailer": "^6.6.2",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.9",
     "path": "^0.12.7",
+    "pdfkit": "^0.12.3",
     "socket.io": "^4.1.2"
   }
 }

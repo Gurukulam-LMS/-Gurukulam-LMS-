@@ -1,0 +1,74 @@
+{
+    "_id": {
+        "$oid": "6114ff2437773c51f082fece"
+    },
+    "rating": {
+        "ratingSum": {
+            "$numberInt": "1"
+        },
+        "timesUpdated": {
+            "$numberInt": "1"
+        },
+        "ratingFinal": {
+            "$numberInt": "1"
+        }
+    },
+    "category": [
+        "Programming "
+    ],
+    "bookmark": [],
+    "totalDuration": {
+        "$numberInt": "0"
+    },
+    "title": "Introduction to Java ",
+    "imageurl": "https://gurukulam.s3.us-east-2.amazonaws.com/1628765985517-Q-1%20Two%20Number%20Sum.png",
+    "discription": "this course is open for who have willing to learn ",
+    "discriptionLong": "this course is open for who have willing to learn ",
+    "requirement": "Any one can study ",
+    "price": "787",
+    "creator": {
+        "$oid": "610438217532de4ae800fc13"
+    },
+    "courseTopic": [
+        {
+            "videoUrl": [
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766027110-5fd79c9034679e62715366acd13c6317.mp4"
+            ],
+            "pdfUrl": [
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766027123-Abhishek%20Tiwari%20Data%20Science%20certificate.pdf"
+            ],
+            "_id": {
+                "$oid": "6114ff6137773c51f082fed1"
+            },
+            "topicname": "Part 1"
+        },
+        {
+            "videoUrl": [
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766189698-5fd79c9034679e62715366acd13c6317.mp4",
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766189732-video_20210111_130026.mp4"
+            ],
+            "pdfUrl": [
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766189694-1Abhishek_Resume.pdf",
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766189710-Abhishek%20Tiwari%20Data%20Science%20certificate.pdf",
+                "https://gurukulam.s3.us-east-2.amazonaws.com/1628766189720-Abhishek_Tiwari%20Resume%20.pdf"
+            ],
+            "_id": {
+                "$oid": "6115008f37773c51f082fed4"
+            },
+            "topicname": "Part 2"
+        }
+    ],
+    "createdAt": {
+        "$date": {
+            "$numberLong": "1628765988732"
+        }
+    },
+    "updatedAt": {
+        "$date": {
+            "$numberLong": "1628766351941"
+        }
+    },
+    "__v": {
+        "$numberInt": "2"
+    }
+}

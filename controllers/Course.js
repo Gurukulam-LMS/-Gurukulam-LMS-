@@ -1,5 +1,9 @@
 const Course = require("../model/course");
 
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
+const path = require("path");
+
 exports.allCourses = (req, res) => {
   Course.find()
     .then((course) => {
@@ -160,4 +164,61 @@ exports.fetchCourses = (req, res, next) => {
         res.status(400).json({ message: "error occured" });
       });
   }
+};
+
+exports.pdf = (req, res, next) => {
+  const courseId = req.params.courseId;
+
+  Course.findById({ _id: courseId })
+    .then((course) => {
+      if (!course) {
+        res.status(400).json({ message: "course doesnt exists!" });
+      }
+
+      const pdfName = "invoice-" + courseId + ".pdf";
+      const pdfPath = path.join("Files", pdfName);
+      const pdfdoc = new PDFDocument();
+
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader(
+        "Content-Disposition",
+        'inline; filename="' + pdfName + '"'
+      );
+      pdfdoc.pipe(fs.createWriteStream(pdfPath));
+
+      pdfdoc.pipe(res);
+      pdfdoc
+        .fontSize(20)
+        .text(
+          "HERE IS SOME DESCRIPTION AND TIPS ABOUT THE COURSE , HAVE A GREAT JOURNEY , EXPERIENCE BEST COURSES BY EXPERTIES! THANKYOU "
+        );
+      pdfdoc.moveDown();
+      pdfdoc.fontSize(18).text("---------------CREATOR------------------");
+      pdfdoc.moveDown();
+      pdfdoc.text(course.name);
+      pdfdoc.moveDown();
+      pdfdoc.fontSize(18).text("------------DESCRIPTION-------------");
+      pdfdoc.moveDown();
+      pdfdoc.text(course.discription);
+      pdfdoc.moveDown();
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.moveDown();
+      pdfdoc.fontSize(18).text("TIPS");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.text("1. Treat an online course like a “real” course.");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.text("2. Hold yourself accountable");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.text(" Practice time management.");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.text("4. Create a regular study space and stay organized.");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.text("5. Eliminate distractions.");
+      pdfdoc.text("--------------------------------------------");
+      pdfdoc.moveDown();
+      pdfdoc.end();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

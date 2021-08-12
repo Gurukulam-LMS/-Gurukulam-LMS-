@@ -111,19 +111,20 @@ exports.verifyToken = (req, res, next) => {
     });
 };
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+  console.log(email, password);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ message: "Invalid Credentials", ok: false });
+    return res.status(422).json({ message: "Invalid Credentials" });
   }
 
   Admin.findOne({ email: email })
     .then((admin_found) => {
       if (!admin_found) {
-        res.status(401).json({ message: "Invalid email id ", ok: false });
+        res.status(401).json("Invalid email id ");
       }
 
       bcrypt.compare(password, admin_found.password).then(async (matchPass) => {
@@ -156,7 +157,6 @@ exports.login = async (req, res, next) => {
               }
             );
 
-<<<<<<< HEAD
             const referesh_token = jwt.sign(
               { email: admin_found.email },
               api_key.refereshToken,
@@ -181,21 +181,6 @@ exports.login = async (req, res, next) => {
           }
         } else {
           res.status(402).json({ message: "password don't match" });
-=======
-          // admin_found.Token=token;
-          // admin_found.save()
-          const { adminname, email, role } = admin_found;
-          res.status(201).json({
-            message: " logged in  Successfully ",
-            ok: true,
-            access_token: access_token,
-            referesh_token: referesh_token,
-            Admin: { adminname, email, role },
-            adminId: admin_found._id,
-          });
-        } else {
-          res.status(401).json({ message: "password don't match", ok: false });
->>>>>>> a447eb2ad180abb1b6010f19abf1b8bcebc8eb85
         }
       });
     })
@@ -279,6 +264,7 @@ exports.otpVerification = async (req, res, next) => {
           param: "otp",
           location: "otpVerification",
         };
+
         return res.status(422).json({ message: errors.array() });
       }
 

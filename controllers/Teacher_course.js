@@ -1,14 +1,13 @@
 const Course = require("../model/course");
 
 exports.uploadCourse = (req, res, next) => {
-<<<<<<< HEAD
   try {
     console.log(req.body);
-    console.log("getting request 1");
-    const imageurl = req.file.path;
-    const userId = req.body._id;
 
-    console.log("getting request 2");
+    const imageurl = req.file.location; // later remove this text
+    const userId = req.body._id;
+    console.log(req.file.location);
+
     const {
       title,
       category,
@@ -31,50 +30,8 @@ exports.uploadCourse = (req, res, next) => {
       rating: 0,
       price: price,
       creator: userId,
-=======
-  console.log(req.body);
-  console.log("getting request 1");
-  const imageurl = req.file.path;
-  const userId = req.body._id;
-  console.log("getting request 2");
-  const {
-    title,
-    category,
-    name,
-    discription,
-    discriptionLong,
-    requirement,
-    price,
-  } = req.body;
-
-  console.log(userId, title);
-
-  const course = new Course({
-    title: title,
-    category: category,
-    imageurl: imageurl,
-    name: name,
-    discription: discription,
-    discriptionLong: discriptionLong,
-    requirement: requirement,
-    rating: 0,
-    price: price,
-    creator: userId,
-  });
-  console.log("getting request 3 " + course);
-  course
-    .save()
-    .then((result) => {
-      console.log(result);
-      res
-        .status(201)
-        .json({ message: "Course created successfully", newCourse: result });
-    })
-    .catch((err) => {
-      console.log(err);
->>>>>>> a447eb2ad180abb1b6010f19abf1b8bcebc8eb85
     });
-    console.log("getting request 3 " + course);
+
     course
       .save()
       .then((result) => {
@@ -93,34 +50,42 @@ exports.uploadCourse = (req, res, next) => {
 
 exports.uploadVideo = (req, res, next) => {
   const courseId = req.params.courseID;
-  console.log(req.files);
-  const videos = req.files;
+  // console.log("courseId :  " + courseId);
 
-  let videoContent = [];
+  const videos = req.files;
+  const topicname = req.body.topicname;
+  let newTopic = {
+    topicname: "",
+    pdfUrl: [],
+    videoUrl: [],
+  };
 
   Course.findOne({ _id: courseId })
     .then((course) => {
+      console.log("course found ");
+      newTopic.topicname = topicname;
       videos.forEach((video) => {
-        let videoContentContainer = {
-          videoUrl: null,
-          usersWatched: [],
-        };
-        videoContentContainer.videoUrl = video.path;
-        videoContent.push(videoContentContainer);
+        if (video.mimetype === "application/pdf") {
+          newTopic.pdfUrl.push(video.location);
+        } else {
+          newTopic.videoUrl.push(video.location);
+        }
       });
-      console.log(videoContent);
-      course.videoContent = videoContent;
+      console.log(newTopic);
+      console.log(course);
+      course.courseTopic.push(newTopic);
       course.save().then((result) => {
-        res.status(200).json({ message: "successfully saved the video" });
+        console.log(course);
+        res.status(200).json(course);
       });
     })
     .catch((err) => {
       console.log(err);
-      res.json(500).json("Failed to upload vedios ");
+      return res.status(500).json("Failed to upload vedios ");
     });
 };
 
-// get courser of any teacher
+// get courses of any teacher
 exports.teacherHome = (req, res, next) => {
   userId = req.body.userId;
   Course.find({ creator: userId })
@@ -164,7 +129,7 @@ exports.updateCourse = (req, res, next) => {
   const courseId = req.body.courseId;
   const title = req.body.title;
   const category = req.body.category;
-  const imageurl = "new file link";
+  const imageurl = req.file.location; // later remove this text
   const name = req.body.name;
 
   const discription = req.body.discription;
@@ -174,7 +139,7 @@ exports.updateCourse = (req, res, next) => {
   //const userId=req.body._id;
 
   Course.findById({ _id: courseId })
-    .then((course) => {
+    .then(async (course) => {
       course.title = title;
       course.category = category;
       course.imageurl = imageurl;
@@ -186,7 +151,7 @@ exports.updateCourse = (req, res, next) => {
       course.rating = 0;
       course.price = price;
 
-      course.save();
+      await course.save();
       res.status(201).json({ message: "Course editted successfully" });
     })
     .catch((err) => {

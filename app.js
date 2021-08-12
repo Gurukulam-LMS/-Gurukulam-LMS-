@@ -9,10 +9,8 @@ const morgan = require("morgan");
 const api_key = require("./config/config");
 const path = require("path");
 
-<<<<<<< HEAD
-=======
 app.use(express.static(path.join(__dirname, "public")));
->>>>>>> a447eb2ad180abb1b6010f19abf1b8bcebc8eb85
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // To remove CROS (cross-resource-origin-platform) problem
@@ -47,7 +45,7 @@ app.use((error, req, res, next) => {
 
 //Setting up database and backend Server
 const PORT = process.env.PORT || 8000;
-const CONNECTION_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.kyz02.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const CONNECTION_URL = process.env.MONGO_DATABASE;
 
 mongoose
   .connect(CONNECTION_URL, {
@@ -59,7 +57,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`MongoDB Connected and Connection started at ${PORT}`);
-      console.log(`Local -> http://localhost:8000`);
+      console.log(`Local -> 🌎🌏 http://localhost:${PORT}`);
       console.log(`Client Origin -> ${process.env.CLIENT_ORIGIN}`);
     });
   })
