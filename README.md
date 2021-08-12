@@ -3,8 +3,8 @@
 #### Till Now
 ##### 1 -  Authentication routes.
 ##### 2 -  All CRUD operation with course has been done.
-##### 3. aws account set up
-##### upload vedios and pdf by topic name is done
+##### 3 - aws account set up
+##### 4 - upload vedios and pdf by topic name is done
 
 
 
