@@ -2,9 +2,7 @@ const aws = require("aws-sdk");
 const multerS3 = require("multer-s3");
 const multer = require("multer");
 
-// AWS_ACCESS_KEY_ID=AKIAXTGRGDV7YDSVWSOY
-// AWS_SECRET_ACCESS_KEY=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
-// USER_ARN  =  arn:aws:iam::522277231999:user/Abhishek
+
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
