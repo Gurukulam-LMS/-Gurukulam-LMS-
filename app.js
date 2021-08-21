@@ -57,7 +57,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`MongoDB Connected and Connection started at ${PORT}`);
-      console.log(`Local -> 🌎🌏 http://localhost:${PORT}`);
+      console.log(`Local -> 🌎🌏 http://localhost: ${PORT}`);
       console.log(`Client Origin -> ${process.env.CLIENT_ORIGIN}`);
     });
   })

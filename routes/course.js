@@ -3,6 +3,7 @@ const router = express.Router();
 const courseController = require("../controllers/Course");
 const Auth = require("../middleware/isAuth");
 
+router.get("/course/allcourse", Auth, courseController.allCourses);
 router.get("/course/:courseId", Auth, courseController.CoursePage);
 
 router.post("/home/:courseId/:courseName", Auth, courseController.Bookmark);

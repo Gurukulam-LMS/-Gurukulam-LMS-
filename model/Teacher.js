@@ -7,18 +7,19 @@ const TeacherSchema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    profileImage: {
+      type: String,
+    },
+
     revenue: {
       type: Number,
       required: true,
       default: 0,
     },
-    courseCreated: [
-      {
-        type: Schema.Types.ObjectId,
-        required: false,
-        ref: "Course",
-      },
-    ],
   },
   { timestamps: true }
 );

@@ -22,11 +22,7 @@ const courseSchema = new Schema(
       type: String,
       require: true,
     },
-    //optional if we want to detailed info for course
-    discriptionLong: {
-      type: String,
-      require: false,
-    },
+
     requirement: {
       // pre-requirement to learn this courses
       type: String,
@@ -39,13 +35,13 @@ const courseSchema = new Schema(
     creator: {
       //for refrencing the person who created it
       required: true,
-      type: Schema.Types.ObjectId,
-      ref: "Admin",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
     },
     bookmark: [
       // how many Student have books mark this question
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Student",
       },
     ],
@@ -74,7 +70,7 @@ const courseSchema = new Schema(
         // StudentsWatched: [
         //   // to know the progess of student in any course , it is optional we can remove it if not needed
         //   {
-        //     type: Schema.Types.ObjectId,
+        //     type: mongoose.Schema.Types.ObjectId,
         //     required: false,
         //     ref: "Student",
         //   },

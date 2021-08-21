@@ -149,7 +149,7 @@ exports.login = (req, res, next) => {
             res.status(201).json({ message: "Otp send", otp: otp_doc });
           } else {
             const access_token = jwt.sign(
-              { email: admin_found.email },
+              { id: admin_found.id },
               api_key.accessToken,
               {
                 algorithm: "HS256",
@@ -158,7 +158,7 @@ exports.login = (req, res, next) => {
             );
 
             const referesh_token = jwt.sign(
-              { email: admin_found.email },
+              { id: admin_found.id },
               api_key.refereshToken,
               {
                 algorithm: "HS256",

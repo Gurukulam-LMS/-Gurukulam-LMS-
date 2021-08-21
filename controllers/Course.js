@@ -15,7 +15,6 @@ exports.allCourses = (req, res) => {
       console.log(err);
     });
 };
-
 // details for any particular page
 exports.CoursePage = (req, res) => {
   // const courseName = req.params.courseName;
@@ -138,7 +137,6 @@ exports.rating = (req, res, next) => {
 };
 
 // Fetch Coursess by category
-
 exports.fetchCourses = (req, res, next) => {
   const category = req.params.course;
   // console.log(category)

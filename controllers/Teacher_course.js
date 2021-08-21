@@ -1,21 +1,33 @@
 const Course = require("../model/course");
 
+exports.register = async (req, res) => {
+  const { name, email } = req.body;
+
+  const teacher = new Teacher({
+    name,
+    email,
+  });
+
+  await teacher.save();
+
+  res.json(teacher);
+};
+
 exports.uploadCourse = (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log(req.file);
 
     const imageurl = req.file.location; // later remove this text
-    const userId = req.body._id;
-    console.log(req.file.location);
 
     const {
       title,
       category,
       name,
       discription,
-      discriptionLong,
+
       requirement,
       price,
+      creatorId,
     } = req.body;
 
     const course = new Course({
@@ -25,11 +37,11 @@ exports.uploadCourse = (req, res, next) => {
       name: name,
 
       discription: discription,
-      discriptionLong: discriptionLong,
+
       requirement: requirement,
       rating: 0,
       price: price,
-      creator: userId,
+      creator: creatorId,
     });
 
     course
@@ -62,7 +74,6 @@ exports.uploadVideo = (req, res, next) => {
 
   Course.findOne({ _id: courseId })
     .then((course) => {
-      console.log("course found ");
       newTopic.topicname = topicname;
       videos.forEach((video) => {
         if (video.mimetype === "application/pdf") {
@@ -71,12 +82,10 @@ exports.uploadVideo = (req, res, next) => {
           newTopic.videoUrl.push(video.location);
         }
       });
-      console.log(newTopic);
-      console.log(course);
+
       course.courseTopic.push(newTopic);
       course.save().then((result) => {
-        console.log(course);
-        res.status(200).json(course);
+        res.status(200).json(result);
       });
     })
     .catch((err) => {
