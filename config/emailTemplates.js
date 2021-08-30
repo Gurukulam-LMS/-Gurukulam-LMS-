@@ -9,7 +9,7 @@ module.exports = {
           <h3>Hello, ${name}</h3>
           <br>
           <p>
-            <br>You are receiving this because you have successfully registered to use Encomece services.
+            <br>You are receiving this because you have successfully registered .
             <br>Please <a href='${client_origin}/auth/confirm/${id}'> CLICK HERE</a> to confirm your email address
             <br>or Copy and paste this link: ${client_origin}/auth/confirm/${id} in your browser to complete the authentication process
           </p>
@@ -18,7 +18,7 @@ module.exports = {
 
   //Forgot-pswd-template
   forgotPswdTemp: (token, name) => ({
-    subject: "Encomece Password Reset",
+    subject: "Gurukulam Password Reset",
     html: `
       <h2>Hello, ${name}</h2>
       <p><br>You are receiving this because you (or someone else) have requested the reset of the password for your account.
@@ -37,5 +37,13 @@ module.exports = {
       `Hello, ${name} \n\n` +
       `This is a confirmation that the password for your account ${email} \n` +
       " has just been changed.\n",
+  }),
+
+  contactTempate: (name, email, description) => ({
+    subject: "Email from " + name,
+    html: `
+      <h2>An Email from user ${email}</h2>
+      <h3>Description: ${description}</h3>
+    `,
   }),
 };

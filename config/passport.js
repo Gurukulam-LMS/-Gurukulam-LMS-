@@ -1,5 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+// const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 const User = require("../models/User");
 const { v1: uuid } = require("uuid");
 
@@ -29,6 +30,7 @@ passport.use(
         if (existingUser) {
           return done(null, existingUser);
         }
+        9;
 
         //Sign-in google
         const localExistingUser = await User.findOneAndUpdate(
@@ -75,3 +77,18 @@ passport.use(
     }
   )
 );
+
+// passport.use(new LinkedInStrategy({
+//   clientID: process.env.LINKEDIN_OAUTH_CLIENT_ID,
+//   clientSecret: process.env.LINKEDIN_OAUTH_CLIENT_SECRET,
+//   callbackURL: "/auth/linkedin/callback",
+//   scope: ['r_emailaddress', 'r_liteprofile'],
+// }, async (token, tokenSecret, profile, done) => {
+//     try{
+
+//     }catch(err){
+//       console.log(err.message);
+//         done(err, false, err.message);
+//     }
+// }
+// ));

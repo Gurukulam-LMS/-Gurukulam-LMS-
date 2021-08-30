@@ -3,11 +3,13 @@ const async = require("async");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const fetch = require("node-fetch");
+const messagebird = require("messagebird")(process.env.MESSAGEBIRD_API_KEY);
 
 const User = require("../models/User"); //Model
 const HttpError = require("../misc/HttpError"); //Helper function for Handle error
 const sendEmail = require("../config/nodemailer"); //nodemailer
 const emailTemplates = require("../config/emailTemplates"); //nodemailer-email-templates
+const verifyReCAPTCHA = require("../config/googleReCAPTCHA");
 
 // handle errors
 const handleErrors = (err) => {
@@ -40,24 +42,40 @@ const createToken = (id) => {
 //SignUp Controller
 module.exports.signup_post = async (req, res, next) => {
   try {
-    const { userName, email, password, confirmPassword } = req.body;
-    if (!userName || !email || !password || !confirmPassword)
+    const { firstName, lastName, email, password, confirmPassword, token } =
+      req.body;
+    if (!firstName || !lastName || !email || !password || !confirmPassword)
       return res.json({ message: "Please Enter all details", ok: false });
     if (password != confirmPassword)
       return res.json({ message: "Passwords not matched", ok: false });
     if (
       !password.match(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
       )
     ) {
       return res.json({
         message:
-          "Password must contain minimum eight characters, at least one letter, one number and one special character",
+          "Password must contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
         ok: false,
       });
     }
+
+    //ReCAPTACH verification
+    const verifyReCAPTCHA_token = await verifyReCAPTCHA(token);
+    if (!verifyReCAPTCHA_token.ok)
+      return res.json({
+        message: "Google ReCAPTACH verification failed",
+        ok: false,
+      });
+
+    if (!verifyReCAPTCHA_token.isHuman)
+      return res.json({
+        message: "Bot Suspense, redirect 2factAuth",
+        ok: false,
+      });
+
     const exsistingUser = await User.findOne({
-      "local.email": email,
+      "local.personalInfo.email": email,
     });
     if (exsistingUser)
       return res.json({
@@ -67,14 +85,14 @@ module.exports.signup_post = async (req, res, next) => {
 
     const user = await new User({
       method: "local",
-      local: { userName, email, password },
+      "local.personalInfo": { firstName, lastName, email, password },
     });
     await user.save(); //Saved-User-Data
 
     //Sending-Confirmation-Email
     await sendEmail(
       email,
-      emailTemplates.confirmEmailTemp(user._id, user.local.userName)
+      emailTemplates.confirmEmailTemp(user._id, firstName)
     );
 
     return res.status(201).json({
@@ -82,8 +100,50 @@ module.exports.signup_post = async (req, res, next) => {
       ok: true,
     });
   } catch (err) {
+    console.log(err);
     const errors = handleErrors(err);
     return next(errors);
+  }
+};
+
+module.exports.profileUpdate = async (req, res) => {
+  const { userId, personalInfo, educationalInfo } = req.body;
+  var profileImage = null;
+  if (req.file) profileImage = req.file.path;
+
+  const user = await User.findById(userId);
+  if (!user) return res.json({ message: "User not found", ok: false });
+
+  if (!user.local.verification.mobile)
+    return res.json({
+      message: "Mobile number verification pending, Unable to update profile",
+      ok: false,
+    });
+
+  var reqInfo = Object.fromEntries(
+    Object.entries(personalInfo).map(([key, value]) => [
+      `local.personalInfo.${key}`,
+      value,
+    ])
+  );
+  if (educationalInfo && educationalInfo.length > 0)
+    reqInfo = { ...reqInfo, "local.educationalInfo": educationalInfo };
+
+  if (!!profileImage)
+    reqInfo = {
+      ...reqInfo,
+      "local.personalInfo.profileImage": profileImage,
+    };
+  console.log(reqInfo);
+
+  try {
+    await User.findByIdAndUpdate(userId, {
+      $set: { reqInfo },
+    });
+    return res.json({ message: "Profile Updated", ok: true });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Profile Updation failed" });
   }
 };
 
@@ -91,28 +151,31 @@ module.exports.signup_post = async (req, res, next) => {
 module.exports.confirmEmail = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findByIdAndUpdate(id, {
+      $set: {
+        "local.verification.email": true,
+      },
+    });
     if (!user) return res.json({ message: "User Not found", ok: false });
-    if (user.local.confirmed)
-      res.json({ message: "Email Already Confirmed, Please Login", ok: false });
-    await UserModel.User.findOneAndUpdate(
-      { _id: user._id },
-      {
-        $set: {
-          "local.confirmed": true,
-        },
-      }
-    );
-    const token = createToken(confirmedUser._id);
-    return res.json({
-      userId: confirmedUser._id,
-      userName: confirmedUser.local.userName,
-      userEmail: confirmedUser.local.email,
-      token: token,
+    if (user.local.verification.email)
+      return res.json({
+        message: "Email already confirmed, Please Login",
+        ok: false,
+      });
+    const token = createToken(user._id);
+    const perInfo = user.local.personalInfo;
+    delete perInfo.password;
+    return res.status(201).json({
+      userId: user._id,
+      personalInfo: perInfo,
+      educationalInfo: user.local.educationalInfo,
+      verification: user.local.verification,
+      token,
       ok: true,
-      message: "Email Confirmed, Account Successfully Created",
+      message: "Email Confirmed!! Logging In....",
     });
   } catch (err) {
+    console.log(err);
     const errors = handleErrors(err);
     return next(errors);
   }
@@ -121,22 +184,41 @@ module.exports.confirmEmail = async (req, res, next) => {
 //Login Controller
 module.exports.login_post = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, token } = req.body;
+    if (email.length === 0 || password.length === 0)
+      return res.json({ message: "Fill All Inputs", ok: false });
+
+    const verifyReCAPTCHA_token = await verifyReCAPTCHA(token);
+    if (!verifyReCAPTCHA_token.ok)
+      return res.json({
+        message: "Google ReCAPTACH verification failed",
+        ok: false,
+      });
+
+    if (!verifyReCAPTCHA_token.isHuman)
+      return res.json({
+        message: "Bot Suspense, redirect 2factAuth",
+        ok: false,
+      });
+
     const user = await User.login(email, password);
     if (user === "Incorrect Credentials")
       return res.json({ message: user, ok: false });
 
-    if (!user.local.confirmed)
+    if (!user.local.verification.email)
       return res.status(403).json({
         message: "Email not Confirmed. Please check your email account",
         ok: false,
       });
     else {
       const token = createToken(user._id);
+      const perInfo = user.local.personalInfo;
+      delete perInfo.password;
       return res.status(201).json({
         userId: user._id,
-        userName: user.local.userName,
-        userEmail: user.local.email,
+        personalInfo: perInfo,
+        educationalInfo: user.local.educationalInfo,
+        verification: user.local.verification,
         token,
         ok: true,
         message: "Logged In Successfully",
@@ -151,6 +233,7 @@ module.exports.login_post = async (req, res, next) => {
 
 //Forgot password Controller
 module.exports.forgotPassword = (req, res, next) => {
+  console.log(req.body);
   async.waterfall([
     (done) => {
       crypto.randomBytes(20, (err, buf) => {
@@ -160,7 +243,7 @@ module.exports.forgotPassword = (req, res, next) => {
     },
     function (token, done) {
       User.findOneAndUpdate(
-        { "local.email": req.body.email },
+        { "local.personalInfo.email": req.body.email },
         {
           $set: {
             "local.resetPasswordToken": token,
@@ -179,8 +262,8 @@ module.exports.forgotPassword = (req, res, next) => {
       try {
         //Sending-Reset-Password-Email
         await sendEmail(
-          user.local.email,
-          emailTemplates.forgotPswdTemp(token, user.local.userNname)
+          req.body.email,
+          emailTemplates.forgotPswdTemp(token, req.body.email)
         );
 
         return res.status(201).json({
@@ -188,6 +271,7 @@ module.exports.forgotPassword = (req, res, next) => {
           ok: true,
         });
       } catch (err) {
+        console.log(err);
         const errors = handleErrors(err);
         return next(errors);
       }
@@ -198,12 +282,26 @@ module.exports.forgotPassword = (req, res, next) => {
 //Reset Password
 module.exports.resetPassword = async (req, res, next) => {
   const token = req.params.token;
-  const pswd = req.body.password;
-  const confpswd = req.body.confirmPassword;
-  if (pswd !== confpswd) return res.json({ message: "Passwords Not Matching" });
+  const { password, confirmPassword } = req.body;
+  if (password.length === 0 || confirmPassoword.length === 0)
+    return res.json({ message: "Fill All Inputs", ok: false });
+  if (password !== confirmPassword)
+    return res.json({ message: "Passwords Not Matching" });
+
+  if (
+    !password.match(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
+    )
+  ) {
+    return res.json({
+      message:
+        "Password must contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
+      ok: false,
+    });
+  }
 
   try {
-    const hashPswd = await bcrypt.hash(pswd, 10);
+    const hashPswd = await bcrypt.hash(password, 10);
 
     const user = await User.findOneAndUpdate(
       {
@@ -212,8 +310,8 @@ module.exports.resetPassword = async (req, res, next) => {
       },
       {
         $set: {
-          "local.password": hashPswd,
-          "local.confirmed": true,
+          "local.personalInfo.password": hashPswd,
+          "local.verification.email": true,
           "local.resetPasswordToken": undefined,
           "local.resetPasswordExpires": undefined,
         },
@@ -226,16 +324,19 @@ module.exports.resetPassword = async (req, res, next) => {
     } else {
       //Sending-Success-Email
       await sendEmail(
-        user.local.email,
-        emailTemplates.pswdChangeTemp(user.local.userName, user.local.email)
+        user.local.personalInfo.email,
+        emailTemplates.pswdChangeTemp(
+          user.local.personalInfo.firstName,
+          user.local.personalInfo.email
+        )
       );
-
       res.json({
         message: "Password Successfully Changed",
         ok: true,
       });
     }
   } catch (error) {
+    console.log(error);
     const errors = handleErrors(error);
     return next(errors);
   }
@@ -249,13 +350,13 @@ module.exports.getUser = async (req, res, next) => {
     if (user) {
       const jwttoken = createToken(id);
       const data = {
-        userName: user.local.userName,
-        userEmail: user.local.email,
+        userName: user.local.personalInfo.fisrtName,
+        userEmail: user.local.personalInfo.email,
         userId: id,
         token: jwttoken,
         ok: true,
       };
-      res.json(data);
+      res.json({ ...data, ok: true });
     } else {
       res.json({ message: "User Not found", ok: false });
     }
@@ -285,4 +386,45 @@ module.exports.validateCaptcha = async (req, res) => {
     console.log(error);
     return res.json({ ok: false });
   }
+};
+
+module.exports.mobileNumberVerify = (req, res) => {
+  const { mobileNumber } = req.body;
+  messagebird.verify.create(
+    mobileNumber,
+    {
+      originator: "Modassir",
+      template: "Your verification code is %token.",
+    },
+    function (err, response) {
+      if (err) {
+        console.log(err);
+        return res.json({ message: err.errors[0].description, ok: false });
+      } else {
+        console.log(response);
+        return res.json({ id: response.id, ok: true, message: "OTP Sent!!" });
+      }
+    }
+  );
+};
+
+module.exports.verifyOTP = (req, res) => {
+  const { id, token, userId } = req.body;
+  messagebird.verify.verify(id, token, async function (err, response) {
+    if (err) {
+      console.log(err);
+      return res.json({ message: err.errors[0].description, id, ok: false });
+    } else {
+      const user = await User.findByIdAndUpdate(userId, {
+        $set: {
+          "local.verification.mobile": true,
+        },
+      });
+      if (!user) return res.json({ message: "User Not found", ok: false });
+      return res.json({
+        message: "You have successfully verified your phone number.",
+        ok: true,
+      });
+    }
+  });
 };

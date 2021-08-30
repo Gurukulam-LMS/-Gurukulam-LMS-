@@ -10,16 +10,40 @@ const userSchema = new mongoose.Schema({
   },
 
   local: {
-    userName: String,
-    email: {
-      type: String,
-      validate: [isEmail, "Please enter a valid email"],
-      unique: true,
+    personalInfo: {
+      firstName: String,
+      lastName: String,
+      email: {
+        type: String,
+        validate: [isEmail, "Please enter a valid email"],
+        unique: true,
+      },
+      password: String,
+      mobileNumber: String,
+      profileImage: String,
+      gender: String,
+      dob: Date,
+      country: String,
+      state: String,
+      city: String,
     },
-    password: String,
-    confirmed: {
-      type: Boolean,
-      default: false,
+    educationalInfo: [
+      {
+        collage: String,
+        startYear: Number,
+        endYear: Number,
+        degree: String,
+      },
+    ],
+    verification: {
+      email: {
+        type: Boolean,
+        default: false,
+      },
+      mobile: {
+        type: Boolean,
+        default: false,
+      },
     },
     secretToken: String,
     resetPasswordToken: String,
@@ -46,16 +70,19 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
   if (this.method != "local") next();
   const salt = await bcrypt.genSalt(10);
-  const password = this.local.password;
-  this.local.password = await bcrypt.hash(password, salt);
+  const password = this.local.personalInfo.password;
+  this.local.personalInfo.password = await bcrypt.hash(password, salt);
   next();
 });
 
 // static method to login user
 userSchema.statics.login = async function (email, password) {
-  const user = await this.findOne({ "local.email": email });
+  const user = await this.findOne({ "local.personalInfo.email": email });
   if (user) {
-    const auth = await bcrypt.compare(password, user.local.password);
+    const auth = await bcrypt.compare(
+      password,
+      user.local.personalInfo.password
+    );
     if (auth) return user;
   }
   return "Incorrect Credentials";

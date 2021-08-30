@@ -3,16 +3,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const oAuthRoutes = require("./routes/oAuthRoutes");
-const limiter = require("./config/rateLimiter");
+const limiter = require("./middlewares/rateLimiter");
 const passport = require("passport");
+const path = require("path");
+const contactRoutes = require("./routes/contactRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 const app = express();
 app.use(express.json());
-
-//Initializing Passport
-app.use(passport.initialize());
-//passport template
-require("./config/passport");
 
 //CORS Policy
 app.use((req, res, next) => {
@@ -25,11 +24,23 @@ app.use((req, res, next) => {
   next();
 });
 
-//Rate limiter
+//Rate-limiter-middleware
 app.use(limiter.globalLimiter);
+
+//Initializing Passport
+app.use(passport.initialize());
+require("./config/passport");
+
+app.use(
+  "/uploads/profileImages",
+  express.static(path.join("uploads", "profileImages"))
+);
 
 //Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/", oAuthRoutes);
 
 // For any unknown API request
@@ -41,11 +52,11 @@ app.use((error, req, res, next) => {
 });
 
 //Setting up database and backend Server
-const PORT = process.env.PORT || 8000;
-const CONNECTION_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.kyz02.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const PORT = process.env.PORT || 5000;
+const CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING;
 
 mongoose
-  .connect(CONNECTION_URL, {
+  .connect(CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -54,7 +65,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`MongoDB Connected and Connection started at ${PORT}`);
-      console.log(`Local -> http://localhost:8000`);
+      console.log(`Local -> http://localhost:${PORT}`);
       console.log(`Client Origin -> ${process.env.CLIENT_ORIGIN}`);
     });
   })
