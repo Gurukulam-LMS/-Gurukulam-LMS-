@@ -32,10 +32,15 @@ app.use(bodyParser.json());
 const authRoutes = require("./routes/auth");
 const teacherRoutes = require("./routes/Teacher");
 const courseRoutes = require("./routes/course");
+const couponRoutes = require("./routes/coupon");
+const paymentRoutes = require("./routes/payment");
 
+app.use("/coupon", couponRoutes);
+app.use("/payment", paymentRoutes);
 app.use("/admin/auth/", authRoutes);
 app.use("/admin/", teacherRoutes);
 app.use("/info/", courseRoutes);
+
 app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
