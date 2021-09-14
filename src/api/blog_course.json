@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "course": "UI/UX Design",
+        "noofpost": 16
+    },
+    {
+        "id": 2,
+        "course": "Creative Writing",
+        "noofpost": 3
+    },
+    {
+        "id": 3,
+        "course": "Fine Arts",
+        "noofpost": 18
+    },
+    {
+        "id": 4,
+        "course": "Business Analytics",
+        "noofpost": 2
+    },
+    {
+        "id": 5,
+        "course": "Marketting",
+        "noofpost": 14
+    }
+]

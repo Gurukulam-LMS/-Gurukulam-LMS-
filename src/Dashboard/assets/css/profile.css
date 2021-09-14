@@ -1,0 +1,258 @@
+body{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+/* profile head */
+.profile-head{
+    height: 200px;
+    margin: 10px;
+    position: relative;
+    background-image: url(../dashboard/Group\ 248.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.profile-head .name{
+    position : absolute;
+    bottom   : 0;
+    margin-left: 200px;
+}
+.profile-head .name h3{
+ font-weight: 400;
+}
+.profile-head .name h4{
+    font-weight: 400;
+    font-size: 17px;
+   }
+.profile-head img{
+    max-width: 180px;
+    z-index: 2;
+    margin-bottom: -400px;
+}
+
+/* accpunt */
+
+.account{
+    margin-top: 100px;
+}
+
+.account  .form-group{
+    margin:30px;
+
+}
+.account  .form-group label{
+    font-size: 20px;
+}    
+.account .re-password h3{
+    color: #7d47fa;
+}
+/* footer */
+
+.bg-footer {
+   background-image: url(../Images/2.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   padding: 40px;
+   
+}
+
+.gap {
+    padding-top: 50px;
+}
+
+.footer{
+    color: #fff;
+    margin-top:100px;
+}
+footer a{
+    color: #fff;
+}
+footer h5{
+    font-size: 18px;
+    font-weight:500;
+    padding-bottom: 10px;
+}
+footer li{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px;
+}
+.list-social{
+
+    font-weight: 100;
+}
+footer .btn-sub{
+    background: red;
+    border-color: red;
+    color: #fff;
+}
+footer .btn-mail{
+    background: #fff;
+    color:red;
+}
+
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 768px) {
+
+/* profile-head */
+    .profile-head .name{
+        margin-left: 150px;
+    }
+    .profile-head img{
+        max-width: 130px;
+        margin-bottom: -380px;
+    }
+ /* accpunt */
+
+ .account{
+    margin-top: 100px;
+}
+
+.account  .form-group{
+    margin:0px;
+    margin-top: 30px;
+
+}
+.account  .form-group label{
+    font-size: 15px;
+}    
+
+/* footer */
+
+ .footer .img{
+     width: 50px;
+     padding-bottom: 5px;
+ }
+
+ .gap {
+     padding-top: 50px;
+ }
+ 
+ .footer{
+     color: #fff;
+     margin-top:100px;
+ }
+ footer a{
+     color: #fff;
+ }
+ footer h5{
+     font-size: 15px;
+     font-weight:500;
+     padding-bottom: 7px;
+ }
+ footer li{
+     font-size: 13px;
+     font-weight: 400;
+     padding: 0px;
+     padding-top: 5px;
+ }
+ footer .footer-btn h5{
+     font-size: 25px;
+ }
+ footer .footer-btn li{
+    font-size: 16px;
+}     
+            
+        
+}
+
+@media (max-width: 576px) {
+    /* profile-head */
+    .profile-head .name{
+        position : absolute;
+        bottom   : 0;
+        margin-left: 130px;
+    }
+    .profile-head .name h3{
+     font-weight: 400;
+     font-size: 25px;
+    }
+    .profile-head .name h4{
+        font-weight: 400;
+        font-size: 15px;
+       }
+    .profile-head img{
+        max-width: 130px;
+        margin-bottom: -380px;
+    }
+
+     /* accpunt */
+
+ .account{
+    margin-top: 100px;
+}
+
+.account  .form-group{
+    margin:20px;
+    margin-top: 30px;
+
+}
+.account  .form-group label{
+    font-size: 15px;
+}    
+
+
+/* footer */
+
+.footer .img{
+    width: 80px;
+    padding-bottom: 5px;
+}
+
+
+.footer{
+    color: #fff;
+    margin-top:100px;
+}
+footer h5{
+    font-size: 20px;
+  
+}
+
+footer .footer-btn h5{
+    font-size: 25px;
+}
+footer .footer-btn li{
+   font-size: 15px;
+}     
+}
+
+
+@media (max-width: 330px) {
+   
+}
+
+
+/* event type show and hide*/
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+
+/* registration form */
+
+.bg-linear {
+    background: linear-gradient(-130deg, #0c47b4, #67caf1);
+    /* color: #fff; */
+}
+
+
+/* .bg-linear a{
+    color: #fff;
+  
+}  */
+
+.bg-img {
+    /* background-image: url(images/wp8107903-office-work-wallpapers.jpg); */
+    background-position: center;
+}
+
+

@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "bgimg": "Images/Mask Group 24.png",
+        "profilePic": "Images/Group 210.png",
+        "staff": "Jason Williams",
+        "subject": "Science",
+        "detail": "Data Science and Machine Learning with Python - Hands On!",
+        "time": "08hr 15 min",
+        "lectures": "29",
+        "price": "390",
+        "star": "4.9"
+    },
+    {
+        "id": 2,
+        "bgimg": "Images/Mask Group 25.png",
+        "profilePic": "Images/Group 211.png",
+        "staff": "Pamela Foster",
+        "subject": "UI Design",
+        "detail": "Creat Amazing Color Schemes for Your UX Design Projects",
+        "time": "8hr 15min",
+        "lectures": "29",
+        "price": "420",
+        "star": "4.9"
+    },
+    {
+        "id": 3,
+        "bgimg": "Images/Mask Group 26.png",
+        "profilePic": "Images/Group 212.png",
+        "staff": "Jason Williams",
+        "subject": "Business",
+        "detail": "Culture & Leadership: startergies for a Successful Business",
+        "time": "8hr 15min",
+        "lectures": "29",
+        "price": "420",
+        "star": "4.9"
+    },
+    {
+        "id": 4,
+        "bgimg": "Images/Mask Group 27.png",
+        "profilePic": "Images/Group 211.png",
+        "staff": "Jason Williams",
+        "subject": "Finance",
+        "detail": "Finance Series: Learn to Budget and Calculated your Net Worth.",
+        "time": "8hr 15min",
+        "lectures": "29",
+        "price": "420",
+        "star": "4.9"
+    },
+    {
+        "id": 5,
+        "bgimg": "Images/Mask Group 28.png",
+        "profilePic": "Images/Group 212.png",
+        "staff": "Pamela Foster",
+        "subject": "Marketing",
+        "detail": "Bulid Brand Into Marketing: Tackling the New Marketing Landscape",
+        "time": "8hr 15min",
+        "lectures": "29",
+        "price": "420",
+        "star": "4.9"
+    },
+    {
+        "id": 6,
+        "bgimg": "Images/Mask Group 29.png",
+        "profilePic": "Images/Group 210.png",
+        "staff": "Pamela Foster",
+        "subject": "Design",
+        "detail": "Graphic Design: Illustrating Badges and Icons with Geometric Shapes",
+        "time": "8hr 15min",
+        "lectures": "29",
+        "price": "420",
+        "star": "4.9"
+    }
+]
