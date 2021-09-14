@@ -1,58 +1,43 @@
 const Course = require("../model/course");
 
 exports.uploadCourse = (req, res, next) => {
-  try {
-    console.log(req.body);
+  const doc = req.body;
+  const imageurl = req.file.location;
 
-    const imageurl = req.file.location; // later remove this text
-    const userId = req.body._id;
-    console.log(req.file.location);
+  const course = new Course({
+    title: doc.title,
+    category: doc.category,
+    thumbnail: imageurl,
+    description: doc.description,
+    requirement: doc.requirement,
+    rating: 0,
+    price: doc.price,
+    creator: doc.creatorId,
+    tagline: doc.tagline,
+    language: doc.language,
+    keyPoints: JSON.parse(doc.keyPoints),
+    level: doc.level,
+  });
 
-    const {
-      title,
-      category,
-      name,
-      discription,
-      discriptionLong,
-      requirement,
-      price,
-    } = req.body;
-
-    const course = new Course({
-      title: title,
-      category: category,
-      imageurl: imageurl,
-      name: name,
-
-      discription: discription,
-      discriptionLong: discriptionLong,
-      requirement: requirement,
-      rating: 0,
-      price: price,
-      creator: userId,
+  course
+    .save()
+    .then((result) => {
+      console.log(result);
+      res
+        .status(201)
+        .json({ message: "Course created successfully", newCourse: result });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-
-    course
-      .save()
-      .then((result) => {
-        console.log(result);
-        res
-          .status(201)
-          .json({ message: "Course created successfully", newCourse: result });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } catch (err) {
-    console.log(err);
-  }
 };
 
 exports.uploadVideo = (req, res, next) => {
   const courseId = req.params.courseID;
-  // console.log("courseId :  " + courseId);
 
   const videos = req.files;
+  console.log(videos);
+
   const topicname = req.body.topicname;
   let newTopic = {
     topicname: "",

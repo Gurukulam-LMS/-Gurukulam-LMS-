@@ -13,28 +13,36 @@ const courseSchema = new Schema(
         require: true,
       },
     ],
-    imageurl: {
+    thumbnail: {
       type: String,
       require: false,
     },
-
-    discription: {
+    tagline: {
+      type: String,
+    },
+    description: {
       type: String,
       require: true,
     },
-    //optional if we want to detailed info for course
-    discriptionLong: {
+
+    //What will you learn section
+    keyPoints: Array,
+
+    requirement: {
       type: String,
       require: false,
     },
-    requirement: {
-      // pre-requirement to learn this courses
+    language: {
       type: String,
-      require: false,
+      required: true,
     },
     price: {
       type: String,
-      required: false,
+      required: true,
+    },
+    level: {
+      type: String,
+      required: true,
     },
     creator: {
       //for refrencing the person who created it

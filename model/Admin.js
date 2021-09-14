@@ -55,4 +55,4 @@ const AdminSchema = new Schema({
   //resetTokenExpiration:Date,
 });
 
-module.exports = mongoose.model("Admin", AdminSchema);
+module.exports = mongoose.model("admins", AdminSchema);

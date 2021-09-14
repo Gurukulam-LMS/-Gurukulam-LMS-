@@ -17,7 +17,6 @@ const crypto_encoder = () => {
 const getopt = () => Math.floor(Math.random() * 1000000);
 
 exports.newAdmin = async (req, res, next) => {
-  console.log(req);
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
@@ -112,19 +111,21 @@ exports.verifyToken = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+  console.log(req);
   const email = req.body.email;
   const password = req.body.password;
   console.log(email, password);
 
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ message: "Invalid Credentials" });
-  }
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return res.status(422).json({ message: "Invalid Credentials" });
+  // }
 
   Admin.findOne({ email: email })
     .then((admin_found) => {
+      console.log(admin_found);
       if (!admin_found) {
-        res.status(401).json("Invalid email id ");
+        return res.status(401).json("Invalid email id ");
       }
 
       bcrypt.compare(password, admin_found.password).then(async (matchPass) => {
@@ -146,7 +147,7 @@ exports.login = (req, res, next) => {
             );
             console.log(set_otp);
             Sendotp(email, new_otp, admin_found.adminname);
-            res.status(201).json({ message: "Otp send", otp: otp_doc });
+            return res.status(201).json({ message: "Otp send", otp: otp_doc });
           } else {
             const access_token = jwt.sign(
               { email: admin_found.email },
@@ -169,7 +170,7 @@ exports.login = (req, res, next) => {
             // admin_found.Token=token;
             // admin_found.save()
             const { adminname, email, role } = admin_found;
-            res.status(201).json({
+            return res.status(201).json({
               message: " logged in  Successfully ",
               access_token: access_token,
               referesh_token: referesh_token,
@@ -180,7 +181,7 @@ exports.login = (req, res, next) => {
             console.log("admin login successfully ");
           }
         } else {
-          res.status(402).json({ message: "password don't match" });
+          return res.status(402).json({ message: "password don't match" });
         }
       });
     })

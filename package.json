@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,16 +13,13 @@
     "@sendgrid/mail": "^7.4.5",
     "aws-sdk": "^2.958.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.4.1",
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.0",
     "google-auth-library": "^7.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.9",
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
@@ -30,9 +27,8 @@
     "nodemailer": "^6.6.2",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "nodemon": "^2.0.9",
     "path": "^0.12.7",
     "pdfkit": "^0.12.3",
-    "socket.io": "^4.1.2"
+    "razorpay": "^2.0.6"
   }
 }

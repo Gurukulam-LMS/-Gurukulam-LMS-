@@ -7,7 +7,6 @@ const path = require("path");
 exports.allCourses = (req, res) => {
   Course.find()
     .then((course) => {
-      console.log(course);
       res.status(200).json({ course: course });
     })
     .catch((err) => {
