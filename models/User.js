@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema({
         default: false,
       },
     },
+    usedCoupons: [
+      {
+        couponId: String,
+        finalAmount: String,
+      },
+    ],
     secretToken: String,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
