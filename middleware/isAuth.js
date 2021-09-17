@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   let access_token = req.headers["authorization"];
-  //console.log(access_token)
 
   if (!access_token) {
     return res.status(401).json({ message: "not authenticated" });

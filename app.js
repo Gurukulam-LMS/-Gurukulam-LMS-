@@ -4,9 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const api_key = require("./config/config");
 const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -26,16 +24,23 @@ app.use((req, res, next) => {
 
 app.use(morgan("dev"));
 const mongoose = require("mongoose");
-app.use(bodyParser.json());
+app.use(express.json());
 
 //=========== routes
 const authRoutes = require("./routes/auth");
 const teacherRoutes = require("./routes/Teacher");
 const courseRoutes = require("./routes/course");
+const blogRoutes = require("./routes/blog");
+const couponRoutes = require("./routes/coupon");
+const paymentRoutes = require("./routes/payment");
 
 app.use("/admin/auth/", authRoutes);
 app.use("/admin/", teacherRoutes);
 app.use("/info/", courseRoutes);
+app.use("/blog", blogRoutes);
+app.use("/coupon", couponRoutes);
+app.use("/payment", paymentRoutes);
+
 app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
