@@ -1,0 +1,104 @@
+.payment {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  height: 70vh;
+}
+
+.container {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(69, 69, 71, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 3%;
+  width: 100%;
+  max-width: 500px;
+  margin: 5px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 3rem;
+  color: rgba(2, 216, 2, 0.863);
+}
+
+.message {
+  margin-top: 10px;
+  color: rgb(2, 212, 2);
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.paymentDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  font-family: "Ubuntu";
+  color: rgb(70, 65, 65);
+  font-size: 1.1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: "Ubuntu";
+  align-items: center;
+  margin: 5px;
+}
+
+.amountContainer {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amountKey {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.amountValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.digits {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.ruppeeIcon {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btns {
+  background-color: orangered;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  border: none;
+  font-family: "Ubuntu";
+  border-radius: 10px;
+  width: 100px;
+}

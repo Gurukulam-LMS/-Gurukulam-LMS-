@@ -1,40 +1,48 @@
 {
-  "name": "lms_nodejs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
+  "name": "gurukulam-ui",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@sendgrid/mail": "^7.4.5",
-    "aws-sdk": "^2.958.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "connect-mongodb-session": "^2.4.1",
-    "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^10.0.0",
-    "ejs-mate": "^3.0.0",
-    "express": "^4.17.1",
-    "express-validator": "^6.12.0",
-    "google-auth-library": "^7.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.9",
-    "mongoose": "^5.13.2",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.2",
-    "multer-s3": "^2.9.0",
-    "nodemailer": "^6.6.2",
-    "nodemailer-sendgrid-transport": "^0.2.0",
-    "nodemailer-smtp-transport": "^2.7.4",
-    "nodemon": "^2.0.9",
-    "path": "^0.12.7",
-    "pdfkit": "^0.12.3",
-    "razorpay": "^2.0.6",
-    "socket.io": "^4.1.2"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.4",
+    "bootstrap": "^5.0.2",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.0",
+    "react-dom": "^17.0.2",
+    "react-google-recaptcha": "^2.1.0",
+    "react-icons": "^4.2.0",
+    "react-player": "^2.9.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
+    "react-toastify": "^7.0.4",
+    "styled-components": "^5.3.0",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

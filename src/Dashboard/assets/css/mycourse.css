@@ -1,0 +1,388 @@
+body{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+.sub-nav{
+    margin-top: 80px;
+}
+/* course section */
+
+.course-list h1{
+    color: #000;
+    font-weight: 700;
+}
+.course-list .s3{
+    color: blue;
+}
+.course-list .card{
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 12px 12px 0px rgb(0 0 0 / 40%);
+    color: #262261;
+}
+.course-list .c1{
+background-image: url(../Images/Mask\ Group\ 24.png);
+}
+.course-list .c2{
+    background-image: url(../Images/Mask\ Group\ 25.png);
+}
+.course-list .c3{
+    background-image: url(../Images/Mask\ Group\ 26.png);
+}
+.course-list .c4{
+    background-image: url(../Images/Mask\ Group\ 27.png);
+}
+.course-list .c5{
+    background-image: url(../Images/Mask\ Group\ 28.png);
+}
+.course-list .c6{
+    background-image: url(../Images/Mask\ Group\ 29.png);
+}
+.course-list .card-head{
+    padding: 103px 10px;    
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    background-size: cover;
+}
+.course-list .img-1{
+    position: absolute;
+    margin-left:2px;
+    top: 180px;
+}
+.course-list .card-body{
+    padding: 5px 8px 8px 8px; 
+
+}
+.course-list .card-body .txt-1{
+    padding-left: 75px;
+    font-size: 15px;
+    top: 0;
+    font-weight: 500;
+
+}
+.course-list .card-body .txt-2{
+    font-size: 17px;
+    font-weight: 500;
+}
+.course-list .card-body .badge{
+    padding: 6px 20px;
+    color: #fff;
+    float: right;
+}
+.course-list .card-body .badge-red{
+    background-color: #ff6e6d;
+}
+.course-list .card-body .badge-blue{
+    background-color: #b4c0ff;
+}
+.course-list .card-body .card-btn-red{
+    background: #ff6e6d;
+}
+.course-list .card-body .card-btn-blue{
+    background: #b4c0ff;
+}
+.course-list .card-body .rate{
+    float: left;
+    font-weight: 500;
+}
+.course-list .card-body .star{
+    float: right;
+}
+.fa-star{
+    font-size: 13px;
+    color: rgb(226, 226, 226);
+}
+.checked{
+color: orange;
+}
+
+.course-list .card-body .time{
+    float: left;
+    font-size: 13px;
+}
+.course-list .card-body .lectures{
+    float: right;
+    font-size: 13px;
+}
+
+.course-list .btn-view-more{
+    padding: 4px 10px;
+    margin-top: 50px;
+    background: #1104c5;
+    color: #fff;
+    font-size: 22px;
+}
+.course-list .pagination .page-item a{
+border-color: red;
+ border-radius: 50%;
+ margin:10px ;
+ color: red;
+}
+.course-list .pagination .page-item .active{
+    border-color: red;
+     border-radius: 50%;
+     background: red;
+     margin:10px ;
+     color: #fff;
+    }
+/* course section end */
+
+/* footer */
+
+.bg-footer {
+   background-image: url(../Images/2.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   padding: 40px;
+   
+}
+
+.gap {
+    padding-top: 50px;
+}
+
+.footer{
+    color: #fff;
+    margin-top:100px;
+}
+footer a{
+    color: #fff;
+}
+footer h5{
+    font-size: 18px;
+    font-weight:500;
+    padding-bottom: 10px;
+}
+footer li{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px;
+}
+.list-social{
+
+    font-weight: 100;
+}
+footer .btn-sub{
+    background: red;
+    border-color: red;
+    color: #fff;
+}
+footer .btn-mail{
+    background: #fff;
+    color:red;
+}
+
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 768px) {
+    /*course list  */
+
+
+    .course-list .card-head{
+        padding: 130px 10px;    
+    }
+    .course-list .img-1{
+        position: absolute;
+        margin-left:2px;
+        top: 230px;
+    }
+    .course-list .card-body{
+        padding: 5px 20px 8px 20px; 
+    }
+    .course-list .card-body .txt-1{
+        padding-left: 85px;
+        font-size: 18px;
+    }
+    .course-list .card-body .txt-2{
+        font-size: 22px;
+    }
+    .course-list .card-body .badge{
+        padding: 8px 25px;
+        margin-right: 15px;
+    }
+    
+    .course-list .card-body .card-btn-red{
+        padding: 6px 30px;
+    }
+    .course-list .card-body .card-btn-blue{
+        padding: 6px 30px;
+    }
+    .course-list .card-body .rate{
+        float: left;
+        font-weight: 700;
+    }
+
+/* footer */
+
+ .footer .img{
+     width: 50px;
+     padding-bottom: 5px;
+ }
+
+ .gap {
+     padding-top: 50px;
+ }
+ 
+ .footer{
+     color: #fff;
+     margin-top:100px;
+ }
+ footer a{
+     color: #fff;
+ }
+ footer h5{
+     font-size: 15px;
+     font-weight:500;
+     padding-bottom: 7px;
+ }
+ footer li{
+     font-size: 13px;
+     font-weight: 400;
+     padding: 0px;
+     padding-top: 5px;
+ }
+ footer .footer-btn h5{
+     font-size: 25px;
+ }
+ footer .footer-btn li{
+    font-size: 16px;
+}     
+            
+        
+}
+
+@media (max-width: 576px) {
+
+      /* course section */
+
+.course-list h1{
+    color: #000;
+    font-weight: 700;
+}
+.course-list .s3{
+    color: blue;
+}
+.course-list .card{
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 12px 12px 0px rgb(0 0 0 / 40%);
+    color: #262261;
+}
+.course-list .c1{
+background-image: url(../Images/Mask\ Group\ 24.png);
+}
+.course-list .card-head{
+    padding: 109px 10px;    
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    background-size: cover;
+}
+.course-list .img-1{
+    position: absolute;
+    margin-left:2px;
+    top: 180px;
+}
+.course-list .card-body{
+    padding: 10px 8px 8px 8px; 
+
+}
+.course-list .card-body .txt-1{
+    padding-left: 75px;
+    font-size: 15px;
+    top: 0;
+    font-weight: 500;
+
+}
+.course-list .card-body .txt-2{
+    font-size: 17px;
+    font-weight: 500;
+}
+.course-list .card-body .card-btn-red{
+    padding: 6px 10px;
+}
+.course-list .card-body .card-btn-blue{
+    padding: 6px 10px;
+}
+
+.course-list .card-body .badge{
+    padding: 6px 25px;
+    margin-right: 7px;
+}
+.course-list .btn-view-more{
+    font-size: 17px;
+}
+
+
+/* footer */
+
+.footer .img{
+    width: 80px;
+    padding-bottom: 5px;
+}
+
+
+.footer{
+    color: #fff;
+    margin-top:100px;
+}
+footer h5{
+    font-size: 20px;
+  
+}
+
+footer .footer-btn h5{
+    font-size: 25px;
+}
+footer .footer-btn li{
+   font-size: 15px;
+}     
+}
+
+
+@media (max-width: 330px) {
+   
+}
+
+
+/* event type show and hide*/
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+
+/* registration form */
+
+.bg-linear {
+    background: linear-gradient(-130deg, #0c47b4, #67caf1);
+    /* color: #fff; */
+}
+
+
+/* .bg-linear a{
+    color: #fff;
+  
+}  */
+
+.bg-img {
+    /* background-image: url(images/wp8107903-office-work-wallpapers.jpg); */
+    background-position: center;
+}
+
+

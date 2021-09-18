@@ -1,0 +1,206 @@
+.cart h2 {
+  color: black;
+  margin: 100px 50px 20px;
+  text-align: left;
+  font-weight: 600;
+}
+.course-card {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.allcourse-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.courses {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr;
+  gap: 20px;
+  margin: 10px;
+  width: 920px;
+  height: 135px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.2) 0px 0px 0px 1px;
+}
+.allcourse-card img {
+  margin: 0;
+  padding: 0;
+  width: 150px;
+  height: 135px;
+}
+.allcourse-card h4 {
+  margin-top: 25px;
+  font-size: 17px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: black;
+  text-align: left;
+}
+.card-content {
+  max-width: 350px;
+}
+.allcourse-card p {
+  margin-top: 24px;
+  text-align: left;
+  font-size: 12px;
+  color: black;
+  margin-bottom: 0;
+  padding: 0%;
+}
+.applyBtn {
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-family: "Ubuntu";
+  width: 100px;
+  margin: 8.5px 106px auto 0px;
+  height: 46px;
+  border-radius: 0%;
+  background-color: rgb(255, 78, 78);
+  padding: 0%;
+  border-radius: 0 5px 5px 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.stars i {
+  float: left;
+  font-size: 12px;
+  color: #f8d92c;
+  margin-bottom: 20px;
+  margin-top: -13px;
+}
+.price p {
+  text-align: center;
+  font-size: 20px;
+  margin: 50px 10px 50px 100px;
+}
+.summary {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.2) 0px 0px 0px 1px;
+  margin: 5px 50px auto 10px;
+  padding: 30px 60px 15px 30px;
+  border-radius: 5px;
+  max-width: 28%;
+}
+.summary h2 {
+  color: black;
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.total {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+.total h6 {
+  font-size: 1.3rem;
+  color: rgb(76, 71, 71);
+}
+
+.amount {
+  color: black;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  color: rgb(80, 74, 74);
+  font-weight: bold;
+}
+
+.applyCouponLabel {
+  font-size: 1.1rem;
+  font-family: "Ubuntu";
+}
+
+.inputBtnContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.applyCoupanInput {
+  border: none;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  padding: 2%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(8, 48, 223, 0.24);
+}
+
+.make-payment button {
+  width: 220px;
+  margin: 20px;
+  height: 45px;
+  border-radius: 8px;
+  background-color: rgb(0, 224, 138);
+  border-color: white;
+  font-size: 16px;
+}
+
+.cart-coupans {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 10px;
+  margin-left: 0;
+  padding: 3% 5% 2% 7%;
+  background-color: #ecf2ff;
+  border-radius: 10px;
+}
+
+.cart-coupon-text {
+  margin-left: 35px;
+  word-wrap: break-word;
+  font-family: "Ubuntu";
+  color: #303133;
+}
+
+.cart-coupans-labelContainer {
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+}
+
+.radioInput {
+  width: 20px !important;
+  height: 18px !important;
+  box-shadow: none !important;
+  margin-right: 15px !important;
+  margin-top: 5px;
+}
+
+.radioLabel {
+  font-size: 1.2rem !important;
+  margin: 0 !important;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.makePaymentBtn {
+  background-color: lightgreen;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: bold;
+  font-family: "Ubuntu";
+  border: none;
+}
+
+.removeFromCartBtn {
+  border: none;
+  margin-top: 10px;
+  background-color: orangered;
+  color: white;
+  padding: 1%;
+  width: 160px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
