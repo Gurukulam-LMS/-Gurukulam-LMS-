@@ -9,6 +9,7 @@ const path = require("path");
 const contactRoutes = require("./routes/contactRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 
 const app = express();
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/blog", blogRoutes);
 app.use("/", oAuthRoutes);
 
 // For any unknown API request

@@ -134,7 +134,6 @@ module.exports.profileUpdate = async (req, res) => {
       ...reqInfo,
       "local.personalInfo.profileImage": profileImage,
     };
-  console.log(reqInfo);
 
   try {
     await User.findByIdAndUpdate(userId, {
@@ -233,7 +232,6 @@ module.exports.login_post = async (req, res, next) => {
 
 //Forgot password Controller
 module.exports.forgotPassword = (req, res, next) => {
-  console.log(req.body);
   async.waterfall([
     (done) => {
       crypto.randomBytes(20, (err, buf) => {
@@ -401,7 +399,6 @@ module.exports.mobileNumberVerify = (req, res) => {
         console.log(err);
         return res.json({ message: err.errors[0].description, ok: false });
       } else {
-        console.log(response);
         return res.json({ id: response.id, ok: true, message: "OTP Sent!!" });
       }
     }
