@@ -3,6 +3,7 @@ const path = require("path");
 var mongoose = require('mongoose');
 require("dotenv").config();
 const Razorpay = require("razorpay");
+const Payment = require("../model/payment");
 
 exports.orders = async (req, res) => {
   try {
@@ -35,6 +36,11 @@ exports.success = async (req, res) => {
             razorpayPaymentId,
             razorpayOrderId,
             razorpaySignature,
+            userId,
+            courseId,
+            amount,
+            couponId,
+            name
         } = req.body;
 
         // Creating our own digest
@@ -52,12 +58,28 @@ exports.success = async (req, res) => {
 
         // THE PAYMENT IS LEGIT & VERIFIED
         // YOU CAN SAVE THE DETAILS IN YOUR DATABASE IF YOU WANT
-
-        res.json({
-            msg: "success",
-            orderId: razorpayOrderId,
-            paymentId: razorpayPaymentId,
-        });
+        const payment = new Payment({
+            name : name,
+            userId : userId,
+            couponId : couponId,
+            amount : amount,
+            courseId : courseId,
+            razorpayOrderId : razorpayOrderId,
+            razorpayPaymentId : razorpayPaymentId,
+            orderCreationId : orderCreationId,
+          });
+          payment
+          .save()
+          .then((result) => {
+            //console.log(result);
+            res.status(200).json
+                ({  msg: "success",
+              orderId: razorpayOrderId,
+              paymentId: razorpayPaymentId});
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     } catch (error) {
         res.status(500).send(error);
     }
