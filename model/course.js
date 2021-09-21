@@ -32,6 +32,11 @@ const courseSchema = new Schema(
       type: String,
       required: false,
     },
+    purchased: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     creator: {
       //for refrencing the person who created it
       required: true,

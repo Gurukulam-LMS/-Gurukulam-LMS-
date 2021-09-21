@@ -116,7 +116,7 @@ exports.checkoutCoupon = (req, res) => {
         _id: doc.couponId,
         students: { $elemMatch: { id: doc.userId } }
       },
-      { $set: { "students.$.status" : "Applied" } }).then((resp) => {
+      { $set: { "students.$.status" : "Applied" }}).then((resp) => {
         res.status(200).json({message: "Success", result: result});
       });
     });

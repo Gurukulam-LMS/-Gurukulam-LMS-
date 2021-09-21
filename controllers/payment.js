@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 require("dotenv").config();
 const Razorpay = require("razorpay");
 const Payment = require("../model/payment");
+const Course = require("../model/course");
 
 exports.orders = async (req, res) => {
   try {
@@ -71,6 +72,12 @@ exports.success = async (req, res) => {
           payment
           .save()
           .then((result) => {
+            for(let i=0;i<courseId.length;i++){
+                Course.updateOne( {
+                    _id: courseId[i],
+                  },
+                  { $inc: { "purchased" : 1 }})
+            }
             //console.log(result);
             res.status(200).json
                 ({  msg: "success",

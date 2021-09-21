@@ -34,9 +34,11 @@ const teacherRoutes = require("./routes/Teacher");
 const courseRoutes = require("./routes/course");
 const couponRoutes = require("./routes/coupon");
 const paymentRoutes = require("./routes/payment");
+const analyticsRoutes = require("./routes/analytics");
 
 app.use("/coupon", couponRoutes);
 app.use("/payment", paymentRoutes);
+app.use("/analytics", analyticsRoutes);
 app.use("/admin/auth/", authRoutes);
 app.use("/admin/", teacherRoutes);
 app.use("/info/", courseRoutes);
