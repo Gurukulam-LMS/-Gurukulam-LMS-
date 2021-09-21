@@ -5,6 +5,6 @@ const Auth = require("../middleware/isAuth");
 
 router.get("/activeUsers", analyticsController.activeUsers);
 router.get("/totalRevenue", analyticsController.totalRevenue);
-// router.get("/topCourses", analyticsController.totalRevenue);
+router.get("/topCourses", analyticsController.topCourses);
 
 module.exports = router;
