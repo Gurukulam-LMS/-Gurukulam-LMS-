@@ -1,0 +1,24 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+.leftPane {
+  width: 70%;
+  background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.brandName {
+  font-size: 9rem;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  color: white;
+}
+.rightPane {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

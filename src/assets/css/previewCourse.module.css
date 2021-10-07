@@ -1,0 +1,100 @@
+.courseTopicContainer {
+  margin-top: 50px;
+  background-color: #dee8ff;
+  padding: 2.5%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(8, 48, 223, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.contentHeading {
+  color: #1e0394;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "Ubuntu" sans-serif;
+  margin: 10px;
+}
+
+.whatLearn {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 2%;
+}
+.keyPoint {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 8px;
+}
+
+.iconContainer {
+  width: 30px;
+  margin-right: 20px;
+}
+
+.tickIcon {
+  font-size: 1.5rem;
+  color: green;
+  font-weight: bolder;
+}
+
+.keyPointText {
+  font-size: 1.1rem;
+  font-size: "Ubuntu";
+  font-weight: bold;
+  color: rgb(73, 67, 67);
+  text-align: left;
+}
+
+.courseDetailsContainerBox {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.coursePriceContainer {
+  margin-top: 30px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.coursePrice {
+  font-size: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.courseDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.courseDetailslist {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 0 !important;
+  margin: 0.2rem !important;
+}
+
+.updateBtn {
+  font-size: 0.8rem;
+  color: white;
+  background-color: #1e0394;
+  display: inline-block;
+  padding: 1.5%;
+  border-radius: 10px;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.5s;
+  margin-right: 10px;
+}
+.updateBtn:hover {
+  background-color: #2908bb;
+}

@@ -1,0 +1,43 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  width: 100%;
+}
+.card {
+  display: flex;
+  padding: 3em;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: #79aee4;
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+.card:hover {
+  transform: scale(1.2);
+}
+
+.icons {
+  color: #79aee4 !important;
+  transform: rotate(0deg);
+  border-radius: 0%;
+  font-size: 3.5rem;
+}
+h3 {
+  color: #1e0394 !important;
+}
+
+.text-box {
+}
+::placeholder {
+  color: rgb(0, 0, 0);
+  opacity: 1;
+}
+@media screen and (max-width: 600px) {
+  .main-container {
+    margin-left: 2.5em;
+  }
+}

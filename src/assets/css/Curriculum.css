@@ -1,0 +1,229 @@
+.curriculum-area {
+  margin: 0;
+  padding: 0;
+}
+.curriculum {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+.c-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 2px 20px 2px 20px;
+  border-radius: 5px;
+  background-color: white;
+}
+.radios {
+  margin-left: 15px;
+  width: 230px;
+  height: 130px;
+}
+.radios input,
+label {
+  color: black;
+}
+.radios input {
+  margin-top: 8px;
+}
+.radio-input {
+  display: grid;
+  grid-template-columns: 0.5fr 3.5fr;
+  padding: 0px;
+  margin: 0%;
+  color: black;
+}
+.box-area {
+  margin-right: 55px;
+  width: 1190px;
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+  padding: 50px 20px;
+}
+.box-area h3 {
+  color: black;
+  margin: 0%;
+  padding-left: 20px;
+  font-size: 35px;
+  font-weight: 500;
+  font-size: 1.8em;
+}
+.c-area-inside {
+  margin-bottom: 250px;
+  margin-top: 30px;
+  border-color: black;
+  padding-left: 20px;
+}
+.sections {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 20px;
+  margin: 5px 20px 0 5px;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+}
+.introduction p {
+  color: black;
+}
+.lectures h5 {
+  color: black;
+  text-align: left;
+}
+.lectures {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  width: 90%;
+  margin: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+}
+.curriculam-lectures {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  width: 75%;
+  margin: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+}
+.topic-name-heading {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.curriculum-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  width: 200px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgb(238, 233, 255);
+  border: none;
+  border-radius: 50px;
+}
+.add-section {
+  margin: 20px 0 20px;
+  width: 150px;
+  padding: 7px;
+  color: white;
+  font-weight: 500;
+  background-color: blue;
+  border-radius: 3px;
+}
+.form-1 {
+  margin: 0 0 140px;
+  padding: 0 50px 0 20px;
+}
+.form-input label {
+  color: black;
+  padding: 3px;
+  width: 100%;
+}
+.form-input input {
+  border-color: rgb(214, 204, 204);
+  border-width: 1.5px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+.pricing-para {
+  color: black;
+  padding: 20px 20px 10px;
+  font-size: 13px;
+}
+.pricing-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 7fr;
+  grid-gap: 20px;
+  margin-bottom: 340px;
+  padding: 3px 20px;
+  color: black;
+  border-color: rgb(226, 219, 219);
+}
+.pricing-buttons select {
+  display: inline-block;
+  color: black;
+  border-color: rgb(189, 184, 184);
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  padding: 0 5px;
+}
+.pricing-buttons option {
+  color: black;
+}
+.amount-input {
+  width: 180px;
+  height: 40px;
+  border-color: rgb(189, 184, 184);
+  border-radius: 5px;
+}
+
+.save {
+  width: 100px;
+  height: 35px;
+  font-size: 15px;
+  background-color: cyan;
+  border-color: cyan;
+  text-align: center;
+  padding: 5px 5px 10px;
+  border-radius: 17px;
+  font-weight: 500;
+}
+
+.course-contents {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.course-content-container {
+  margin: 10px;
+}
+
+.content-topics-heading {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.content-type-heading {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.course-content {
+  display: flex;
+  padding: 1.2%;
+  border-radius: 5px;
+  color: purple;
+  font-weight: bold;
+  align-items: center;
+  padding-left: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.5s;
+  margin-left: 30px;
+}
+
+.course-content:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.course-content-title {
+  margin-left: 10px;
+}
+
+.keypointsBtn {
+  color: blue;
+  height: 20px;
+  color: white;
+  margin-left: 10px;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Ubuntu";
+}

@@ -1,0 +1,84 @@
+.boxArea {
+  margin-right: 55px;
+  width: 1190px;
+  padding: 50px 20px;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 20px;
+  margin: 5px 20px 0 5px;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+}
+
+.topicHeadingContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.topicIndex {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(95, 84, 84);
+  font-family: "Ubuntu";
+  margin-right: 10px;
+}
+
+.deleteTopicBtn {
+  width: 120px;
+  color: white;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  height: 20px;
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentContainer {
+  margin-top: 5px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.courseContentContainer {
+  width: 80%;
+  margin: 10px;
+}
+.courseContent {
+  display: flex;
+  padding: 1.2%;
+  border-radius: 5px;
+  color: purple;
+  font-weight: bold;
+  align-items: center;
+  padding-left: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.5s;
+  margin-left: 30px;
+}
+.courseContent:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.courseContentTitle {
+  margin-left: 10px;
+}
+
+.deleteContentIcon {
+  font-size: 1.4rem;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.deleteContentIcon:hover {
+  color: blue;
+  transform: scale(1.5);
+}
