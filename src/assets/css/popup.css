@@ -1,0 +1,25 @@
+/* Popup style */
+.popup-box {
+    position: fixed;
+    background: #6d6a6a50;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+  
+  .box {
+    position: relative;
+    width: 40%;
+    height: 60%;
+    margin: 0 auto;
+    margin-top: 200px;
+    background: rgb(197, 226, 238);
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    overflow: auto;
+   color: #6388ee;
+  }
+  
+  

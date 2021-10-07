@@ -1,0 +1,18 @@
+.boxes{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.category{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.top-btn{
+    color: #fff !important;
+    font-weight:bolder !important;
+    padding: 10px 20px !important;
+}
+.edit-btn{
+    margin:0 !important;
+    background: rgb(162, 236, 255);
+    border: none;
+}
