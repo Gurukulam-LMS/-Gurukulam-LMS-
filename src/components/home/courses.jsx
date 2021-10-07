@@ -1,12 +1,49 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { CourseContext } from "../../context/courseContext";
 import { useHistory } from "react-router";
-import { FaRupeeSign } from "react-icons/fa";
+import {
+  FaRupeeSign,
+  FaArrowCircleLeft,
+  FaArrowCircleRight,
+} from "react-icons/fa";
 import style from "../../assets/css/home.module.css";
 
 const Courses = () => {
   const { allCourses } = useContext(CourseContext);
-  console.log(allCourses);
+  const [allCategory, setAllCategory] = useState([]);
+  const [currCatIdx, setCurrentCatIdx] = useState(null);
+  const [currCatCourse, setCurrCatCourse] = useState([]);
+
+  const scrollRef = useRef(null);
+
+  const horScroll = (val) => (scrollRef.current.scrollLeft += val);
+
+  useEffect(() => {
+    const set = new Set();
+    allCourses.forEach((course) => {
+      course.category &&
+        course.category.map((cat) => {
+          set.add(cat);
+        });
+    });
+    setAllCategory([...set]);
+  }, [allCourses]);
+
+  useEffect(() => {
+    setCurrCatCourse([]);
+    allCourses.map((course) => {
+      course.category &&
+        course.category.map((cat) => {
+          if (cat === allCategory[currCatIdx]) {
+            setCurrCatCourse((prev) => [...prev, course]);
+          }
+        });
+    });
+    if (currCatCourse.length === 0) {
+      setCurrCatCourse([...allCourses]);
+    }
+  }, [currCatIdx, allCourses]);
+
   const history = useHistory();
 
   const dateHandler = (dateString) => {
@@ -26,50 +63,43 @@ const Courses = () => {
             All Couses Of <span class="s3"> Gurukulam</span>
           </h1>
         </div>
-        <div class="col-12 text-center mt-5 navigationContainer">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination ">
-              <li class="page-item disabled ml-auto arrow-next">
-                <a class="page-link" href="#" tabindex="-1">
-                  <span class="fas fa-chevron-left"></span>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link active" href="#">
-                  UI/UX Designer
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  Development
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  Data Science
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  Business
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  Finance
-                </a>
-              </li>
-              <li class="page-item mr-auto arrow-pre">
-                <a class="page-link" href="#">
-                  <span class="fas fa-chevron-right"></span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+
+        <div class="col-12 text-center mt-5 ">
+          <div className={style.horMenuWrapper}>
+            <div className={style.iconCont}>
+              <FaArrowCircleLeft
+                className={style.arrowIcon}
+                onClick={() => horScroll(-100)}
+              />
+            </div>
+
+            <div className={style.carousalMenu} ref={scrollRef}>
+              {allCategory.map((cat, idx) => {
+                return (
+                  <div
+                    className={style.menu}
+                    key={idx}
+                    style={{
+                      borderBottom: idx === currCatIdx ? "5px solid blue" : "0",
+                    }}
+                    onClick={() => setCurrentCatIdx(idx)}
+                  >
+                    {cat}
+                  </div>
+                );
+              })}
+            </div>
+            <div className={style.iconCont}>
+              <FaArrowCircleRight
+                className={style.arrowIcon}
+                onClick={() => horScroll(100)}
+              />
+            </div>
+          </div>
         </div>
-        {allCourses.map((course, index) => (
+        {currCatCourse.map((course, index) => (
           <div
-            className="col-md-6 col-lg-4 mt-5 courseCard"
+            className={style.courseCard}
             key={course._id}
             onClick={() => history.push("/previewCourse/" + course._id)}
           >
@@ -106,7 +136,7 @@ const Courses = () => {
                         Updated
                         <span className={style.courseDate}>
                           {dateHandler(course.updatedAt)}
-                        </span>{" "}
+                        </span>
                       </span>
                     </span>
                     <span className="lectures">
@@ -136,15 +166,6 @@ const Courses = () => {
                       <span className="fa fa-star"></span>
                     </span>
                   </button>
-                  {/* <button
-                    type="button"
-                    className={`btn col-12 mt-3 mb-3 card-btn-red ${
-                      index % 2 == 1 ? "card-btn-red" : "card-btn-blue"
-                    } `}
-                    onClick={() => history.push("/previewCourse/" + course._id)}
-                  >
-                    View Course
-                  </button> */}
                 </div>
               </div>
             </div>

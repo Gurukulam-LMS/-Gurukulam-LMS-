@@ -103,7 +103,12 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button className="btn btn-sub col-10">Subscribe</button>
+                <button
+                  className="btn btn-sub col-10"
+                  style={{ backgroundColor: "blue", borderColor: "blue" }}
+                >
+                  Subscribe
+                </button>
               </li>
             </ul>
           </div>

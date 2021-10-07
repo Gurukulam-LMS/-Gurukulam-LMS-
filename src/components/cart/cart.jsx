@@ -23,6 +23,7 @@ const Cart = () => {
     personalInfo,
     setLastPaymentInfoHandler,
   } = useContext(AuthContext);
+
   const [couponError, setCouponErr] = useState(null);
   const [couponSuccess, setCouponSuccess] = useState(null);
   const cartDetails = [];
@@ -34,18 +35,16 @@ const Cart = () => {
     cartDetails.push(courseDetails);
   });
 
-  console.log(cartDetails);
-
   const [couponDetails, setCouponDetails] = useState([]);
   const [selectedCoupan, setSelectedCoupan] = useState("");
+  const [couponId, setCoupanId] = useState(null);
 
-  const { sendRequest, isLoading } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   useEffect(() => {
     sendRequest(
       `${process.env.REACT_APP_ADMIN_URL}/coupon/getCoupon?id=${userId}`
     )
       .then((res) => {
-        console.log(res);
         setCouponDetails(res.coupon);
       })
       .catch((err) => console.log(err));
@@ -75,7 +74,6 @@ const Cart = () => {
       cartAmount: totalPrice,
       userId: userId,
     };
-    console.log(body);
     sendRequest(
       `${process.env.REACT_APP_ADMIN_URL}/coupon/verifyCoupon`,
       "POST",
@@ -87,7 +85,6 @@ const Cart = () => {
       .then((res) => {
         setCouponSuccess("Successfully Applied Coupon");
         setfinalAmt(res.finalAmount);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -154,12 +151,19 @@ const Cart = () => {
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpaySignature: response.razorpay_signature,
+          userId: userId,
+          courseId: cart,
+          amount: finalAmt,
+          couponId: couponId,
+          name: personalInfo.firstName,
         };
 
         const result = await axios.post(
           process.env.REACT_APP_ADMIN_URL + "/payment/success",
           data
         );
+
+        //checkout coupon api
 
         setLastPaymentInfoHandler({ ...result.data, amount: finalAmt });
         history.push("/payment/response");
@@ -202,8 +206,8 @@ const Cart = () => {
                 <div className="card-content">
                   <h4>{course.title}</h4>
                   <div class="stars">
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                   </div>
                   <button
@@ -214,10 +218,8 @@ const Cart = () => {
                   </button>
                 </div>
                 <div className="price">
-                  <p className="amount">
-                    <FaRupeeSign style={{ fontSize: "18px" }} />
-                    {course.price}
-                  </p>
+                  <FaRupeeSign style={{ fontSize: "19px" }} />
+                  <span className="price-amount">{course.price}</span>
                 </div>
               </div>
             );
@@ -277,6 +279,7 @@ const Cart = () => {
                       setCouponSuccess(null);
                       setCouponErr(null);
                       setSelectedCoupan(e.target.value);
+                      setCoupanId(coupon._id);
                     }}
                   />
                   <label htmlFor={idx} className="radioLabel">
@@ -296,7 +299,7 @@ const Cart = () => {
             <h6>Total</h6>
             <p className="amount">
               <FaRupeeSign style={{ fontSize: "18px" }} />
-              {finalAmt}
+              {finalAmt === 0 ? totalPrice : finalAmt}
             </p>
           </div>
           <div className="make-payment">

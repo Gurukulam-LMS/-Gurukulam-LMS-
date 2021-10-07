@@ -9,6 +9,7 @@ export const useAuth = () => {
   const [personalInfo, setPersonalInfo] = useState({});
   const [educationalInfo, setEducationalInfo] = useState([]);
   const [verification, setVerification] = useState({});
+  const [myCourses, setMyCourses] = useState([]);
 
   //Local-login saving-token-to-localStorage
   const login = useCallback(
@@ -44,7 +45,7 @@ export const useAuth = () => {
     }
 
     const data = JSON.parse(localStorage.getItem("userData"));
-    console.log(data);
+
     localStorage.setItem(
       "userData",
       JSON.stringify({
@@ -113,10 +114,36 @@ export const useAuth = () => {
     setCart(data);
   }, []);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/cart/getCart/${userId}`)
+    fetch(`${process.env.REACT_APP_BASE_URL}/cart/getCart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    })
       .then((res) => res.json())
       .then((res) => {
         if (res.ok) setCart(res.cart);
+      })
+      .catch((err) => console.log(err));
+  }, [userId]);
+
+  //Mycourses  Handler
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/dash/getMyCourses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    })
+      .then(async (res) => {
+        return [await res.json(), res.status];
+      })
+      .then(([res, status]) => {
+        if (status === 201) {
+          setMyCourses(res.myCourses);
+        }
       })
       .catch((err) => console.log(err));
   }, [userId]);
@@ -130,6 +157,7 @@ export const useAuth = () => {
     educationalInfo,
     verification,
     cart,
+    myCourses,
     setCartHandler,
     googleLogin,
     setVerificationStatus,

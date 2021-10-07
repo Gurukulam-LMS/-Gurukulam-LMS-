@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 import { Spinner } from "react-bootstrap";
 import { AuthContext } from "../../context/authContext";
 import { useHttpClient } from "../../customHooks/httpHook";
-import { FaGooglePlay } from "react-icons/fa";
+import { AiOutlineGoogle, AiFillLinkedin } from "react-icons/ai";
 import ReCAPTCHA from "react-google-recaptcha";
 import NavHeader from "../../utils/Header/index";
 
@@ -37,7 +37,6 @@ const Signin = () => {
       );
       if (res.ok) {
         toast.success(res.message, { position: "top-right" });
-        console.log(res);
         login(
           res.userId,
           res.personalInfo,
@@ -47,7 +46,6 @@ const Signin = () => {
         );
         history.push("/");
       } else {
-        console.log(res);
         toast.warning(res.message, { position: "top-right" });
       }
     } catch (err) {
@@ -114,8 +112,25 @@ const Signin = () => {
                 )}
               </div>
               <div className="form-group col-12 text-center">
-                <button className="btn col-9 bg-btn-2 text-success">
-                  <FaGooglePlay className="m-2" /> Login With Google
+                <button className="btn col-9 bg-btn-2 socialLoginBtn">
+                  <a
+                    href={process.env.REACT_APP_API_URL + "/auth/google"}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <AiOutlineGoogle className="m-2 socialIcon" /> Login With
+                    Google
+                  </a>
+                </button>
+                <br />
+                <br />
+                <button className="btn col-9 bg-btn-2 socialLoginBtn">
+                  <a
+                    href={process.env.REACT_APP_API_URL + "/auth/linkedin"}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <AiFillLinkedin className="m-2 socialIcon" /> Login with
+                    Linkedin
+                  </a>
                 </button>
               </div>
             </div>

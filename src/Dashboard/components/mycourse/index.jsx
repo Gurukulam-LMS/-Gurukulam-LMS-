@@ -1,6 +1,22 @@
 import "../../assets/css/mycourse.css";
-import data from "../../api/courses.json";
+import { AuthContext } from "../../../context/authContext";
+import { useContext } from "react";
+import { useHistory } from "react-router";
+import style from "../../../assets/css/home.module.css";
+import { FaRupeeSign } from "react-icons/fa";
+
 const MyCourse = () => {
+  const { myCourses } = useContext(AuthContext);
+  console.log(myCourses);
+
+  const dateHandler = (dateString) => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return date.toLocaleString("en-IN", {
+      month: "long",
+      year: "numeric",
+    });
+  };
   return (
     <>
       <div class="container sub-nav col-12 col-lg-9">
@@ -121,67 +137,77 @@ const MyCourse = () => {
       </div>
 
       <div class="container mt-2 mb-4 course-list col-lg-9 col-12 ">
-        <div class="row  ">
-          {data.map((course, index) => (
-            <div className="col-12 col-lg-4 mt-5" key={course.id}>
-              <div className=""></div>
-              <div className="card card-1">
+        <div class="row">
+          {myCourses &&
+            myCourses.map &&
+            myCourses.map((course, index) => (
+              <a
+                href={"/coursePlayer/" + course._id}
+                style={{ textDecoration: "none" }}
+              >
                 <div
-                  className="card-head"
-                  style={{
-                    backgroundImage: `url("${course.bgimg}")`,
-                  }}
-                ></div>
-                <div className="card-body">
-                  <h5 className="txt-1">
-                    {course.staff}
-                    <span
-                      className={`badge ${
-                        index % 2 == 0 ? "badge-red" : "badge-blue"
-                      }`}
-                    >
-                      {course.subject}
-                    </span>{" "}
-                    :
-                  </h5>
-                  <img
-                    src={course.profilePic}
-                    className="mt-2 rounded-circle img-1"
-                    width="65px"
-                    height="65px"
-                  />
-                  <div className="pt-3 pl-2 pr-2">
-                    <h4 className="txt-2">{course.detail}</h4>
-                    <p>
-                      <span className="time">
-                        <i className="far fa-clock"></i> {course.time}
-                      </span>{" "}
-                      <span className="lectures">
-                        <i className="fas fa-book-open"></i> {course.lectures}{" "}
-                        lectures
-                      </span>
-                    </p>
-                    <button
-                      type="button"
-                      className={`btn col-12 mt-3 mb-3 card-btn-red ${
-                        index % 2 == 0 ? "card-btn-red" : "card-btn-blue"
-                      } `}
-                    >
-                      <span className="rate pl-3">${course.price}</span>{" "}
-                      <span className="star pr-3">
-                        {course.star}{" "}
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star"></span>
-                      </span>
-                    </button>
+                  className="col-md-6 col-lg-4 mt-5 courseCard"
+                  key={course._id}
+                >
+                  <div className=""></div>
+                  <div className="card card-1">
+                    <div
+                      className="card-head"
+                      style={{ backgroundImage: `url("${course.thumbnail}")` }}
+                    ></div>
+                    <div className="card-body">
+                      <h5 className={style.courseHeader}>
+                        <span
+                          className={`badge badge-red ${
+                            index % 2 == 0 ? "badge-red" : "badge-blue"
+                          }`}
+                        >
+                          {course.category[0]}
+                        </span>
+                        <span
+                          className={`badge badge-red ${
+                            index % 2 == 1 ? "badge-red" : "badge-blue"
+                          }`}
+                        >
+                          {course.tag || "Best Seller"}
+                        </span>
+                      </h5>
+
+                      <div className="pt-3 pl-2 pr-2">
+                        <h4 className="txt-2">{course.title}</h4>
+                        <p>
+                          <span className="time">
+                            <i className="far fa-clock"></i>{" "}
+                            <span className={style.courseUpdatedCont}>
+                              Updated
+                              <span className={style.courseDate}>
+                                {dateHandler(course.updatedAt)}
+                              </span>
+                            </span>
+                          </span>
+                          <span className="lectures">
+                            <i className="fas fa-book-open"></i>
+                            <span className={style.topicLength}>
+                              {course.courseTopic && course.courseTopic.length}{" "}
+                              lectures
+                            </span>
+                          </span>
+                        </p>
+
+                        <button
+                          type="button"
+                          className={`btn col-12 mt-3 mb-3 card-btn-red ${
+                            index % 2 == 1 ? "card-btn-red" : "card-btn-blue"
+                          } `}
+                        >
+                          View Course
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </a>
+            ))}
         </div>
       </div>
     </>

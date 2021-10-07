@@ -8,7 +8,6 @@ export const useCourse = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}/courses/getAllCourses`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.ok) setAllCourses(res.allCourses);
       })
       .catch((err) => console.log(err));

@@ -8,18 +8,11 @@ const Header = ({ active }) => {
   const history = useHistory();
   return (
     <nav className="nav navbar  navbar-expand-lg fixed-top navbar-dark bg-nav customNav">
-      <div className="container col-lg-9">
+      <div className="container col-lg-9" style={{ width: "100%" }}>
         <a className="dashboardLogo mr-auto" href="/dash">
           Dashboard
         </a>
-        <div className="pr-3 d-none d-sm-block d-lg-none">
-          <input
-            className="form-control mr-sm-2 search FontAwesome"
-            type="search"
-            placeholder="Search 🔎"
-            aria-label="Search"
-          />
-        </div>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -70,14 +63,7 @@ const Header = ({ active }) => {
                 Profile
               </a>
             </li>
-            <li className="nav-item d-sm-none d-lg-block">
-              <input
-                className="form-control mr-sm-2 search FontAwesome"
-                type="search"
-                placeholder="Search 🔎"
-                aria-label="Search"
-              />
-            </li>
+
             <li className="nav-item d-none d-lg-block">
               <a
                 className={`nav-link ${

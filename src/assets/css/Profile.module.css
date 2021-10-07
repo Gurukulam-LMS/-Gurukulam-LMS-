@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.profilePicContainer {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.profileName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Ubuntu;
+  margin-top: 10px;
+}
+
+.profilePicContainer img {
+  width: 200px;
+  object-fit: contain;
+}
+
+.profileDetailsContainer {
+  width: 70%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 1%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px;
+  width: 80%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.btn {
+  border: none;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  background-color: rgb(16, 70, 245);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Ubuntu;
+  margin: 10px;
+}
+
+.label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: Ubuntu;
+  color: rgb(47, 5, 95);
+}
+
+.val {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: Ubuntu;
+}
+
+.educationalInfo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: Ubuntu;
+  width: 90%;
+  border-radius: 20px;
+  padding: 10px;
+  padding-left: 20px;
+  background-color: rgb(214, 220, 238);
+  margin: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .profilePicContainer {
+    width: 100%;
+    margin: auto auto;
+  }
+  .profileDetailsContainer {
+    width: 100%;
+  }
+  .row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .details {
+    margin: 10px;
+  }
+  .btn {
+    margin: 20px;
+  }
+}

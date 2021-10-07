@@ -9,7 +9,7 @@ const Blog = () => {
   const history = useHistory();
 
   const { blogs } = useContext(CourseContext);
-  console.log(blogs);
+
   return (
     <>
       <NavHeader />

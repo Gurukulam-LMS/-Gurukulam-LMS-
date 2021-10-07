@@ -9,6 +9,7 @@ export const AuthContext = createContext({
   token: null,
   cart: [],
   lastPaymentInfo: {},
+  myCourses: [],
   setLastPaymentInfoHandler: () => {},
   setCartHandler: () => [],
   setVerificationStatus: () => {},

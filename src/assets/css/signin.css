@@ -56,10 +56,10 @@ body {
   color: blue;
 }
 .head-1 .s2 {
-  color: red;
+  color: blue;
 }
 .head-1 h5 {
-  color: red;
+  color: blue;
   font-style: 30px;
   margin-top: 30px;
 }
@@ -167,13 +167,24 @@ footer li {
   font-weight: 100;
 }
 footer .btn-sub {
-  background: red;
-  border-color: red;
+  background: blue;
+  border-color: blue;
   color: #fff;
 }
 footer .btn-mail {
   background: #fff;
-  color: red;
+  color: blue;
+}
+
+.socialLoginBtn {
+  width: 100% !important;
+  border: 1px solid rgb(224, 211, 211) !important;
+  background-color: rgb(243, 238, 238);
+  font-size: 0.9rem;
+}
+
+.socialIcon {
+  font-size: 1.5rem !important;
 }
 
 @media (max-width: 1200px) {
@@ -186,6 +197,10 @@ footer .btn-mail {
   .head-1 h2 {
     font-size: 40px;
     padding-top: 20px;
+  }
+
+  .socialIcon {
+    font-size: 1.2rem !important;
   }
 
   /* login section */

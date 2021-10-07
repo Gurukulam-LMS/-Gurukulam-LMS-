@@ -14,7 +14,7 @@ const PaymentSuccess = () => {
     setCartHandler,
     setLastPaymentInfoHandler,
   } = useContext(AuthContext);
-  console.log(lastPaymentInfo);
+
   return (
     <>
       <NavHeader />
