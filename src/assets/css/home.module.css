@@ -22,3 +22,54 @@
   margin-left: 4px;
   font-weight: bold;
 }
+
+.carousalMenu {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  /* justify-content: center; */
+  width: min-content;
+  /* max-width: ; */
+}
+
+.carousalMenu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.horMenuWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: min-content;
+  max-width: 100%;
+  align-items: center;
+  margin: auto auto;
+}
+
+.arrowIcon {
+  font-size: 25px;
+  cursor: pointer;
+  color: blue;
+  margin: 50px;
+}
+
+.menu {
+  margin: 10px;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-family: Ubuntu;
+  font-weight: bold;
+  transition: all 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.menu:active {
+  border-bottom: 5px solid blue;
+}
+
+.courseCard {
+  max-width: 400px;
+  min-width: 360px;
+  margin: 10px;
+}

@@ -1,21 +1,26 @@
 import { useContext } from "react";
 import Header from "./header";
 import "../../assets/css/blog.css";
-import { Card, Col, Container, Form, Row, Image } from "react-bootstrap";
+import { Col, Container, Form, Row, Image } from "react-bootstrap";
 import RightContainer from "./rightContainer";
 import LeftContainer from "./leftContainer";
 import { CourseContext } from "../../context/courseContext";
 import { useParams } from "react-router";
 import NavHeader from "../../utils/Header/index";
+import { useHistory } from "react-router";
 const Blog = () => {
   const { blogId } = useParams();
   const { blogs } = useContext(CourseContext);
   const blog = blogs.find((blog) => blog._id == blogId);
+  const history = useHistory();
 
   return (
     <>
+      <NavHeader />
       <Container className="mt-5 p-2">
-        <NavHeader />
+        <br />
+        <br />
+        <br />
         <Row>
           <Col lg={8} sm={7} md={8}>
             <LeftContainer blog={blog} />
@@ -58,7 +63,11 @@ const Blog = () => {
         <h4 className="m-3">Recent Post</h4>
         <div className="blog-card-container">
           {blogs.map((e, idx) => (
-            <div className="blog-card-footer">
+            <div
+              className="blog-card-footer"
+              style={{ cursor: "pointer" }}
+              onClick={() => history.push("/blog/" + e._id)}
+            >
               <div key={idx} className="blog-wrapper-container">
                 <Image fluid src={e.image} alt="..." />
                 <b className="blog-footer-heading">{e.title}</b>

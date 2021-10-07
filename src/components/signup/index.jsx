@@ -4,7 +4,7 @@ import "../../assets/css/signup.css";
 import { useHttpClient } from "../../customHooks/httpHook";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
-import { FaGooglePlay } from "react-icons/fa";
+import { AiOutlineGoogle, AiFillLinkedin } from "react-icons/ai";
 import ReCAPTCHA from "react-google-recaptcha";
 import NavHeader from "../../utils/Header/index";
 
@@ -123,12 +123,23 @@ const Signup = () => {
                   )}
                 </div>
                 <div className="form-group col-12 text-center">
-                  <button
-                    type="submit"
-                    className="btn col-9 bg-btn-2 text-success"
-                  >
-                    <FaGooglePlay className="m-2" />
-                    Continue With Google
+                  <button className="btn col-9 bg-btn-2 text-success">
+                    <a
+                      href={process.env.REACT_APP_API_URL + "/auth/google"}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <AiOutlineGoogle className="m-2" /> Signup With Google
+                    </a>
+                  </button>
+                  <br />
+                  <br />
+                  <button className="btn col-9 bg-btn-2 text-success">
+                    <a
+                      href={process.env.REACT_APP_API_URL + "/auth/linkedin"}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <AiFillLinkedin className="m-2" /> Signup with Linkedin
+                    </a>
                   </button>
                 </div>
               </form>

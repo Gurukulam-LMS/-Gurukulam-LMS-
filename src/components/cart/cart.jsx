@@ -23,6 +23,7 @@ const Cart = () => {
     personalInfo,
     setLastPaymentInfoHandler,
   } = useContext(AuthContext);
+
   const [couponError, setCouponErr] = useState(null);
   const [couponSuccess, setCouponSuccess] = useState(null);
   const cartDetails = [];
@@ -36,7 +37,7 @@ const Cart = () => {
 
   const [couponDetails, setCouponDetails] = useState([]);
   const [selectedCoupan, setSelectedCoupan] = useState("");
-  const [coupanId, setCoupanId] = useState(null);
+  const [couponId, setCoupanId] = useState(null);
 
   const { sendRequest } = useHttpClient();
   useEffect(() => {
@@ -153,16 +154,16 @@ const Cart = () => {
           userId: userId,
           courseId: cart,
           amount: finalAmt,
-          coupanId: coupanId,
+          couponId: couponId,
           name: personalInfo.firstName,
         };
-
-        console.log(data);
 
         const result = await axios.post(
           process.env.REACT_APP_ADMIN_URL + "/payment/success",
           data
         );
+
+        //checkout coupon api
 
         setLastPaymentInfoHandler({ ...result.data, amount: finalAmt });
         history.push("/payment/response");
@@ -205,8 +206,8 @@ const Cart = () => {
                 <div className="card-content">
                   <h4>{course.title}</h4>
                   <div class="stars">
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                   </div>
                   <button
@@ -217,10 +218,8 @@ const Cart = () => {
                   </button>
                 </div>
                 <div className="price">
-                  <p className="amount">
-                    <FaRupeeSign style={{ fontSize: "18px" }} />
-                    {course.price}
-                  </p>
+                  <FaRupeeSign style={{ fontSize: "19px" }} />
+                  <span className="price-amount">{course.price}</span>
                 </div>
               </div>
             );

@@ -45,13 +45,13 @@ body {
   color: #000;
 }
 .head-1 .s1 {
-  color: blue;
+  color: wheat;
 }
 .head-1 .s2 {
-  color: red;
+  color: wheat;
 }
 .head-1 h5 {
-  color: red;
+  color: wheat;
   font-style: 30px;
   margin-top: 30px;
 }
@@ -133,13 +133,13 @@ body {
   float: right;
 }
 .course-list .card-body .badge-red {
-  background-color: #ff6e6d;
+  background-color: wheat;
 }
 .course-list .card-body .badge-blue {
   background-color: #b4c0ff;
 }
 .course-list .card-body .card-btn-red {
-  background: #ff6e6d;
+  background: wheat;
 }
 .course-list .card-body .card-btn-blue {
   background: #b4c0ff;
@@ -176,15 +176,15 @@ body {
   font-size: 22px;
 }
 .course-list .pagination .page-item a {
-  border-color: red;
+  border-color: orange;
   border-radius: 50%;
   margin: 10px;
-  color: red;
+  color: orange;
 }
 .course-list .pagination .page-item .active {
-  border-color: red;
+  border-color: orange;
   border-radius: 50%;
-  background: red;
+  background: orange;
   color: #fff;
 }
 /* course section end */

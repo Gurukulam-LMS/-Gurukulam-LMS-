@@ -1,5 +1,5 @@
 import { Col, Row, Container, Image, Accordion } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   FaStar,
   FaFirefoxBrowser,
@@ -23,7 +23,12 @@ const PreviewCourse = () => {
   const { sendRequest } = useHttpClient();
   const { courseId } = useParams();
   const { allCourses } = useContext(CourseContext);
-  const course = allCourses.find((course) => course._id === courseId);
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    const getCourse = allCourses.find((course) => course._id === courseId);
+    if (!!getCourse) setCourse(getCourse);
+  }, [allCourses]);
 
   const { isLoggedIn, userId, cart, setCartHandler } = useContext(AuthContext);
   const isPresentInCart = cart.indexOf(courseId) !== -1;
@@ -64,12 +69,8 @@ const PreviewCourse = () => {
             <div className="container">
               <div className="row ">
                 <div className="col-lg-6 col-sm-8 col-11 head-1 mt-lg-5 mt-4 text-left">
-                  <div className={style.courseTitleHeading}>
-                    {course && course.title}
-                  </div>
-                  <div className={style.courseTagline}>
-                    {course && course.tagline}
-                  </div>
+                  <div className={style.courseTitleHeading}>{course.title}</div>
+                  <div className={style.courseTagline}>{course.tagline}</div>
                   <FaStar color="gold" size={22} />
                   <FaStar color="gold" size={22} />
                   <FaStar color="gold" size={22} />
@@ -84,13 +85,13 @@ const PreviewCourse = () => {
                       <BsFillBarChartFill
                         style={{ color: "#2f1a8eed", marginRight: "10px" }}
                       />
-                      {course && course.level} Level
+                      {course.level} Level
                     </span>
                     <span className="mx-2" style={{ color: "#2f1a8eed" }}>
                       <FaFirefoxBrowser
                         style={{ color: "#2f1a8eed", marginRight: "10px" }}
                       />
-                      {course && course.language}
+                      {course.language}
                     </span>
                   </div>
                 </div>
@@ -103,9 +104,9 @@ const PreviewCourse = () => {
         <Row className="mt-5">
           <Col lg={8} className="mb-4">
             <div className={style.whatLearn}>
-              <h3 className="mt-2">What You'll learn</h3>
-              <ul className="mt-3 p-5 py-3">
-                {course &&
+              <h4 className="mt-2 ml-2">What You'll learn</h4>
+              <ul className={style.pointContainer}>
+                {course.keyPoints &&
                   course.keyPoints.map((point, idx) => {
                     return (
                       <li className={style.keyPoint} key={idx}>
@@ -122,7 +123,7 @@ const PreviewCourse = () => {
               <div className={style.contentHeading}>Course Content</div>
               <div className={style.accorditonContainer}>
                 <Accordion flush style={{ border: "none" }}>
-                  {!!course &&
+                  {!!course.courseTopic &&
                     course.courseTopic.map((topic, index) => {
                       return (
                         <Accordion.Item eventKey={index} key={index}>
@@ -185,7 +186,7 @@ const PreviewCourse = () => {
               className="my-4 p-4"
             >
               <h2>About the course</h2>
-              <p className="mt-4 p-2">{course && course.description}</p>
+              <p className={style.courseDes}>{course && course.description}</p>
             </div>
             <SocialMediaShare content={course && course.title} />
           </Col>
@@ -202,15 +203,13 @@ const PreviewCourse = () => {
                 </button>
               </div>
               <div className={style.coursePriceContainer}>
-                <FaRupeeSign style={{ fontSize: "28px" }} />
-                <span className={style.coursePrice}>
-                  {course && course.price}
-                </span>
+                <FaRupeeSign className={style.ruppeeIcon} />
+                <span className={style.coursePrice}>{course.price}</span>
               </div>
               <div className={style.courseDetails}>
                 <h5>Course include :</h5>
                 <p className={style.courseDetailslist}>
-                  {course && course.courseTopic.length} lectures
+                  {course.courseTopic && course.courseTopic.length} lectures
                 </p>
                 <p className={style.courseDetailslist}>12 Assignment</p>
                 <p className={style.courseDetailslist}>6 Articles</p>

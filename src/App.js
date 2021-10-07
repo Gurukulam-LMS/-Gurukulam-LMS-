@@ -14,7 +14,6 @@ import { useAuth } from "./customHooks/authHook";
 import { useCourse } from "./customHooks/courseHook";
 
 const App = () => {
-  //Auth-Context (user data)
   const auth = useAuth();
 
   //grabbing payment Info
@@ -36,6 +35,7 @@ const App = () => {
     setVerificationStatus: auth.setVerificationStatus,
     lastPaymentInfo,
     setLastPaymentInfoHandler,
+    myCourses: auth.myCourses,
   };
 
   //Course-Context

@@ -3,6 +3,7 @@ body {
     "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
+
 a {
   text-decoration: none;
 }
@@ -34,8 +35,12 @@ a {
   justify-content: center;
 }
 
-@media (max-width:500px){
-  .navigationContainer{
+.bMCwSX {
+  border: 1px solid rgb(219, 209, 209) !important;
+}
+
+@media (max-width: 500px) {
+  .navigationContainer {
     display: none;
   }
 }
@@ -147,13 +152,13 @@ a {
   float: right;
 }
 .course-list .card-body .badge-red {
-  background-color: #ff6e6d;
+  background-color: #b4c0ff;
 }
 .course-list .card-body .badge-blue {
   background-color: #b4c0ff;
 }
 .course-list .card-body .card-btn-red {
-  background: #ff6e6d;
+  background: #b4c0ff;
 }
 .course-list .card-body .card-btn-blue {
   background: #b4c0ff;
@@ -212,7 +217,7 @@ a {
   font-weight: 600;
 }
 .course-list .pagination .page-item .active {
-  color: red !important;
+  color: blue !important;
   border: none !important;
 }
 
@@ -467,13 +472,13 @@ a {
   float: right;
 }
 .last-section .card-body .badge-red {
-  background-color: #ff6e6d;
+  background-color: blue;
 }
 .last-section .card-body .badge-blue {
   background-color: #b4c0ff;
 }
 .last-section .card-body .card-btn-red {
-  background: #ff6e6d;
+  background: blue;
 }
 .last-section .card-body .card-btn-blue {
   background: #b4c0ff;

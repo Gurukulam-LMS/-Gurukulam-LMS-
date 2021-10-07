@@ -1,97 +1,89 @@
 /* footer */
 
 .bg-footer {
-    background-image: url(../Images/2.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 40px;
-    
- }
- 
- .gap {
-     padding-top: 50px;
- }
- 
- .footer{
-     color: #fff;
-     padding-left: 10px !important;
-     padding-right: 10px !important;
- }
- footer a{
-     color: #fff;
- }
- footer h5{
-     font-size: 18px;
-     font-weight:500;
-     padding-bottom: 10px;
- }
- footer li{
-     font-size: 15px;
-     font-weight: 400;
-     padding: 5px;
- }
- .list-social{
-     font-weight: 100;
- }
- footer .btn-sub{
-     background: red;
-     border-color: red;
-     color: #fff;
- }
- footer .btn-mail{
-     background: #fff;
-     color:red;
- }
+  background-image: url(../Images/2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px;
+}
 
- @media (max-width: 768px){
-     
- .footer{
-    color: #fff;
+.gap {
+  padding-top: 50px;
 }
-footer a{
-    color: #fff;
+
+.footer {
+  color: #fff;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
-footer h5{
+footer a {
+  color: #fff;
+}
+footer h5 {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+footer li {
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px;
+}
+.list-social {
+  font-weight: 100;
+}
+footer .btn-sub {
+  background: blue;
+  border-color: blue;
+  color: #fff;
+}
+footer .btn-mail {
+  background: #fff;
+  color: blue;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    color: #fff;
+  }
+  footer a {
+    color: #fff;
+  }
+  footer h5 {
     font-size: 15px;
-    font-weight:500;
+    font-weight: 500;
     padding-bottom: 7px;
-}
-footer li{
+  }
+  footer li {
     font-size: 13px;
     font-weight: 400;
     padding: 0px;
     padding-top: 5px;
-}
-footer .footer-btn h5{
+  }
+  footer .footer-btn h5 {
     font-size: 25px;
+  }
+  footer .footer-btn li {
+    font-size: 16px;
+  }
 }
-footer .footer-btn li{
-   font-size: 16px;
-}     
-
- }
- @media (max-width: 576px){
-     
-.footer .img{
+@media (max-width: 576px) {
+  .footer .img {
     width: 80px;
     padding-bottom: 5px;
-}
+  }
 
-
-.footer{
+  .footer {
     color: #fff;
-}
-footer h5{
+  }
+  footer h5 {
     font-size: 20px;
-  
-}
+  }
 
-footer .footer-btn h5{
+  footer .footer-btn h5 {
     font-size: 25px;
+  }
+  footer .footer-btn li {
+    font-size: 15px;
+  }
 }
-footer .footer-btn li{
-   font-size: 15px;
-}     
-}
-
- 

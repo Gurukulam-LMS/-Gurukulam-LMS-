@@ -1,0 +1,92 @@
+.eduInputCont {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.onBoardingHeader {
+  background-image: url("../Images-2/Group\ 54.png") !important;
+  font-size: 3rem !important;
+  height: 250px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  font-family: Ubuntu;
+}
+
+.eduInputCont {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.input {
+  font-size: 1.2rem;
+  padding: 10px;
+  width: 310px;
+  margin: 20px;
+  border: 1px solid rgb(230, 214, 214);
+}
+
+.remBtn {
+  border: none;
+  background-color: rgb(0, 81, 255);
+  padding: 10px 15px 10px 15px;
+  color: white;
+  font-family: Ubuntu;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+}
+
+.numContainer {
+  display: flex;
+  overflow-x: hidden;
+  margin: 15px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.otpBtn {
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(0, 89, 255);
+  color: white;
+  font-weight: bold;
+  font-family: Ubuntu;
+  padding: 0 10px 0 10px;
+}
+
+@media (max-width: 450px) {
+  .onBoardingHeader {
+    font-size: 1.5rem;
+  }
+  .eduInputCont {
+    flex-direction: column;
+    align-items: center;
+  }
+  .numContainer {
+    margin: 15px;
+  }
+  .otpBtn {
+    margin-top: 10px;
+  }
+}

@@ -1,370 +1,340 @@
-body{
-    font-family: 'Gorditas'
+body {
+  font-family: "Gorditas";
 }
 .bg-nav {
-    background:#fff;
-    /* border-bottom: 2px solid rgba(0, 0, 0, 0.315); */
-    box-shadow: 1px 7px 7px 0px rgb(0 0 0 / 10%);
+  background: #fff;
+  /* border-bottom: 2px solid rgba(0, 0, 0, 0.315); */
+  box-shadow: 1px 7px 7px 0px rgb(0 0 0 / 10%);
 }
-.nav-btn{
-    background: #1104c5;
-    color: #fff;
-    border-radius: 5px;
-    padding:2px 10px;
+.nav-btn {
+  background: #1104c5;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 10px;
 }
 .head {
-    background-image: url(../Images-2/5.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    padding: 100px 0px; 
-    font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../Images-2/5.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 100px 0px;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.breadcrumb{
-    background: none!important;
+.breadcrumb {
+  background: none !important;
 }
-.breadcrumb .breadcrumb-item a{
-color: #000000;
- font-weight: 500;
+.breadcrumb .breadcrumb-item a {
+  color: #000000;
+  font-weight: 500;
 }
-.breadcrumb .active{
- color: #b4c0ff!important;
- font-weight: 500;
+.breadcrumb .active {
+  color: #b4c0ff !important;
+  font-weight: 500;
 }
-.head-1 h2{
-    font-size: 40px;
-    padding-top: 70px;
+.head-1 h2 {
+  font-size: 40px;
+  padding-top: 70px;
 }
-.head-1 p{
-    font-size: 16px;
-    padding-top: 20px;
-    padding-right: 10px;
-    font-weight: 500;
-    word-spacing: 5px;
-    color: #4e4c4c;
+.head-1 p {
+  font-size: 16px;
+  padding-top: 20px;
+  padding-right: 10px;
+  font-weight: 500;
+  word-spacing: 5px;
+  color: #4e4c4c;
 }
-.head-1 h2{
-    font-size: 40px;
-    padding-top: 20px;
-    font-weight: 700;
-    color: #000;
-  
+.head-1 h2 {
+  font-size: 40px;
+  padding-top: 20px;
+  font-weight: 700;
+  color: #000;
 }
-.head-1 .s1{
-    color: blue;
+.head-1 .s1 {
+  color: blue;
 }
-.head-1 .s2{
-    color: red;
+.head-1 .s2 {
+  color: red;
 }
-.head-1 h5{
-    color: red;
-    font-style: 30px;
-    margin-top: 30px;
+.head-1 h5 {
+  color: red;
+  font-style: 30px;
+  margin-top: 30px;
 }
-.head-1 .blue-btn{
-    background: blue;
-    color: #fff;
-    font-size: 26px;
-    padding: 8px 45px;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-bottom: 25px;
+.head-1 .blue-btn {
+  background: blue;
+  color: #fff;
+  font-size: 26px;
+  padding: 8px 45px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
-
 
 /* login section */
-.login{
-    margin-top: 100px;
-    margin-bottom: 100px;
+.login {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
-.login .cards{
-    margin: 70px 100px;
-    box-shadow: 1px 7px 7px 0px rgb(0 0 0 / 10%);
-   
+.login .cards {
+  margin: 70px 100px;
+  box-shadow: 1px 7px 7px 0px rgb(0 0 0 / 10%);
 }
-.login .bg-login{
-    background-image: url(../Images-2/Group\ 221-1.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+.login .bg-login {
+  background-image: url(../Images-2/Group\ 221-1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.login .bg-login h1{
-    padding-top: 140px;
-    color: #ffffff;
- font-weight: 450;
-    
+.login .bg-login h1 {
+  padding-top: 140px;
+  color: #ffffff;
+  font-weight: 450;
 }
-.login .login-form h3{ 
- color: #000;
- font-weight: 500
+.login .login-form h3 {
+  color: #000;
+  font-weight: 500;
 }
-.login .login-form span{ 
-    color: #9baaf8;
-
+.login .login-form span {
+  color: #9baaf8;
 }
-.login .login-form .form-control{
-    padding: 10px;
+.login .login-form .form-control {
+  padding: 10px;
 }
 
-.login .login-form .form-group .bg-btn-1{
-    background-image: linear-gradient(to right, rgba(191, 4, 248, 0.664), rgba(32, 131, 243, 0.623));
-    color: #fff;
+.login .login-form .form-group .bg-btn-1 {
+  background-image: linear-gradient(
+    to right,
+    rgba(191, 4, 248, 0.664),
+    rgba(32, 131, 243, 0.623)
+  );
+  color: #fff;
 }
-.login .login-form .form-group .bg-btn-2{
-    border:1px solid #8bbaf7b7;
-    color: #000;
+.login .login-form .form-group .bg-btn-2 {
+  border: 1px solid #8bbaf7b7;
+  color: #000;
 }
-
 
 /* bg-mobile-app */
-.bg-mobile-app{
-    background-image: url(../Images-2/Group\ 54.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+.bg-mobile-app {
+  background-image: url(../Images-2/Group\ 54.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.bg-mobile-app .app{
-    align-self: center;
+.bg-mobile-app .app {
+  align-self: center;
 }
-.bg-mobile-app h6{
-    font-weight: 500; 
+.bg-mobile-app h6 {
+  font-weight: 500;
 }
-    
+
 /* footer */
 
 .bg-footer {
-   background-image: url(../Images/2.png);
-   background-repeat: no-repeat;
-   background-size: cover;
-   padding: 40px;
-   
+  background-image: url(../Images/2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px;
 }
 
 .gap {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
-.footer{
-    color: #fff;
-    margin-top:100px;
+.footer {
+  color: #fff;
+  margin-top: 100px;
 }
-footer a{
-    color: #fff;
+footer a {
+  color: #fff;
 }
-footer h5{
-    font-size: 18px;
-    font-weight:500;
-    padding-bottom: 10px;
+footer h5 {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 10px;
 }
-footer li{
-    font-size: 15px;
-    font-weight: 400;
-    padding: 5px;
+footer li {
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px;
 }
-.list-social{
-
-    font-weight: 100;
+.list-social {
+  font-weight: 100;
 }
-footer .btn-sub{
-    background: red;
-    border-color: red;
-    color: #fff;
+footer .btn-sub {
+  background: #b4c0ff;
+  border-color: #b4c0ff;
+  color: #fff;
 }
-footer .btn-mail{
-    background: #fff;
-    color:red;
+footer .btn-mail {
+  background: #fff;
+  color: #b4c0ff;
 }
-
 
 @media (max-width: 1200px) {
-
 }
 
 @media (max-width: 768px) {
-    
-    .head-1 p{
-        font-size: 14px;
-    }
-    .head-1 h2{
-        font-size: 40px;
-        padding-top: 20px;
-      
-    }
+  .head-1 p {
+    font-size: 14px;
+  }
+  .head-1 h2 {
+    font-size: 40px;
+    padding-top: 20px;
+  }
 
+  /* login section */
 
-/* login section */
-
-.login .cards{
+  .login .cards {
     margin: 10px;
-}
-.bg-login{
+  }
+  .bg-login {
     background-image: unset;
     background-position: unset;
     background-repeat: unset;
     background-size: unset;
-
-}
-.login .bg-login h1{
+  }
+  .login .bg-login h1 {
     padding-top: 60px;
     color: #ffffff;
- font-weight: 500
-    
-}
-.login .login-form h3{ 
- color: #000;
- font-weight: 500
-}
- .login-form{ 
-    background-color: #fff;
-}
-.login .login-form span{ 
-    color: #9baaf8;
-
-}
-.login .login-form .form-control{
-    padding: 10px;
-}
-
-.login .login-form .form-group .bg-btn-1{
-    background-image: linear-gradient(to right, rgba(191, 4, 248, 0.664), rgba(32, 131, 243, 0.623));
-    color: #fff;
-}
-.login .login-form .form-group .bg-btn-2{
-    border:1px solid #8bbaf7b7;
+    font-weight: 500;
+  }
+  .login .login-form h3 {
     color: #000;
-}
+    font-weight: 500;
+  }
+  .login-form {
+    background-color: #fff;
+  }
+  .login .login-form span {
+    color: #9baaf8;
+  }
+  .login .login-form .form-control {
+    padding: 10px;
+  }
 
+  .login .login-form .form-group .bg-btn-1 {
+    background-image: linear-gradient(
+      to right,
+      rgba(191, 4, 248, 0.664),
+      rgba(32, 131, 243, 0.623)
+    );
+    color: #fff;
+  }
+  .login .login-form .form-group .bg-btn-2 {
+    border: 1px solid #8bbaf7b7;
+    color: #000;
+  }
 
-
-
-/* bg-mobile-app */
-.bg-mobile-app {
+  /* bg-mobile-app */
+  .bg-mobile-app {
     text-align: center;
-}
-.bg-mobile-app .img{
+  }
+  .bg-mobile-app .img {
     width: 300px;
-}
-.bg-mobile-app h2{
+  }
+  .bg-mobile-app h2 {
     font-size: 25px;
-}
+  }
 
-/* footer */
+  /* footer */
 
- .footer .img{
-     width: 50px;
-     padding-bottom: 5px;
- }
+  .footer .img {
+    width: 50px;
+    padding-bottom: 5px;
+  }
 
- .gap {
-     padding-top: 50px;
- }
- 
- .footer{
-     color: #fff;
-     margin-top:100px;
- }
- footer a{
-     color: #fff;
- }
- footer h5{
-     font-size: 15px;
-     font-weight:500;
-     padding-bottom: 7px;
- }
- footer li{
-     font-size: 13px;
-     font-weight: 400;
-     padding: 0px;
-     padding-top: 5px;
- }
- footer .footer-btn h5{
-     font-size: 25px;
- }
- footer .footer-btn li{
+  .gap {
+    padding-top: 50px;
+  }
+
+  .footer {
+    color: #fff;
+    margin-top: 100px;
+  }
+  footer a {
+    color: #fff;
+  }
+  footer h5 {
+    font-size: 15px;
+    font-weight: 500;
+    padding-bottom: 7px;
+  }
+  footer li {
+    font-size: 13px;
+    font-weight: 400;
+    padding: 0px;
+    padding-top: 5px;
+  }
+  footer .footer-btn h5 {
+    font-size: 25px;
+  }
+  footer .footer-btn li {
     font-size: 16px;
-}     
-            
-        
+  }
 }
 
 @media (max-width: 576px) {
-    
-    
-    .head-1 p{
-        font-size: 14px;
-        
-    }
-    .head-1 h2{
-        font-size: 35px;
-        padding-top: 20px;
-        padding-left: 10px;
-      
-    }
- 
+  .head-1 p {
+    font-size: 14px;
+  }
+  .head-1 h2 {
+    font-size: 35px;
+    padding-top: 20px;
+    padding-left: 10px;
+  }
 
-
-
-/* bg-mobile-app */
-.bg-mobile-app h2{
+  /* bg-mobile-app */
+  .bg-mobile-app h2 {
     font-size: 20px;
-}
-.bg-mobile-app .img{
+  }
+  .bg-mobile-app .img {
     width: 200px;
-}
+  }
 
+  /* footer */
 
-/* footer */
-
-.footer .img{
+  .footer .img {
     width: 80px;
     padding-bottom: 5px;
-}
+  }
 
-
-.footer{
+  .footer {
     color: #fff;
-    margin-top:100px;
-}
-footer h5{
+    margin-top: 100px;
+  }
+  footer h5 {
     font-size: 20px;
-  
-}
+  }
 
-footer .footer-btn h5{
+  footer .footer-btn h5 {
     font-size: 25px;
+  }
+  footer .footer-btn li {
+    font-size: 15px;
+  }
 }
-footer .footer-btn li{
-   font-size: 15px;
-}     
-}
-
 
 @media (max-width: 330px) {
-   
 }
-
 
 /* event type show and hide*/
 
 .show {
-    display: block;
+  display: block;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
-
 
 /* registration form */
 
 .bg-linear {
-    background: linear-gradient(-130deg, #0c47b4, #67caf1);
-    /* color: #fff; */
+  background: linear-gradient(-130deg, #0c47b4, #67caf1);
+  /* color: #fff; */
 }
-
 
 /* .bg-linear a{
     color: #fff;
@@ -372,8 +342,6 @@ footer .footer-btn li{
 }  */
 
 .bg-img {
-    background-image: url(images/wp8107903-office-work-wallpapers.jpg);
-    background-position: center;
+  background-image: url(images/wp8107903-office-work-wallpapers.jpg);
+  background-position: center;
 }
-
-
