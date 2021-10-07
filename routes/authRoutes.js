@@ -13,13 +13,15 @@ router.post(
   "/email/forgot",
   limiter.postReqLimiter,
   authController.forgotPassword
-); //Getting Email from client for forgot password
+);
+//Getting Email from client for forgot password
 router.post(
   "/email/reset/:token",
   limiter.postReqLimiter,
   authController.resetPassword
-); //Getting passwords and confirm passwords for password rest
-router.get("/oauth/:id", authController.getUser); //getting userBy id ;
+);
+//Getting passwords and confirm passwords for password rest
+router.get("/getUser/:userId", authController.getUser); //getting userBy id ;
 router.get("/email/confirm/:id", authController.confirmEmail); //For Confirmation of email
 router.post("/recaptcha", authController.validateCaptcha); //post req captchaValidation
 router.post(

@@ -1,6 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-// const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
+const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 const User = require("../models/User");
 const { v1: uuid } = require("uuid");
 
@@ -27,21 +27,17 @@ passport.use(
           "google.id": profile.id,
         });
 
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-        9;
+        if (existingUser) return done(null, existingUser);
 
-        //Sign-in google
+        //if user sign-in using local but first time signing in with gmail
         const localExistingUser = await User.findOneAndUpdate(
           {
-            "local.email": profile.emails[0].value,
+            "local.personalInfo.email": profile.emails[0].value,
           },
           {
             $set: {
               google: {
                 id: profile.id,
-                email: profile.emails[0].value,
                 token: accessToken,
               },
             },
@@ -57,14 +53,17 @@ passport.use(
         const newUser = new User({
           method: "google",
           local: {
-            userName: profile.displayName,
-            email: profile.emails[0].value,
-            password: uuid(),
-            confirmed: true,
+            personalInfo: {
+              firstName: profile.displayName,
+              email: profile.emails[0].value,
+              password: uuid(),
+            },
+            verification: {
+              email: true,
+            },
           },
           google: {
             id: profile.id,
-            email: profile.emails[0].value,
             token: accessToken,
           },
         });
@@ -78,17 +77,62 @@ passport.use(
   )
 );
 
-// passport.use(new LinkedInStrategy({
-//   clientID: process.env.LINKEDIN_OAUTH_CLIENT_ID,
-//   clientSecret: process.env.LINKEDIN_OAUTH_CLIENT_SECRET,
-//   callbackURL: "/auth/linkedin/callback",
-//   scope: ['r_emailaddress', 'r_liteprofile'],
-// }, async (token, tokenSecret, profile, done) => {
-//     try{
+passport.use(
+  new LinkedInStrategy(
+    {
+      clientID: process.env.LINKEDIN_OAUTH_CLIENT_ID,
+      clientSecret: process.env.LINKEDIN_OAUTH_CLIENT_SECRET,
+      callbackURL: "/auth/linkedin/callback",
+      scope: ["r_emailaddress", "r_liteprofile"],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const existingUser = await User.findOne({ "linkedin.id": profile.id });
+        if (existingUser) return done(null, existingUser);
 
-//     }catch(err){
-//       console.log(err.message);
-//         done(err, false, err.message);
-//     }
-// }
-// ));
+        //if user sign-in using local but first time signing in with linkedin
+        const localExistingUser = await User.findOneAndUpdate(
+          {
+            "local.personalInfo.email": profile.emails[0].value,
+          },
+          {
+            $set: {
+              linkedin: {
+                id: profile.id,
+                token: accessToken,
+              },
+            },
+          },
+          { returnOriginal: false }
+        );
+
+        if (localExistingUser) return done(null, localExistingUser);
+
+        //Sign-up google
+        const newUser = new User({
+          method: "linkedin",
+          local: {
+            personalInfo: {
+              firstName: profile.name.givenName,
+              lastName: profile.name.familyName,
+              email: profile.emails[0].value,
+              password: uuid(),
+            },
+            verification: {
+              email: true,
+            },
+          },
+          linkedin: {
+            id: profile.id,
+            token: accessToken,
+          },
+        });
+        await newUser.save();
+        return done(null, newUser);
+      } catch (err) {
+        console.log(err.message);
+        done(err, false, err.message);
+      }
+    }
+  )
+);

@@ -6,10 +6,13 @@ const oAuthRoutes = require("./routes/oAuthRoutes");
 const limiter = require("./middlewares/rateLimiter");
 const passport = require("passport");
 const path = require("path");
+
+//Importing routes
 const contactRoutes = require("./routes/contactRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const dashRoutes = require("./routes/dashRoutes");
 
 const app = express();
 app.use(express.json());
@@ -30,6 +33,7 @@ app.use(limiter.globalLimiter);
 
 //Initializing Passport
 app.use(passport.initialize());
+//passport template
 require("./config/passport");
 
 app.use(
@@ -43,7 +47,8 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/blog", blogRoutes);
-app.use("/", oAuthRoutes);
+app.use("/api/dash", dashRoutes);
+app.use("/auth", oAuthRoutes);
 
 // For any unknown API request
 app.use((error, req, res, next) => {

@@ -4,12 +4,16 @@ const emailTemplates = require("../config/emailTemplates");
 
 module.exports.contact = async (req, res) => {
   const { name, email, description } = req.body;
+  if (!name || !email || !description)
+    return res.status(404).json({ message: "Fill All Inputs", ok: false });
+
   try {
-    await new Contact({
+    const newContact = await new Contact({
       name,
       email,
       description,
     });
+    await newContact.save();
     await sendEmail(
       process.env.adminEmail,
       emailTemplates.contactTempate(name, email, description)

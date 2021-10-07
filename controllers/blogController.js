@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Blog = mongoose.model("blogs", new mongoose.Schema(), "blogs");
+const Blog = require("../models/Blog");
 
 module.exports.getAllBlogs = async (req, res) => {
   try {

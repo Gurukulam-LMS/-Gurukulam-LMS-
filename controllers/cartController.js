@@ -62,9 +62,8 @@ module.exports.modifyCart = async (req, res) => {
 
 module.exports.getCart = async (req, res) => {
   try {
-    const { userId } = req.params;
-    if (userId === "null")
-      return res.json({ message: "userId not found", cart: [], ok: false });
+    const { userId } = req.body;
+    if (!userId) return res.status(404).json({ message: "userId not found" });
     const cartDetails = await Cart.findOne({ userId });
     if (!cartDetails)
       return res.json({ message: "User no found", ok: false, cart: [] });

@@ -107,7 +107,15 @@ module.exports.signup_post = async (req, res, next) => {
 };
 
 module.exports.profileUpdate = async (req, res) => {
-  const { userId, personalInfo, educationalInfo } = req.body;
+  var { userId, personalInfo, educationalInfo } = req.body;
+  if (!!personalInfo) {
+    personalInfo = JSON.parse(personalInfo);
+    Object.keys(personalInfo).forEach((key) => {
+      if (personalInfo[key].length === 0) delete personalInfo[key];
+    });
+  }
+  if (!!educationalInfo) educationalInfo = JSON.parse(educationalInfo);
+
   var profileImage = null;
   if (req.file) profileImage = req.file.path;
 
@@ -119,14 +127,17 @@ module.exports.profileUpdate = async (req, res) => {
       message: "Mobile number verification pending, Unable to update profile",
       ok: false,
     });
+  var reqInfo = {};
+  if (!!personalInfo) {
+    reqInfo = Object.fromEntries(
+      Object.entries(personalInfo).map(([key, value]) => [
+        `local.personalInfo.${key}`,
+        value,
+      ])
+    );
+  }
 
-  var reqInfo = Object.fromEntries(
-    Object.entries(personalInfo).map(([key, value]) => [
-      `local.personalInfo.${key}`,
-      value,
-    ])
-  );
-  if (educationalInfo && educationalInfo.length > 0)
+  if (!!educationalInfo && educationalInfo.length > 0)
     reqInfo = { ...reqInfo, "local.educationalInfo": educationalInfo };
 
   if (!!profileImage)
@@ -135,10 +146,13 @@ module.exports.profileUpdate = async (req, res) => {
       "local.personalInfo.profileImage": profileImage,
     };
 
+  console.log(reqInfo);
+
   try {
-    await User.findByIdAndUpdate(userId, {
+    const updatedData = await User.findByIdAndUpdate(userId, {
       $set: { reqInfo },
     });
+    console.log(updatedData);
     return res.json({ message: "Profile Updated", ok: true });
   } catch (err) {
     console.log(err);
@@ -341,18 +355,18 @@ module.exports.resetPassword = async (req, res, next) => {
 };
 
 //get user_details_by_id
-module.exports.getUser = async (req, res, next) => {
-  const { id } = req.params;
+module.exports.getUser = async (req, res) => {
+  const { userId } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
     if (user) {
-      const jwttoken = createToken(id);
+      const jwttoken = createToken(userId);
       const data = {
-        userName: user.local.personalInfo.fisrtName,
-        userEmail: user.local.personalInfo.email,
-        userId: id,
+        userId: userId,
+        personalInfo: user.local.personalInfo,
+        educationalInfo: user.local.educationalInfo,
+        verification: user.local.verification,
         token: jwttoken,
-        ok: true,
       };
       res.json({ ...data, ok: true });
     } else {
@@ -360,6 +374,9 @@ module.exports.getUser = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", err: error });
   }
 };
 

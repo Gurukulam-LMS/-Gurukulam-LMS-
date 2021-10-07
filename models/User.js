@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
   method: {
     type: String,
-    enum: ["local", "google"],
+    enum: ["local", "google", "linkedin"],
     required: true,
   },
 
@@ -55,20 +55,13 @@ const userSchema = new mongoose.Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date,
   },
-
   google: {
-    id: {
-      type: String,
-      default: "",
-    },
-    email: {
-      type: String,
-      default: "",
-    },
-    token: {
-      type: String,
-      default: "",
-    },
+    id: String,
+    token: String,
+  },
+  linkedin: {
+    id: String,
+    token: String,
   },
 });
 
