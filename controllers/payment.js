@@ -4,6 +4,8 @@ var mongoose = require("mongoose");
 require("dotenv").config();
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
+const Payment = require("../model/payment");
+const Course = require("../model/course");
 
 exports.orders = async (req, res) => {
   try {
@@ -24,7 +26,6 @@ exports.orders = async (req, res) => {
 
     res.status(200).send(order);
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 };
@@ -32,13 +33,17 @@ exports.orders = async (req, res) => {
 exports.success = async (req, res) => {
   try {
     // getting the details back from our font-end
+    var courseId = [];
     const {
       orderCreationId,
       razorpayPaymentId,
       razorpayOrderId,
       razorpaySignature,
+      userId,
+      amount,
+      couponId,
+      name,
     } = req.body;
-
     // Creating our own digest
     // The format should be like this:
     // digest = hmac_sha256(orderCreationId + "|" + razorpayPaymentId, secret);
@@ -54,14 +59,54 @@ exports.success = async (req, res) => {
 
     // THE PAYMENT IS LEGIT & VERIFIED
     // YOU CAN SAVE THE DETAILS IN YOUR DATABASE IF YOU WANT
-
-    res.json({
-      msg: "success",
-      orderId: razorpayOrderId,
-      paymentId: razorpayPaymentId,
+    for (let i = 0; i < req.body.courseId.length; i++) {
+      var data = {};
+      data["id"] = req.body.courseId[i];
+      courseId.push(data);
+      var criteria = {};
+      criteria["_id"] = req.body.courseId[i];
+      var temp = await exports.updateCollection(criteria);
+    }
+    const payment = new Payment({
+      name: name,
+      userId: userId,
+      couponId: couponId,
+      amount: amount,
+      courseId: courseId,
+      razorpayOrderId: razorpayOrderId,
+      razorpayPaymentId: razorpayPaymentId,
+      orderCreationId: orderCreationId,
     });
+
+    payment
+      .save()
+      .then((result) => {
+        res
+          .status(200)
+          .json({
+            msg: "success",
+            orderId: razorpayOrderId,
+            paymentId: razorpayPaymentId,
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }
+};
+
+exports.updateCollection = function (criteria) {
+  return new Promise(function (resolve, reject) {
+    Course.updateOne(
+      criteria,
+      { $inc: { purchased: 1 } },
+      function (err, results) {
+        if (err) reject(err);
+        else resolve(results);
+      }
+    );
+  });
 };

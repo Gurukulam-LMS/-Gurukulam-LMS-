@@ -58,6 +58,12 @@ const courseSchema = new Schema(
       },
     ],
 
+    purchased: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
     courseTopic: [
       {
         topicname: {

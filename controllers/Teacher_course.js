@@ -109,38 +109,167 @@ exports.editCourse = (req, res, next) => {
     });
 };
 
-exports.updateCourse = (req, res, next) => {
-  console.log("getting req to update course ");
-  const courseId = req.body.courseId;
-  const title = req.body.title;
-  const category = req.body.category;
-  const imageurl = req.file.location; // later remove this text
-  const name = req.body.name;
+exports.updateCourseDetails = async (req, res) => {
+  try {
+    const doc = req.body;
+    console.log(doc);
+    if (!doc.courseId)
+      return res.status(404).json({ message: "CourseId Not found", ok: false });
 
-  const discription = req.body.discription;
-  const discriptionLong = req.body.discriptionLong;
-  const requirement = req.body.requirement;
-  const price = req.body.price;
-  //const userId=req.body._id;
+    const imageurl = req.file;
 
-  Course.findById({ _id: courseId })
-    .then(async (course) => {
-      course.title = title;
-      course.category = category;
-      course.imageurl = imageurl;
-      course.name = name;
+    const course = await Course.findById(doc.courseId);
+    doc.keyPoints = JSON.parse(doc.keyPoints);
 
-      course.discription = discription;
-      course.discriptionLong = discriptionLong;
-      course.requirement = requirement;
-      course.rating = 0;
-      course.price = price;
+    if (!course)
+      return res.status(404).json({ message: "Course Not found", ok: false });
 
-      await course.save();
-      res.status(201).json({ message: "Course editted successfully" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to update course " });
+    Object.keys(doc).map((key) => !!doc[key] && (course[key] = doc[key]));
+
+    if (!!imageurl) course.thumbnail = imageurl.location;
+
+    course.save();
+    return res.status(201).json({
+      message: "Course Updated Successfully",
+      ok: true,
+      topics: course.courseTopic,
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Course Updation Failed" });
+  }
+};
+
+exports.updateTopicName = async (req, res) => {
+  try {
+    const { courseId, topicId, topicName } = req.body;
+    if (!courseId || !topicId)
+      return res.status(404).json({ message: "IDs not found" });
+
+    if (!topicName)
+      return res.json(404).json({ message: "Topic Name required", ok: false });
+
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ message: "Course Not Found" });
+
+    const reqTopic = course.courseTopic.find((topic) => topic._id == topicId);
+    if (!reqTopic)
+      return res.status(404).json({ message: "Topic Not found", ok: false });
+
+    reqTopic.topicname = topicName;
+    course.save();
+    return res
+      .status(201)
+      .json({
+        message: "Topic Name Updated",
+        ok: true,
+        topics: course.courseTopic,
+      });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Something went wrong", err: err });
+  }
+};
+
+exports.updateTopicContent = async (req, res) => {
+  try {
+    const { courseId, topicId } = req.body;
+    if (!courseId || !topicId)
+      return res.status(404).json({ message: "IDs not found" });
+
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ message: "Course Not Found" });
+
+    const reqTopic = course.courseTopic.find((topic) => topic._id == topicId);
+    if (!reqTopic)
+      return res.status(404).json({ message: "Topic Not found", ok: false });
+
+    const videos = req.files;
+
+    if (!!videos) {
+      videos.map((video) => {
+        if (video.mimetype === "application/pdf") {
+          reqTopic.pdfUrl.push(video.location);
+        } else {
+          reqTopic.videoUrl.push(video.location);
+        }
+      });
+    }
+    course.save();
+    return res
+      .status(201)
+      .json({ message: "Topic Updated", ok: true, topics: course.courseTopic });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "Topic Updation failed", ok: false });
+  }
+};
+
+exports.deleteTopic = async (req, res) => {
+  try {
+    const { query } = req.params;
+    if (!query)
+      return res.status(404).json({ message: "query missing", ok: false });
+
+    const arr = query.split("=");
+    const courseId = arr[0];
+    const topicId = arr[1];
+
+    if (!courseId || !topicId)
+      return res.status(404).json({ message: "IDs not found", ok: false });
+
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ message: "Course Not Found" });
+
+    const reqTopicIdx = course.courseTopic.findIndex(
+      (topic) => topic._id == topicId
+    );
+    if (reqTopicIdx === -1) {
+      return res.status(404).json({ message: "Topic Not found" });
+    }
+    course.courseTopic.splice(reqTopicIdx, 1);
+    course.save();
+    return res
+      .status(200)
+      .json({ message: "Topic deleted", ok: true, topics: course.courseTopic });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "Topic Deletion failed", ok: false });
+  }
+};
+
+exports.deleteTopicContent = async (req, res) => {
+  try {
+    const { query } = req.params;
+    const [courseId, topicId, fileIdx, mimeType] = query.split("=");
+    if (!courseId || !topicId || !fileIdx || !mimeType)
+      return res.status(404).json({ message: "IDs not found", ok: false });
+
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ message: "Course Not Found" });
+
+    const reqTopic = course.courseTopic.find((topic) => topic._id == topicId);
+    if (mimeType === "pdf") {
+      reqTopic.pdfUrl.splice(fileIdx, 1);
+    } else {
+      reqTopic.videoUrl.splice(fileIdx, 1);
+    }
+    course.save();
+    return res
+      .status(200)
+      .json({
+        message: "Topic file deleted",
+        ok: true,
+        topics: course.courseTopic,
+      });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "Topic Video Deletion failed", ok: false });
+  }
 };

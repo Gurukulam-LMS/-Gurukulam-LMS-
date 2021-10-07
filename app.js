@@ -33,6 +33,7 @@ const courseRoutes = require("./routes/course");
 const blogRoutes = require("./routes/blog");
 const couponRoutes = require("./routes/coupon");
 const paymentRoutes = require("./routes/payment");
+const analyticsRoutes = require("./routes/analytics");
 
 app.use("/admin/auth/", authRoutes);
 app.use("/admin/", teacherRoutes);
@@ -40,6 +41,7 @@ app.use("/info/", courseRoutes);
 app.use("/blog", blogRoutes);
 app.use("/coupon", couponRoutes);
 app.use("/payment", paymentRoutes);
+app.use("/analytics", analyticsRoutes);
 
 app.use((error, req, res, next) => {
   if (res.headerSent) {

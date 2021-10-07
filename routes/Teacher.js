@@ -21,10 +21,24 @@ router.post(
 router.post("/creater/homepage", Auth, teacherController.teacherHome);
 router.delete("/course/delete", Auth, teacherController.deleteCourse);
 router.post("/course/edit", Auth, teacherController.editCourse);
-router.put("/course/update", Auth, imageUpload, teacherController.updateCourse);
+router.post(
+  "/course/updateCourseDetails",
+  imageUpload,
+  teacherController.updateCourseDetails
+);
+router.post(
+  "/course/updateTopicContent",
+  vedioUpload,
+  teacherController.updateTopicContent
+);
 
-router.post("/watchedByuser", function (req, res) {
-  teacherController.watchedByUsers;
-});
+router.post("/course/updateTopicName", teacherController.updateTopicName);
+
+router.get("/course/deleteTopic/:query", teacherController.deleteTopic);
+
+router.get(
+  "/course/deleteTopicContent/:query",
+  teacherController.deleteTopicContent
+);
 
 module.exports = router;
