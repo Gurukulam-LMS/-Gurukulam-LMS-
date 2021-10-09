@@ -25,6 +25,7 @@ import PaymentSuccess from "../components/payment/PaymentSuccess";
 import OAuth from "../components/oAuth/oAuth";
 import Onboarding2 from "../components/onboarding/index2";
 import CoursePlayer from "../components/course/coursePlayer";
+import AllCourses from "../components/course/allCourses";
 
 function Routes() {
   const { isLoggedIn, verification } = useContext(AuthContext);
@@ -63,6 +64,7 @@ function Routes() {
         <Route path="/cart" component={Cart} />
         <Route path="/payment/response" component={PaymentSuccess} />
         <Route path="/coursePlayer/:courseId" component={CoursePlayer} />
+        <Route path="/allCourses" component={AllCourses} />
       </Switch>
       <Footer />
     </Router>

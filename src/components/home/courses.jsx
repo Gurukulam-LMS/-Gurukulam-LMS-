@@ -14,6 +14,8 @@ const Courses = () => {
   const [currCatIdx, setCurrentCatIdx] = useState(null);
   const [currCatCourse, setCurrCatCourse] = useState([]);
 
+  const history = useHistory();
+
   const scrollRef = useRef(null);
 
   const horScroll = (val) => (scrollRef.current.scrollLeft += val);
@@ -43,8 +45,6 @@ const Courses = () => {
       setCurrCatCourse([...allCourses]);
     }
   }, [currCatIdx, allCourses]);
-
-  const history = useHistory();
 
   const dateHandler = (dateString) => {
     if (!dateString) return null;
@@ -173,7 +173,11 @@ const Courses = () => {
         ))}
 
         <div className="col-12 text-center">
-          <button type="button" className="btn col-lg-3 col-9 btn-view-more">
+          <button
+            type="button"
+            className="btn col-lg-3 col-9 btn-view-more"
+            onClick={() => history.push("/allCourses")}
+          >
             View More Courses
           </button>
         </div>
