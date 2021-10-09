@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 const Graph = () => {
   return (
     <div className="barchart">
-      <h2>Revenue generated each category</h2>
+      <div className="barchart-heading">Revenue generated each category</div>
       <Bar
         data={{
           labels: [

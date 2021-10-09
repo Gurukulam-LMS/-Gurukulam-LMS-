@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../assets/css/Dashboard.css";
-import { AllCourseCards, DashCards, Pie } from "../components/DashCards";
-import Image1 from "../assets/Images/Mask Group 42.png";
-import Image2 from "../assets/Images/Mask Group 41.png";
+import { AllCourseCards, DashCards } from "../components/DashCards";
 import { useHttpClient } from "../customHook/http-hook";
 import CourseList from "../components/CourseList";
 import Graph from "../components/Graph";
 import { CourseContext } from "../context/courseContext";
+import { useHistory } from "react-router-dom";
+
 function Dashboard() {
   const { allCourses } = useContext(CourseContext);
   const { sendRequest } = useHttpClient();
   const [revenue, setRevenue] = useState(0);
+
+  const history = useHistory();
+
   useEffect(() => {
     sendRequest(process.env.REACT_APP_API_URL + "/analytics/totalRevenue")
       .then((res) => {
@@ -21,7 +24,7 @@ function Dashboard() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <>
+    <div className="admin-panel-wrapper">
       {/* header cards */}
 
       <div className="dashboard">
@@ -44,6 +47,7 @@ function Dashboard() {
               <div className="category-box">UX Design</div>
               <div className="category-box">Data Science</div>
               <div className="category-box">Graphic Design</div>
+              <div className="category-box">Development</div>
               <div className="leftArrow"></div>
             </div>
           </div>
@@ -58,19 +62,32 @@ function Dashboard() {
         </div>
         <div className="right-container-admin">
           <Graph />
-          <div className="card2 c8">
-            <h2>All Courses</h2>
-            <div className="main__cards2">
-              <AllCourseCards img={Image2} />
-              <AllCourseCards img={Image1} />
-              <AllCourseCards img={Image2} />
-              <AllCourseCards img={Image1} />
+
+          <div className="allCourse-admin-label">
+            <h3>All Courses</h3>
+            <div
+              className="see-All-btn"
+              onClick={() => history.push("/courses")}
+            >
+              See All
             </div>
-            <button className="btn"> See All</button>
+          </div>
+          <div className="main__cards2">
+            {allCourses.map((course, idx) => {
+              if (idx > 3) return;
+              return (
+                <AllCourseCards
+                  img={course.thumbnail}
+                  key={idx}
+                  title={course.title}
+                  id={course._id}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
