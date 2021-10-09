@@ -8,7 +8,7 @@ const Header = () => {
             <div class="row ">
               <div class="col-lg-6 col-sm-8 col-11 head-1 mt-lg-5 mt-4 text-left">
                 <img
-                  src="images-2/Group 213.png"
+                  src="Images-2/Group 213.png"
                   class="img img-fluid ml-5 mt-5"
                   width="150px"
                   alt=""
