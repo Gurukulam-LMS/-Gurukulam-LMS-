@@ -40,6 +40,11 @@ const Header = ({ active }) => {
               </a>
             </li>
             <li className="nav-item">
+              <a className="nav-link" href="/allCourses">
+                Courses
+              </a>
+            </li>
+            <li className="nav-item">
               <a
                 className={`nav-link ${active === "course" && "active"}`}
                 href="/dash/mycourse"
@@ -89,8 +94,7 @@ const Header = ({ active }) => {
                   <span className="fa fa-cog"></span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Help Center</Dropdown.Item>
+                  <Dropdown.Item href="/contact">Help Center</Dropdown.Item>
                   <Dropdown.Item
                     href="/"
                     onClick={() => {

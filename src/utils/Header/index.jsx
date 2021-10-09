@@ -73,6 +73,11 @@ const NavHeader = () => {
                 Home
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/allCourses">
+                Courses
+              </a>
+            </li>
             {isLoggedIn && (
               <li className="nav-item">
                 <a className="nav-link" href="/dash">
