@@ -146,13 +146,14 @@ module.exports.profileUpdate = async (req, res) => {
       "local.personalInfo.profileImage": profileImage,
     };
 
-  console.log(reqInfo);
-
   try {
-    const updatedData = await User.findByIdAndUpdate(userId, {
-      $set: { reqInfo },
-    });
-    console.log(updatedData);
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: { ...reqInfo },
+      },
+      { returnOriginal: false }
+    );
     return res.json({ message: "Profile Updated", ok: true });
   } catch (err) {
     console.log(err);
