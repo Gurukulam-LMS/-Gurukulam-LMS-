@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="col-sm-4 col-12 col-lg-3">
             <a className="logo" href="#">
               <img
-                src="images/Group 199.png"
+                src="Images/Group 199.png"
                 className="img img-fluid"
                 alt=""
               />

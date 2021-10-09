@@ -52,19 +52,19 @@ const Home = () => {
           <div class="row">
             <div class="col-lg-6 col-sm-12 text-center">
               <img
-                src="images/Image 15.png"
+                src="Images/Image 15.png"
                 class="img img-fluid join-inst-img-1"
                 alt=""
                 width="325px"
               />
               <img
-                src="images/Image 14.png"
+                src="Images/Image 14.png"
                 class="img img-fluid join-inst-img-2"
                 alt=""
                 width="270px"
               />
               <img
-                src="images/Image 16.png"
+                src="Images/Image 16.png"
                 class="img img-fluid join-inst-img-3"
                 alt=""
                 width="340px"

@@ -9,42 +9,42 @@ const Supporter = () => {
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-01.png"
+            src="Images/brand/brand-01.png"
             className="img img-fluid"
             alt=""
           />
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-02.png"
+            src="Images/brand/brand-02.png"
             className="img img-fluid"
             alt=""
           />
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-03.png"
+            src="Images/brand/brand-03.png"
             className="img img-fluid"
             alt=""
           />
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-04.png"
+            src="Images/brand/brand-04.png"
             className="img img-fluid"
             alt=""
           />
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-05.png"
+            src="Images/brand/brand-05.png"
             className="img img-fluid"
             alt=""
           />
         </div>
         <div className="col-6 col-lg-3 mt-sm-5 mb-sm-5 mt-3 mb-3">
           <img
-            src="images/brand/brand-06.png"
+            src="Images/brand/brand-06.png"
             className="img img-fluid"
             alt=""
           />
