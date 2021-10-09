@@ -72,4 +72,18 @@
   max-width: 400px;
   min-width: 360px;
   margin: 10px;
+  cursor: pointer;
+}
+
+.courseContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  text-decoration: none !important;
+}
+
+.courseWrapper {
+  max-width: 350px;
+  margin: 20px;
 }
