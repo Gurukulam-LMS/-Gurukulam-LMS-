@@ -1,6 +1,6 @@
 .container {
-  width: 300px;
-  height: 200px;
+  width: 22%;
+  height: 160px;
   border-radius: 5px;
   background-image: radial-gradient(
     circle farthest-corner at 10% 20%,
@@ -18,8 +18,8 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 .container1 {
-  width: 300px;
-  height: 200px;
+  width: 22%;
+  height: 160px;
   border-radius: 5px;
   background-image: radial-gradient(
     circle 780.6px at 10% 20%,
@@ -51,7 +51,7 @@
 }
 
 .number {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: black;
   font-family: Ubuntu;
@@ -59,7 +59,7 @@
 }
 
 .body img {
-  height: 120px;
+  height: 100px;
   object-fit: contain;
 }
 

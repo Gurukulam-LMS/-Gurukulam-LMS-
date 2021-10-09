@@ -1,6 +1,7 @@
 import React from "react";
 import Image1 from "../assets/Images/Group 253.png";
 import style from "../assets/css/DashCard.module.css";
+import { useHistory } from "react-router";
 
 export const DashCards = (props) => {
   return (
@@ -15,26 +16,25 @@ export const DashCards = (props) => {
 };
 
 export const AllCourseCards = (props) => {
+  const history = useHistory();
   return (
-    <div>
-      <span className="allcourse-card">
-        <img src={props.img} alt="logo" />
+    <span
+      className="allcourse-card"
+      onClick={() => history.push("/course/" + props.id)}
+      style={{ cursor: "pointer" }}
+    >
+      <img src={props.img} alt="logo" />
+      <div className="card-content">
+        <h5>{props.title}</h5>
 
-        <div className="card-content">
-          <h5>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut.
-          </h5>
-          <p>Lorem ipsum dolor</p>
-          <div class="stars">
-            {" "}
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
-            <i class="fa fa-star"></i>{" "}
-          </div>
+        <div class="stars">
+          {" "}
+          <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
+          <i class="fa fa-star"></i> <i class="fa fa-star"></i>{" "}
+          <i class="fa fa-star"></i>{" "}
         </div>
-      </span>
-    </div>
+      </div>
+    </span>
   );
 };
 

@@ -17,6 +17,7 @@ const CourseList = () => {
 
   return (
     <div className={style.container}>
+      <div className={style.heading}>Courses</div>
       <div className={style.header}>
         <div className={style.col1}>Courses</div>
         <div className={style.col2}>Enrolled Student</div>
