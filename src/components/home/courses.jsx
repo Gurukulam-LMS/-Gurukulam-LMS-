@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { CourseContext } from "../../context/courseContext";
 import { useHistory } from "react-router";
-import {
-  FaRupeeSign,
-  FaArrowCircleLeft,
-  FaArrowCircleRight,
-} from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa";
 import style from "../../assets/css/home.module.css";
+import {
+  IoMdArrowDroprightCircle,
+  IoMdArrowDropleftCircle,
+} from "react-icons/io";
 
 const Courses = () => {
   const { allCourses } = useContext(CourseContext);
@@ -67,7 +67,7 @@ const Courses = () => {
         <div class="col-12 text-center mt-5 ">
           <div className={style.horMenuWrapper}>
             <div className={style.iconCont}>
-              <FaArrowCircleLeft
+              <IoMdArrowDropleftCircle
                 className={style.arrowIcon}
                 onClick={() => horScroll(-100)}
               />
@@ -90,7 +90,7 @@ const Courses = () => {
               })}
             </div>
             <div className={style.iconCont}>
-              <FaArrowCircleRight
+              <IoMdArrowDroprightCircle
                 className={style.arrowIcon}
                 onClick={() => horScroll(100)}
               />

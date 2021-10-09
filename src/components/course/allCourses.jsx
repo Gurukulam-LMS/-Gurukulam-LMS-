@@ -3,9 +3,10 @@ import { CourseContext } from "../../context/courseContext";
 import { useContext } from "react";
 import style from "../../assets/css/home.module.css";
 import NavHeader from "../../utils/Header";
+import { useHistory } from "react-router";
 const AllCourses = () => {
   const { allCourses } = useContext(CourseContext);
-
+  const history = useHistory();
   const dateHandler = (dateString) => {
     if (!dateString) return null;
     const date = new Date(dateString);
@@ -134,14 +135,15 @@ const AllCourses = () => {
         </div>
       </div>
 
-      <div className="container mt-2 mb-4 course-list col-lg-9 col-12 ">
+      <div className="container course-list ">
         <div className={style.courseContainer}>
           {allCourses &&
             allCourses.map &&
             allCourses.map((course, index) => (
-              <a
-                href={"/previewCourse/" + course._id}
-                className={style.courseWrapper}
+              <div
+                className={style.courseCard}
+                key={course._id}
+                onClick={() => history.push("/previewCourse/" + course._id)}
               >
                 <div className="courseCard" key={course._id}>
                   <div className=""></div>
@@ -201,7 +203,7 @@ const AllCourses = () => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             ))}
         </div>
       </div>

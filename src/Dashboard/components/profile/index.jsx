@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../context/authContext";
 import style from "../../../assets/css/Profile.module.css";
 import PersonIcon from "../../../assets/Images/Person-icon.png";
@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   const { personalInfo, educationalInfo } = useContext(AuthContext);
-  console.log(personalInfo);
+
   return (
     <div className={style.container}>
       <div className={style.profilePicContainer}>
@@ -61,9 +61,7 @@ const Profile = () => {
             {/* <div className={style.val}>alimodassir@gmail.com</div> */}
           </div>
         </div>
-        <a href="/onboarding">
-          <button className={style.btn}>UPDATE</button>
-        </a>
+
         {educationalInfo.length > 0 && (
           <div className={style.educationalInfo}>EDUCATIONAL INFO</div>
         )}
@@ -82,6 +80,9 @@ const Profile = () => {
             </div>
           );
         })}
+        <a href="/onboarding">
+          <button className={style.btn}>UPDATE</button>
+        </a>
       </div>
     </div>
   );

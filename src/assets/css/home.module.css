@@ -47,7 +47,7 @@
 }
 
 .arrowIcon {
-  font-size: 25px;
+  font-size: 35px;
   cursor: pointer;
   color: blue;
   margin: 50px;
@@ -56,7 +56,7 @@
 .menu {
   margin: 10px;
   padding: 10px;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-family: Ubuntu;
   font-weight: bold;
   transition: all 0.3s;
@@ -86,4 +86,33 @@
 .courseWrapper {
   max-width: 350px;
   margin: 20px;
+}
+
+@media (max-width: 768px) {
+  .courseCard {
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .courseContainer {
+    flex-direction: column;
+  }
+  .arrowIcon {
+    font-size: 25px;
+  }
+  .menu {
+    font-size: 1.05rem;
+    margin: 5px;
+    padding: 5px;
+  }
+  .carousalMenu {
+    width: 100%;
+  }
+  .horMenuWrapper {
+    width: 100%;
+  }
+  .iconCont {
+    padding: 0;
+    margin: 0;
+    width: min-content;
+  }
 }
