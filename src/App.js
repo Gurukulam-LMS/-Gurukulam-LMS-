@@ -22,6 +22,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import Coupon from "./pages/coupon/coupon";
 import CourseDetails from "./pages/courseUpdation/courseDetails";
 import CourseTopic from "./pages/courseUpdation/courseTopic";
+import Users from "./pages/Users";
 
 function App() {
   const doc_auth = useAuth();
@@ -67,6 +68,7 @@ function App() {
                   <Route exact path="/createcourses" component={CreateCourse} />
                   <Route exact path="/courses" component={Courses} />
                   <Route exact path="/blog" component={BlogLandingPage} />
+                  <Route exact path="/users" component={Users} />
                   <Route
                     exact
                     path="/update/courseDetails/:courseId"
