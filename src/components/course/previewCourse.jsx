@@ -30,7 +30,8 @@ const PreviewCourse = () => {
     if (!!getCourse) setCourse(getCourse);
   }, [allCourses]);
 
-  const { isLoggedIn, userId, cart, setCartHandler } = useContext(AuthContext);
+  const { isLoggedIn, userId, cart, setCartHandler, myCourses } =
+    useContext(AuthContext);
   const isPresentInCart = cart.indexOf(courseId) !== -1;
 
   const history = useHistory();
@@ -51,6 +52,14 @@ const PreviewCourse = () => {
         .catch((err) => console.log(err));
     }, 1000);
   };
+
+  const [isPurchased, setIsPurshased] = useState(false);
+  useEffect(() => {
+    console.log(myCourses);
+    const isPur =
+      myCourses.find((course) => course._id === courseId) !== undefined;
+    if (isPur) setIsPurshased(isPur);
+  }, [myCourses]);
 
   return (
     <>
@@ -125,6 +134,7 @@ const PreviewCourse = () => {
                 <Accordion flush style={{ border: "none" }}>
                   {!!course.courseTopic &&
                     course.courseTopic.map((topic, index) => {
+                      if (index > 0) return;
                       return (
                         <Accordion.Item eventKey={index} key={index}>
                           <Accordion.Header>{topic.topicname}</Accordion.Header>
@@ -198,9 +208,21 @@ const PreviewCourse = () => {
                 style={{ width: "100%" }}
               />
               <div className={style.addCartBtnContainer}>
-                <button className={style.addCartBtn} onClick={addToCartHandler}>
-                  {isPresentInCart ? "REMOVE FROM CART" : "ADD TO CART"}
-                </button>
+                {!isPurchased ? (
+                  <button
+                    className={style.addCartBtn}
+                    onClick={addToCartHandler}
+                  >
+                    {isPresentInCart ? "REMOVE FROM CART" : "ADD TO CART"}
+                  </button>
+                ) : (
+                  <button
+                    className={style.addCartBtn}
+                    onClick={() => history.push("/coursePlayer/" + courseId)}
+                  >
+                    RESUME PLAYING
+                  </button>
+                )}
               </div>
               <div className={style.coursePriceContainer}>
                 <FaRupeeSign className={style.ruppeeIcon} />
