@@ -4,6 +4,7 @@ import Image1 from "../assets/Images/Icon 1.png";
 import Image2 from "../assets/Images/Icon.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+
 function Navbar() {
   const { logout } = useContext(AuthContext);
   return (
@@ -31,7 +32,9 @@ function Navbar() {
             <li>
               <Link to="/blog">Create Blog</Link>
             </li>
-
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
             <li>
               <a href="/" onClick={() => logout()}>
                 Logout

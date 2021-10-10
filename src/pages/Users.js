@@ -1,73 +1,124 @@
-import React from 'react'
-import "../assets/css/Courses.css"
-import { Useritems } from '../components/Tableitems'
-function Users() {
-    return (
-        <>
-            <div className="container">
-                <div className="headline" style={{ marginTop: "40px" }}>
-                    <h2>Users</h2>
-                </div>
+import React, { useEffect, useState } from "react";
+import style from "../assets/css/UserTable.module.css";
+import { Accordion } from "react-bootstrap";
+import { useHttpClient } from "../customHook/http-hook";
 
-                <ul className="responsive-table">
-                    <li className="table-header">
+const Users = () => {
+  const { sendRequest } = useHttpClient();
+  const [allUsers, setAllUsers] = useState([]);
+  useEffect(() => {
+    sendRequest(`${process.env.REACT_APP_API_URL}/admin/auth/getAllUsers`).then(
+      (res) => {
+        if (res.status === 200) {
+          setAllUsers(res.allUsers);
+        }
+      }
+    );
+  }, []);
 
-                        <div className="col col-2">User Name</div>
-                        <div className="col col-5">Date</div>
-                        <div className="col col-6">Enrolled Courses</div>
-                    </li>
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="Jhon Doe"  date="12 August 2021" course="Data Science" />
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="John Carpenter"  date="12 August 2021" course="Machine Learning" />
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="John Carpenter"  date="12 August 2021" course="Finance" />
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="John Carpenter"  date="12 August 2021" course="Business" />
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="John Carpenter"  date="12 August 2021" course="Marketing" />
-                    <Useritems c2="col-2" c5="col-5" c6="col-6" Uname="John Carpenter" date="12 August 2021" course="Data Science" />
+  console.log(allUsers);
 
+  const dateHandler = (dateString) => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return date.toLocaleString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
-                    
+  return (
+    <div className={style.wrapper}>
+      <div className={style.container}>
+        <div className={style.heading}>Users</div>
+        <div className={style.tableContainer}>
+          <Accordion>
+            {allUsers.map((user, idx) => {
+              return (
+                <Accordion.Item eventKey={idx} key={idx}>
+                  <Accordion.Header style={{ padding: "5px", margin: "0" }}>
+                    {user.local.personalInfo.firstName +
+                      (user.local.personalInfo.lastName || "")}
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className={style.profileDetailsContainer}>
+                      <div className={style.row}>
+                        <div className={style.details}>
+                          <div className={style.label}>Email Address</div>
+                          <div className={style.val}>
+                            {user.local.personalInfo.email}
+                          </div>
+                        </div>
+                        <div className={style.details}>
+                          <div className={style.label}>Mobile number</div>
+                          <div className={style.val}>
+                            {user.local.personalInfo.mobileNumber || "NA"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className={style.row}>
+                        <div className={style.details}>
+                          <div className={style.label}>Gender</div>
+                          <div className={style.val}>
+                            {user.local.personalInfo.gender || "NA"}
+                          </div>
+                        </div>
+                        <div
+                          className={style.details}
+                          style={{ textAlign: "left" }}
+                        >
+                          <div className={style.label}>Date of Birth</div>
+                          <div className={style.val}>
+                            {dateHandler(user.local.personalInfo.dob) || "NA"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className={style.row}>
+                        <div className={style.details}>
+                          <div className={style.label}>Country</div>
+                          <div className={style.val}>
+                            {user.local.personalInfo.country || "NA"}
+                          </div>
+                        </div>
+                        <div className={style.details}>
+                          {/* <div className={style.label}>Email Address</div> */}
+                          {/* <div className={style.val}>alimodassir@gmail.com</div> */}
+                        </div>
+                      </div>
 
-                </ul>
-            </div>
-        </>
-    )
-}
-export default Users
+                      {user.local.educationalInfo.length > 0 && (
+                        <div className={style.educationalInfo}>
+                          EDUCATIONAL INFO
+                        </div>
+                      )}
 
-{/* <li className="table-row">
+                      {user.local.educationalInfo.map((info, idx) => {
+                        return (
+                          <div className={style.row} key={idx}>
+                            <div className={style.details}>
+                              <div className={style.label}>Education</div>
+                              <div className={style.val}>{info.degree}</div>
+                            </div>
+                            <div className={style.details}>
+                              <div className={style.label}>
+                                Name of college/school
+                              </div>
+                              <div className={style.val}>{info.collage}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              );
+            })}
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-                        <div className="col col-2" data-label="Customer Name">John Doe</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-                    <li className="table-row">
-
-                        <div className="col col-2" data-label="Customer Name">Jennifer SmithJennifer SmithJennifer SmithJennifer SmithJennifer SmithJennifer Smith</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-                    <li className="table-row">
-
-                        <div className="col col-2" data-label="Customer Name">John Smith</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-                    <li className="table-row">
-
-                        <div className="col col-2" data-label="Customer Name">John Carpenter</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-                    <li className="table-row">
-
-                        <div className="col col-2" data-label="Customer Name">John Carpenter</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-                    <li className="table-row">
-
-                        <div className="col col-2" data-label="Customer Name">John Carpenter</div>
-                        <div className="col col-5" data-label="Payment Status">12 August 2021</div>
-                        <div className="col col-6" data-label="Customer Name">John Smith</div>
-                    </li>
-
-  */}
+export default Users;
