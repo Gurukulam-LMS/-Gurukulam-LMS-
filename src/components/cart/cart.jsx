@@ -163,7 +163,19 @@ const Cart = () => {
           data
         );
 
+        await axios.get(
+          process.env.REACT_APP_BASE_URL + "/cart/clearCart/" + userId
+        );
+
         //checkout coupon api
+        await axios.post(
+          process.env.REACT_APP_ADMIN_URL + "/coupon/checkoutCoupon",
+          {
+            userId,
+            couponId,
+            finalAmt,
+          }
+        );
 
         setLastPaymentInfoHandler({ ...result.data, amount: finalAmt });
         history.push("/payment/response");
