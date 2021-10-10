@@ -23,4 +23,6 @@ router.post("/login/reset-password/", authController.newPassword);
 router.post("/2fa", authController.fa2_auth);
 router.post("/verifyotp", authController.otpVerification);
 
+router.get("/getAllUsers", authController.getAllUsers);
+
 module.exports = router;

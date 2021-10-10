@@ -9,6 +9,7 @@ const { Sendotp } = require("../services/Sendotp");
 // const sendgridTransport = require('nodemailer-sendgrid-transport');
 const { validationResult } = require("express-validator");
 const api_key = require("../config/config");
+const User = require("../model/users");
 
 const crypto_encoder = () => {
   return crypto.randomBytes(17).toString("hex");
@@ -365,4 +366,15 @@ exports.newPassword = (req, res, next) => {
       }
       next(err);
     });
+};
+
+module.exports.getAllUsers = async (req, res) => {
+  try {
+    const getUsers = await User.find({});
+    if (!getUsers) return res.status(404).json({ message: "No Users found" });
+    return res.status(200).json({ allUsers: getUsers });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Unable to fetch", err });
+  }
 };
