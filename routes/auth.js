@@ -24,5 +24,6 @@ router.post("/2fa", authController.fa2_auth);
 router.post("/verifyotp", authController.otpVerification);
 
 router.get("/getAllUsers", authController.getAllUsers);
+router.post("/addEnrolledCourse", authController.addEnrolledCourse);
 
 module.exports = router;

@@ -378,3 +378,21 @@ module.exports.getAllUsers = async (req, res) => {
     return res.status(500).json({ message: "Unable to fetch", err });
   }
 };
+
+module.exports.addEnrolledCourse = async (req, res) => {
+  try {
+    const { userId, courseId } = req.body;
+    if (!userId || !courseId)
+      return res.status(404).json({ message: "userId or courseId missing" });
+    const getUser = await User.findById(userId);
+    if (!getUser) return res.status(404).json({ message: "User not found" });
+    courseId.forEach((course) => {
+      getUser.local.coursesEnrolled.push(course);
+    });
+    getUser.save();
+    return res.status(201).json({ message: "Enrolled Courses updated" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Unable to add Course", err });
+  }
+};

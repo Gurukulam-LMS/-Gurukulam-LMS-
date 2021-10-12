@@ -81,13 +81,11 @@ exports.success = async (req, res) => {
     payment
       .save()
       .then((result) => {
-        res
-          .status(200)
-          .json({
-            msg: "success",
-            orderId: razorpayOrderId,
-            paymentId: razorpayPaymentId,
-          });
+        res.status(200).json({
+          msg: "success",
+          orderId: razorpayOrderId,
+          paymentId: razorpayPaymentId,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -109,4 +107,21 @@ exports.updateCollection = function (criteria) {
       }
     );
   });
+};
+
+module.exports.coursesPurchasedByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const getUserPayments = await Payment.find({ userId });
+    var totalCourse = 0;
+    getUserPayments?.map((userPayment) => {
+      totalCourse += userPayment.courseId?.length;
+    });
+    return res.status(200).json({ totalCourse });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "Unable to fetch courses puchased by user", err });
+  }
 };
