@@ -33,13 +33,27 @@ const Users = () => {
       <div className={style.container}>
         <div className={style.heading}>Users</div>
         <div className={style.tableContainer}>
+          <div className={style.header}>
+            <div className={style.col1}>User Name</div>
+            <div className={style.col2}>Date of joining</div>
+            <div className={style.col3}>Total Courses Enrolled</div>
+          </div>
           <Accordion>
             {allUsers.map((user, idx) => {
+              console.log(user);
               return (
                 <Accordion.Item eventKey={idx} key={idx}>
-                  <Accordion.Header style={{ padding: "5px", margin: "0" }}>
-                    {user.local.personalInfo.firstName +
-                      (user.local.personalInfo.lastName || "")}
+                  <Accordion.Header style={{ padding: "10px", margin: "0" }}>
+                    <div className={style.col1}>
+                      {user.local.personalInfo.firstName +
+                        (user.local.personalInfo.lastName || "")}
+                    </div>
+                    <div className={style.col2}>
+                      {dateHandler(user.createdAt)}
+                    </div>
+                    <div className={style.col3}>
+                      {user.local.coursesEnrolled?.length}
+                    </div>
                   </Accordion.Header>
                   <Accordion.Body>
                     <div className={style.profileDetailsContainer}>

@@ -12,7 +12,7 @@ function Navbar() {
       <nav>
         <ul>
           <li className="logo">
-            <Link to={"/"} style={{ textDecoration: "none", color: "white" }}>
+            <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
               Dashboard
             </Link>
           </li>

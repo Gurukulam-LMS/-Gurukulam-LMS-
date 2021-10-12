@@ -25,29 +25,30 @@
 
 .header {
   display: flex;
-  background-color: rgb(224, 223, 223);
+  background-color: rgb(210, 235, 255);
   font-family: Ubuntu;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  padding: 10px;
+  padding: 20px;
+  color: black;
+  width: 100%;
+  padding-left: 25px;
+  /* justify-content: space-between; */
 }
 
 .col1 {
-  width: 33%;
-  display: flex;
-  justify-content: center;
+  width: 33% !important;
+  text-align: left;
 }
 
 .col2 {
-  width: 33%;
-  display: flex;
-  justify-content: center;
+  width: 33% !important;
+  text-align: center;
 }
 
 .col3 {
-  width: 33%;
-  display: flex;
-  justify-content: center;
+  width: 33% !important;
+  text-align: center;
 }
 
 /* .row {
@@ -137,6 +138,23 @@
   margin: 10px;
   margin-top: 20px;
 }
+
+/* 
+.col1 {
+  display: flex;
+  align-items: center;
+  width: 33%;
+}
+.col2 {
+  display: flex;
+  align-items: center;
+  width: 33%;
+}
+.col3 {
+  display: flex;
+  align-items: center;
+  width: 33%;
+} */
 
 @media (max-width: 768px) {
   .container {
