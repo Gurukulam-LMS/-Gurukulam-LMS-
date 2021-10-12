@@ -3,9 +3,9 @@
   height: 160px;
   border-radius: 5px;
   background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(162, 102, 246, 1) 0%,
-    rgba(203, 159, 249, 1) 90%
+    circle 993px at 0.5% 50.5%,
+    rgba(137, 171, 245, 0.37) 0%,
+    rgba(245, 247, 252, 1) 100.2%
   );
   display: flex;
   flex-direction: column;
@@ -23,8 +23,8 @@
   border-radius: 5px;
   background-image: radial-gradient(
     circle 780.6px at 10% 20%,
-    rgba(133, 255, 189, 1) 0%,
-    rgba(255, 251, 125, 1) 90.7%
+    rgb(178, 241, 208) 0%,
+    rgb(241, 239, 165) 90.7%
   );
   display: flex;
   flex-direction: column;
