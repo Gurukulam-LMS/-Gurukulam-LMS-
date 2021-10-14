@@ -42,6 +42,12 @@ const UserSchema = new Schema(
           finalAmount: String,
         },
       ],
+      courseWatchTime: [
+        {
+          courseId: String,
+          watchTime: Number,
+        },
+      ],
       coursesEnrolled: Array,
       verification: {
         email: {

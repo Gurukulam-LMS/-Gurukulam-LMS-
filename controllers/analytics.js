@@ -56,10 +56,34 @@ exports.topCourses = (req, res) => {
     });
 };
 
-exports.studentWatchTime = (req, res) => {
-  console.log(req.body);
-  const { userId, courseId, timeSpent } = req.body;
-  if (!userId || !courseId || !timeSpent)
-    return res.status(404).json({ message: "Data missing" });
-  return res.json({ message: "REQUEST RECEIVED" });
+exports.studentWatchTime = async (req, res) => {
+  try {
+    const { userId, courseId, timeSpent } = req.body;
+    if (!userId || !courseId || !timeSpent)
+      return res.status(404).json({ message: "Data missing" });
+
+    const getUser = await Users.findById(userId);
+    if (!getUser) return res.status(404).json({ message: "User Not found" });
+
+    const courseWatchTime = getUser.local.courseWatchTime?.find(
+      (course) => course.courseId === courseId
+    );
+    if (!courseWatchTime) {
+      const watchTime = {
+        courseId,
+        watchTime: parseFloat(timeSpent),
+      };
+      getUser.local.courseWatchTime?.push(watchTime);
+    } else {
+      courseWatchTime.watchTime += parseFloat(timeSpent);
+    }
+
+    getUser.save();
+    return res.status(201).json({ message: "Time added" });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "Unable to add user watch time", err });
+  }
 };
