@@ -1,8 +1,17 @@
 const Course = require("../model/course");
+const verifyReCAPTCHA = require("../config/googleReCAPTCHA");
 
-exports.uploadCourse = (req, res, next) => {
+exports.uploadCourse = async (req, res, next) => {
   const doc = req.body;
   const imageurl = req.file.location;
+
+  //ReCAPTACH verification
+  const verifyReCAPTCHA_token = await verifyReCAPTCHA(doc.token);
+  if (!verifyReCAPTCHA_token.ok || !verifyReCAPTCHA_token.isHuman)
+    return res.json({
+      message: "Google ReCAPTACH verification failed",
+      ok: false,
+    });
 
   const course = new Course({
     title: doc.title,
@@ -158,13 +167,11 @@ exports.updateTopicName = async (req, res) => {
 
     reqTopic.topicname = topicName;
     course.save();
-    return res
-      .status(201)
-      .json({
-        message: "Topic Name Updated",
-        ok: true,
-        topics: course.courseTopic,
-      });
+    return res.status(201).json({
+      message: "Topic Name Updated",
+      ok: true,
+      topics: course.courseTopic,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Something went wrong", err: err });
@@ -259,13 +266,11 @@ exports.deleteTopicContent = async (req, res) => {
       reqTopic.videoUrl.splice(fileIdx, 1);
     }
     course.save();
-    return res
-      .status(200)
-      .json({
-        message: "Topic file deleted",
-        ok: true,
-        topics: course.courseTopic,
-      });
+    return res.status(200).json({
+      message: "Topic file deleted",
+      ok: true,
+      topics: course.courseTopic,
+    });
   } catch (err) {
     console.log(err);
     return res

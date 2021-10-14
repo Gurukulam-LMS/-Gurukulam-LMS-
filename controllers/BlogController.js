@@ -1,7 +1,17 @@
 const Blog = require("../model/Blog");
+const verifyReCAPTCHA = require("../config/googleReCAPTCHA");
 
 module.exports.createBlog = async (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, token } = req.body;
+
+  //ReCAPTACH verification
+  const verifyReCAPTCHA_token = await verifyReCAPTCHA(doc.token);
+  if (!verifyReCAPTCHA_token.ok || !verifyReCAPTCHA_token.isHuman)
+    return res.json({
+      message: "Google ReCAPTACH verification failed",
+      ok: false,
+    });
+
   const topics = JSON.parse(req.body.topics);
   const tags = [];
   tags.push(req.body.tags);
