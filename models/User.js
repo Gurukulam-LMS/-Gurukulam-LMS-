@@ -2,77 +2,72 @@ const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema({
-  method: {
-    type: String,
-    enum: ["local", "google", "linkedin"],
-    required: true,
-  },
-
-  local: {
-    personalInfo: {
-      firstName: String,
-      lastName: String,
-      email: {
-        type: String,
-        validate: [isEmail, "Please enter a valid email"],
-        unique: true,
-      },
-      password: String,
-      mobileNumber: String,
-      profileImage: String,
-      gender: String,
-      dob: Date,
-      country: String,
-      state: String,
-      city: String,
+const userSchema = new mongoose.Schema(
+  {
+    method: {
+      type: String,
+      enum: ["local", "google", "linkedin"],
+      required: true,
     },
-    educationalInfo: [
-      {
-        collage: String,
-        startYear: Number,
-        endYear: Number,
-        degree: String,
-      },
-    ],
-    verification: {
-      email: {
-        type: Boolean,
-        default: false,
-      },
-      mobile: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    usedCoupons: [
-      {
-        couponId: String,
-        finalAmount: String,
-      },
-    ],
-    secretToken: String,
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
-  },
-  google: {
-    id: String,
-    token: String,
-  },
-  linkedin: {
-    id: String,
-    token: String,
-  },
-});
 
-//incrypting password
-userSchema.pre("save", async function (next) {
-  if (this.method != "local") next();
-  const salt = await bcrypt.genSalt(10);
-  const password = this.local.personalInfo.password;
-  this.local.personalInfo.password = await bcrypt.hash(password, salt);
-  next();
-});
+    local: {
+      personalInfo: {
+        firstName: String,
+        lastName: String,
+        email: {
+          type: String,
+          validate: [isEmail, "Please enter a valid email"],
+          unique: true,
+        },
+        password: String,
+        mobileNumber: String,
+        profileImage: String,
+        gender: String,
+        dob: Date,
+        country: String,
+        state: String,
+        city: String,
+      },
+      educationalInfo: [
+        {
+          collage: String,
+          startYear: Number,
+          endYear: Number,
+          degree: String,
+        },
+      ],
+      verification: {
+        email: {
+          type: Boolean,
+          default: false,
+        },
+        mobile: {
+          type: Boolean,
+          default: false,
+        },
+      },
+      usedCoupons: [
+        {
+          couponId: String,
+          finalAmount: String,
+        },
+      ],
+      coursesEnrolled: Array,
+      secretToken: String,
+      resetPasswordToken: String,
+      resetPasswordExpires: Date,
+    },
+    google: {
+      id: String,
+      token: String,
+    },
+    linkedin: {
+      id: String,
+      token: String,
+    },
+  },
+  { timestamps: true }
+);
 
 // static method to login user
 userSchema.statics.login = async function (email, password) {

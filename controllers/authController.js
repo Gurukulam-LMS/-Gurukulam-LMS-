@@ -83,9 +83,11 @@ module.exports.signup_post = async (req, res, next) => {
         ok: false,
       });
 
+    const hashPswd = await bcrypt.hash(password, 10);
+
     const user = await new User({
       method: "local",
-      "local.personalInfo": { firstName, lastName, email, password },
+      "local.personalInfo": { firstName, lastName, email, password: hashPswd },
     });
     await user.save(); //Saved-User-Data
 
@@ -107,7 +109,16 @@ module.exports.signup_post = async (req, res, next) => {
 };
 
 module.exports.profileUpdate = async (req, res) => {
-  var { userId, personalInfo, educationalInfo } = req.body;
+  var { userId, personalInfo, educationalInfo, token } = req.body;
+
+  //ReCAPTACH verification
+  const verifyReCAPTCHA_token = await verifyReCAPTCHA(token);
+  if (!verifyReCAPTCHA_token.ok || !verifyReCAPTCHA_token.isHuman)
+    return res.json({
+      message: "Google ReCAPTACH verification failed",
+      ok: false,
+    });
+
   if (!!personalInfo) {
     personalInfo = JSON.parse(personalInfo);
     Object.keys(personalInfo).forEach((key) => {
@@ -164,6 +175,7 @@ module.exports.profileUpdate = async (req, res) => {
 //Email Confirmation
 module.exports.confirmEmail = async (req, res, next) => {
   const { id } = req.params;
+  console.log(id);
   try {
     const user = await User.findByIdAndUpdate(id, {
       $set: {
