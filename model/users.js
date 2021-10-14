@@ -48,6 +48,9 @@ const UserSchema = new Schema(
           watchTime: Number,
         },
       ],
+      lastWatched: {
+        courseId: String,
+      },
       coursesEnrolled: Array,
       verification: {
         email: {
