@@ -163,9 +163,15 @@ const Cart = () => {
           data
         );
 
-        await axios.get(
-          process.env.REACT_APP_BASE_URL + "/cart/clearCart/" + userId
+        const enrolled = await axios.post(
+          process.env.REACT_APP_ADMIN_URL + "/admin/auth/addEnrolledCourse",
+          {
+            userId,
+            courseId: cart,
+          }
         );
+
+        console.log(enrolled);
 
         //checkout coupon api
         await axios.post(
@@ -175,6 +181,11 @@ const Cart = () => {
             couponId,
             finalAmt,
           }
+        );
+
+        //clearing cart
+        await axios.get(
+          process.env.REACT_APP_BASE_URL + "/cart/clearCart/" + userId
         );
 
         setLastPaymentInfoHandler({ ...result.data, amount: finalAmt });

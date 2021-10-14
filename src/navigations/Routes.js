@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,9 +26,58 @@ import OAuth from "../components/oAuth/oAuth";
 import Onboarding2 from "../components/onboarding/index2";
 import CoursePlayer from "../components/course/coursePlayer";
 import AllCourses from "../components/course/allCourses";
+import EducatorContact from "../components/contact/educatorContact";
 
 function Routes() {
   const { isLoggedIn, verification } = useContext(AuthContext);
+
+  const groutes = (
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/blog/:blogId" component={Blog} />
+      <Route exact path="/blogs" component={Blogs} />
+      <Route exact path="/signin" component={Signin} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/auth/:userId" component={OAuth} />
+      <Route exact path="/auth/confirm/:id" component={ConfirmEmail} />
+      <Route exact path="/auth/reset/:resetToken" component={ResetPassword} />
+      <Route exact path="/contact" component={Contact} />
+      <Route exact path="/aboutCourses" component={AboutCourse} />
+      <Route exact path="/previewCourse/:courseId" component={PreviewCourse} />
+      <Route exact path="/educatorContact" component={EducatorContact} />
+      <Route exact path="/allCourses" component={AllCourses} />
+      {/* <Redirect to="/" /> */}
+    </Switch>
+  );
+
+  const aftAuthroutes = (
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/dash" component={Dashboard} />
+      <Route exact path="/blog/:blogId" component={Blog} />
+      <Route exact path="/blogs" component={Blogs} />
+      <Route exact path="/auth/:userId" component={OAuth} />
+      <Route exact path="/onboarding" component={OnBoarding} />
+      <Route exact path="/onboarding2" component={Onboarding2} />
+      <Route exact path="/contact" component={Contact} />
+      <Route exact path="/aboutCourses" component={AboutCourse} />
+      <Route exact path="/previewCourse/:courseId" component={PreviewCourse} />
+      <Route exact path="/cart" component={Cart} />
+      <Route exact path="/payment/response" component={PaymentSuccess} />
+      <Route exact path="/coursePlayer/:courseId" component={CoursePlayer} />
+      <Route exact path="/allCourses" component={AllCourses} />
+      <Route exact path="/educatorContact" component={EducatorContact} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  const [afterAuthRoutes, setAfterAuthRoutes] = useState();
+  const [globalRoutes, setGlobalRoutes] = useState(groutes);
+
+  useEffect(() => {
+    setAfterAuthRoutes(aftAuthroutes);
+    setGlobalRoutes(groutes);
+  }, [isLoggedIn]);
 
   if (isLoggedIn && !!verification && verification.mobile === false) {
     return (
@@ -42,30 +91,18 @@ function Routes() {
     );
   }
 
+  if (!isLoggedIn) {
+    return (
+      <Router>
+        {globalRoutes}
+        <Footer />
+      </Router>
+    );
+  }
+
   return (
     <Router>
-      {/* <Header /> */}
-      <Switch>
-        {/* <Route exact path="/onboard" component={Onboard} /> */}
-        <Route exact path="/" component={Home} />
-        <Route path="/blog/:blogId" component={Blog} />
-        <Route path="/blogs" component={Blogs} />
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/auth/:userId" component={OAuth} />
-        <Route path="/onboarding" component={OnBoarding} />
-        <Route path="/onboarding2" component={Onboarding2} />
-        <Route path="/auth/confirm/:id" component={ConfirmEmail} />
-        <Route path="/auth/reset/:resetToken" component={ResetPassword} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/dash" component={Dashboard} />
-        <Route path="/aboutCourses" component={AboutCourse} />
-        <Route path="/previewCourse/:courseId" component={PreviewCourse} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/payment/response" component={PaymentSuccess} />
-        <Route path="/coursePlayer/:courseId" component={CoursePlayer} />
-        <Route path="/allCourses" component={AllCourses} />
-      </Switch>
+      {afterAuthRoutes}
       <Footer />
     </Router>
   );

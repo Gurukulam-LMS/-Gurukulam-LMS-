@@ -75,10 +75,10 @@ const CoursePlayer = () => {
               onContextMenu={(e) => e.preventDefault()}
             />
           </div>
-          <div className={style.courseAbout}>
+          {/* <div className={style.courseAbout}>
             <div className={style.heading}>About the course</div>
             <div className={style.courseDesp}>{course.description}</div>
-          </div>
+          </div> */}
         </div>
         <div className={style.rightContainer}>
           <div className={style.heading}>Course Content</div>
@@ -152,10 +152,10 @@ const CoursePlayer = () => {
                 );
               })}
           </Accordion>
-          <div className={style.courseAboutSec}>
+          {/* <div className={style.courseAboutSec}>
             <div className={style.heading}>About the course</div>
             <div className={style.courseDesp}>{course.description}</div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

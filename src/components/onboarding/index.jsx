@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { Col, Container, Image, Row, Form, Spinner } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { useHttpClient } from "../../customHooks/httpHook";
 import { useHistory } from "react-router-dom";
 import NavHeader from "../../utils/Header/index";
 import style from "../../assets/css/onboarding.module.css";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const FormLabel = styled(Form.Label)`
   font-size: 1.15rem;
@@ -55,6 +56,8 @@ const OnBoarding = () => {
   const { sendRequest, isLoading } = useHttpClient();
   const history = useHistory();
 
+  const reRef = useRef();
+
   //File Preview
   const fileChangeHandler = (e) => setFile(e.target.files[0]);
   const [previewSrc, setPreviewSrc] = useState("");
@@ -67,19 +70,23 @@ const OnBoarding = () => {
   const [otpResponseId, setOtpResponseId] = useState(null);
   const [otpSuccessMessage, setOtpSuccessMessage] = useState(null);
 
+  console.log(auth.personalInfo);
   const [personalInfo, setPersonalInfo] = useState({
     firstName: auth.personalInfo.firstName,
     lastName: auth.personalInfo.lastName,
-    gender: "",
-    mobileNumber: "",
-    dob: "",
-    country: "",
+    gender: auth.personalInfo.gender,
+    mobileNumber: auth.personalInfo.mobileNumber,
+    dob: auth.personalInfo.dob,
+    country: auth.personalInfo.country,
     state: "",
     city: "",
   });
 
-  const onboardingFormSubmit = () => {
+  const onboardingFormSubmit = async () => {
     const formData = new FormData();
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    formData.append("token", token);
     formData.append("personalInfo", JSON.stringify(personalInfo));
     formData.append("userId", auth.userId);
     formData.append("profileImage", file);
@@ -242,6 +249,7 @@ const OnBoarding = () => {
                     gender: e.target.value,
                   })
                 }
+                value={personalInfo.gender}
               >
                 <option hidden value>
                   Select Gender
@@ -258,6 +266,7 @@ const OnBoarding = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, dob: e.target.value })
                 }
+                value={personalInfo.dob}
               />
             </FormGroup>
           </div>
@@ -273,6 +282,7 @@ const OnBoarding = () => {
                     country: e.target.value,
                   })
                 }
+                value={personalInfo.country}
               />
             </FormGroup>
           </div>
@@ -280,7 +290,7 @@ const OnBoarding = () => {
             <Form.Group controlId="formBasicMobile">
               <FormLabel>Mobile Number *</FormLabel>
               <FormControl
-                type="text"
+                type="number"
                 placeholder="Mobile Number"
                 onChange={(e) =>
                   setPersonalInfo({
@@ -288,6 +298,7 @@ const OnBoarding = () => {
                     mobileNumber: e.target.value,
                   })
                 }
+                value={personalInfo.mobileNumber}
               />
             </Form.Group>
             <button className={style.otpBtn} onClick={mobileNumberVerify}>
@@ -298,7 +309,7 @@ const OnBoarding = () => {
             <div className={style.numContainer}>
               <Form.Group controlId="formBasicOtp">
                 <FormControl
-                  type="text"
+                  type="number"
                   placeholder="Enter OTP"
                   onChange={(e) => setOtp(e.target.value)}
                 />
@@ -323,6 +334,12 @@ const OnBoarding = () => {
           )}
         </div>
       </div>
+
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        ref={reRef}
+      />
     </>
   );
 };

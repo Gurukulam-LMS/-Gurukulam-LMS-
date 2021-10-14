@@ -13,7 +13,7 @@ const ConfirmEmail = () => {
   const { sendRequest, isLoading } = useHttpClient();
   const history = useHistory();
   const { id } = useParams();
-
+  console.log(id);
   //States
   const [userId, setUserId] = useState(id);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -27,7 +27,6 @@ const ConfirmEmail = () => {
         if (res.ok) {
           setSuccessMessage(res.message);
           toast.success(res.message, { position: "top-right" });
-
           auth.login(
             res.userId,
             res.personalInfo,
@@ -35,7 +34,6 @@ const ConfirmEmail = () => {
             res.verification,
             res.token
           );
-
           history.push("/onboarding");
         } else {
           setErrorMessage(res.message);

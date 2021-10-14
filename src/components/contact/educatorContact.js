@@ -6,7 +6,7 @@ import NavHeader from "../../utils/Header/index";
 import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const Contact = () => {
+const EducatorContact = () => {
   const { sendRequest, isLoading } = useHttpClient();
   const reRef = useRef();
   const [formData, setFormData] = useState({});
@@ -51,7 +51,7 @@ const Contact = () => {
             <h1>WELCOME TO GURUKULAM</h1>
           </div>
           <div className="col-12 col-lg-6 p-lg-5 p-5 login-form ">
-            <h3>Contact</h3>
+            <h3>Educator Contact</h3>
             <div className="row">
               <div className="col-12 mt-4">
                 <input
@@ -101,4 +101,4 @@ const Contact = () => {
     </>
   );
 };
-export default Contact;
+export default EducatorContact;

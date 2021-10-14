@@ -76,7 +76,7 @@ const Home = () => {
               <button
                 type="button"
                 class="btn col-sm-7 col-11 bg-btn mt-4"
-                onClick={() => history.push("/contact")}
+                onClick={() => history.push("/educatorContact")}
               >
                 Drop Information
               </button>
@@ -114,7 +114,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* feedback carousel */}
       <FeedBack />
       <Supporter />
       <LatestNews />

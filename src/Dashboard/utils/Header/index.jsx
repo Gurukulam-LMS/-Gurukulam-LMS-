@@ -52,31 +52,13 @@ const Header = ({ active }) => {
                 My Courses
               </a>
             </li>
-            <li className="nav-item">
-              <a
-                className={`nav-link ${active === "testseries" && "active"}`}
-                href="/dash/testseries"
-              >
-                Test Series
-              </a>
-            </li>
+
             <li className="nav-item">
               <a
                 className={`nav-link ${active === "profile" && "active"}`}
                 href="/dash/profile"
               >
                 Profile
-              </a>
-            </li>
-
-            <li className="nav-item d-none d-lg-block">
-              <a
-                className={`nav-link ${
-                  active === "notification" && "active"
-                } icon`}
-                href="#"
-              >
-                <span className="fa fa-bell"></span>
               </a>
             </li>
 
@@ -94,7 +76,6 @@ const Header = ({ active }) => {
                   <span className="fa fa-cog"></span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="/contact">Help Center</Dropdown.Item>
                   <Dropdown.Item
                     href="/"
                     onClick={() => {

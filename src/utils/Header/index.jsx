@@ -1,31 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import "../../assets/css/header.css";
-import { CourseContext } from "../../context/courseContext";
-import { useHistory } from "react-router";
 
 const NavHeader = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
-  const { allCourses } = useContext(CourseContext);
-  const history = useHistory();
+  const { isLoggedIn, logout, cart } = useContext(AuthContext);
+  const logoutHandler = () => logout();
 
-  const [searchItem, setSearchItem] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const cartLen = cart.length;
 
-  useEffect(() => {
-    const text = searchText.toLowerCase();
-    if (text == "") {
-      return setSearchItem([]);
-    }
-    const matchData = allCourses.filter((course) =>
-      course.title.toLowerCase().includes(text)
-    );
-    setSearchItem(matchData);
-  }, [allCourses, searchText]);
-
-  const logoutHandler = () => {
-    logout();
-  };
   return (
     <nav className="nav navbar  navbar-expand-lg fixed-top navbar-light bg-nav">
       <div className="container col-lg-10 col-11">
@@ -46,28 +28,6 @@ const NavHeader = () => {
           id="nav-menu"
         >
           <ul className="navbar-nav headerNavItem">
-            <li className="nav-item" className="searchMenuContainer">
-              <input
-                className="form-control mr-sm-2 search FontAwesome custumSearchBar"
-                type="text"
-                placeholder="Search  🔎"
-                aria-label="Search"
-                onChange={(e) => setSearchText(e.target.value)}
-                style={{ border: "none" }}
-              />
-              <div className="searchMenu">
-                {searchItem.map((item) => {
-                  return (
-                    <div
-                      className="searchMenuItem"
-                      onClick={() => history.push("/previewCourse/" + item._id)}
-                    >
-                      {item.title}
-                    </div>
-                  );
-                })}
-              </div>
-            </li>
             <li className="nav-item">
               <a className="nav-link" href="/">
                 Home
@@ -100,6 +60,11 @@ const NavHeader = () => {
               <li className="nav-item">
                 <a className="nav-link" href="/cart">
                   Cart
+                  {cartLen != 0 && (
+                    <sup>
+                      <strong style={{ color: "blue" }}>{cartLen}</strong>
+                    </sup>
+                  )}
                 </a>
               </li>
             )}

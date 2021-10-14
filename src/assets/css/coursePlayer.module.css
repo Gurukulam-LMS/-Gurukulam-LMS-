@@ -15,7 +15,6 @@
 .rightContainer {
   width: 25%;
   min-width: 200px;
-  height: 100vh;
   overflow-y: scroll;
   margin-top: 20px;
 }
