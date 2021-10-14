@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../assets/css/blog.css";
 import { Form, Spinner } from "react-bootstrap";
 import { useHttpClient } from "../customHook/http-hook";
 import { toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function BlogLandingPage() {
   const { sendRequest, isLoading } = useHttpClient();
-
+  const reRef = useRef();
   const [inputText, setInputText] = useState({});
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +28,11 @@ function BlogLandingPage() {
     setTopics(prevTopics);
   };
 
-  const blogSubmitHandler = () => {
+  const blogSubmitHandler = async () => {
     const formData = new FormData();
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    formData.append("token", token);
     formData.append("image", file);
     formData.append("topics", JSON.stringify(topics));
     Object.keys(inputText).map((key) => {
@@ -63,8 +67,23 @@ function BlogLandingPage() {
             </label>
             <input type="text" onChange={(e) => handleChange(e)} name="title" />
           </div>
+          <div className="form-input">
+            <label for="">
+              Tag<span className="require">*</span>
+            </label>
+            <select
+              style={{ height: "2em", width: "200px" }}
+              onChange={(e) => handleChange(e)}
+              name="tags"
+            >
+              <option>Choose Tag</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Designing">Designing</option>
+            </select>
+          </div>
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Default file input example</Form.Label>
+            <Form.Label>Add Images</Form.Label>
             <Form.Control
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
@@ -127,21 +146,8 @@ function BlogLandingPage() {
           >
             Add More Topic
           </button>
-          <div className="form-input">
-            <label for="">
-              Tag<span className="require">*</span>
-            </label>
-            <select
-              style={{ height: "2em", width: "200px" }}
-              onChange={(e) => handleChange(e)}
-              name="tags"
-            >
-              <option>Choose Tag</option>
-              <option value="Accounting">Accounting</option>
-              <option value="Engineering">Engineering</option>
-              <option value="Designing">Designing</option>
-            </select>
-          </div>
+
+          <br />
           <br />
           <br />
           <br />
@@ -157,6 +163,11 @@ function BlogLandingPage() {
           </p>
         </div>
       </div>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        ref={reRef}
+      />
     </>
   );
 }

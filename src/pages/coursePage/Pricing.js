@@ -1,19 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import "../../assets/css/Curriculum.css";
 import { CourseContext } from "../../context/courseContext";
 import { Link } from "react-router-dom";
 import { useHttpClient } from "../../customHook/http-hook";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Pricing({ setStack }) {
   const [price, setPrice] = useState("");
+  const reRef = useRef();
   const [currency, setCurrency] = useState("");
   const { courseDetails, setCourseDetailsHandler, setlastCourseDetails } =
     useContext(CourseContext);
   const { sendRequest, isLoading } = useHttpClient();
 
-  const formSubmitHandler = () => {
+  const formSubmitHandler = async () => {
     const prevInfo = { ...courseDetails };
     prevInfo["price"] = price;
     setCourseDetailsHandler(prevInfo);
@@ -22,6 +24,10 @@ function Pricing({ setStack }) {
       if (key === "keyPoints") return;
       formData.append(key, prevInfo[key]);
     });
+
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    formData.append("token", token);
     formData.append("keyPoints", JSON.stringify(prevInfo["keyPoints"]));
     formData.append("creatorId", "611793c1f0fe993a883a0b5c");
     const data = JSON.parse(formData.get("keyPoints"));
@@ -107,6 +113,11 @@ function Pricing({ setStack }) {
           </div>
         </div>
       </div>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        ref={reRef}
+      />
     </div>
   );
 }

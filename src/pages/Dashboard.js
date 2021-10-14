@@ -63,7 +63,7 @@ function Dashboard() {
         <div className="right-container-admin">
           <Graph />
 
-          <div className="allCourse-admin-label">
+          {/* <div className="allCourse-admin-label">
             <h3>All Courses</h3>
             <div
               className="see-All-btn"
@@ -71,8 +71,8 @@ function Dashboard() {
             >
               See All
             </div>
-          </div>
-          <div className="main__cards2">
+          </div> */}
+          {/* <div className="main__cards2">
             {allCourses.map((course, idx) => {
               if (idx > 3) return;
               return (
@@ -84,7 +84,7 @@ function Dashboard() {
                 />
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

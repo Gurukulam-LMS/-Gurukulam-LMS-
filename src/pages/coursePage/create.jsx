@@ -32,10 +32,10 @@ const CourseTestPreview = () => {
                 </Container>
               </Col>
               <Col>
-                <Container className="card m-3">
+                {/* <Container className="card m-3">
                   <FaFileAlt className="icons mb-3" color="#000" />
                   <h3 className="text">Tests</h3>
-                </Container>
+                </Container> */}
               </Col>
             </Row>
           )}
@@ -60,6 +60,7 @@ const CourseTestPreview = () => {
               <Buttons
                 className="mx-5 px-5"
                 fill="true"
+                disabled={!courseForm["title"]}
                 onClick={() => setStack((e) => e + 1)}
               >
                 Continue
@@ -92,6 +93,7 @@ const CourseTestPreview = () => {
                 className="mx-5 px-5"
                 fill="true"
                 onClick={() => setStack((e) => e + 1)}
+                disabled={!courseForm["category"]}
               >
                 Continue
               </Buttons>

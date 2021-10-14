@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import style from "../../assets/css/coupon.module.css";
 import { useHttpClient } from "../../customHook/http-hook";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Coupon = () => {
   const { sendRequest, isLoading } = useHttpClient();
-
-  const formSubmitHandler = (e) => {
+  const reRef = useRef();
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    formData.append("token", token);
     sendRequest(
       process.env.REACT_APP_API_URL + "/coupon/createCoupon",
       "POST",
@@ -53,11 +57,11 @@ const Coupon = () => {
           <input type="number" className={style.inputText} name="maxstudents" />
         </div>
         <div className={style.row}>
-          <div className={style.label}>Start Time</div>
+          <div className={style.label}>Start Date</div>
           <input type="date" className={style.inputText} name="starttime" />
         </div>
         <div className={style.row}>
-          <div className={style.label}>Expiry Time</div>
+          <div className={style.label}>Expiry Date</div>
           <input type="date" className={style.inputText} name="expirytime" />
         </div>
 
@@ -65,7 +69,7 @@ const Coupon = () => {
           <div className={style.label}>Coupon Type</div>
           <select name="type" className={style.inputText}>
             <option value="public">public</option>
-            <option value="private">private</option>
+            {/* <option value="private">private</option> */}
           </select>
         </div>
         {isLoading ? (
@@ -76,6 +80,12 @@ const Coupon = () => {
           </button>
         )}
       </form>
+
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        ref={reRef}
+      />
     </div>
   );
 };

@@ -43,7 +43,7 @@ const Users = () => {
               console.log(user);
               return (
                 <Accordion.Item eventKey={idx} key={idx}>
-                  <Accordion.Header style={{ padding: "10px", margin: "0" }}>
+                  <Accordion.Header style={{ padding: "0px", margin: "0" }}>
                     <div className={style.col1}>
                       {user.local.personalInfo.firstName +
                         (user.local.personalInfo.lastName || "")}
