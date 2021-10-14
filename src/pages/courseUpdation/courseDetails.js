@@ -1,12 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../assets/css/Curriculum.css";
-import { Link } from "react-router-dom";
 import { CourseContext } from "../../context/courseContext";
 import { Form } from "react-bootstrap";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import { useHttpClient } from "../../customHook/http-hook";
-import { useHistory } from "react-router";
 
 const CourseDetails = () => {
   const { courseId } = useParams();
@@ -86,6 +84,7 @@ const CourseDetails = () => {
     <>
       <div className="curriculum-area mt-2 p-5">
         <div className="curriculum">
+          <div></div>
           <div className="c-area box-area">
             <h3>Course Update Page</h3>
             <div className="form-1">

@@ -4,6 +4,7 @@ import Image1 from "../assets/Images/Icon 1.png";
 import Image2 from "../assets/Images/Icon.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import { Dropdown } from "react-bootstrap";
 
 function Navbar() {
   const { logout } = useContext(AuthContext);
@@ -26,20 +27,38 @@ function Navbar() {
             <li>
               <Link to={"/create"}>Create Course</Link>
             </li>
-            <li>
-              <Link to={"/coupon"}>Create Coupon</Link>
-            </li>
+
             <li>
               <Link to="/blog">Create Blog</Link>
             </li>
             <li>
               <Link to="/users">Users</Link>
             </li>
-            <li>
-              <a href="/" onClick={() => logout()}>
-                Logout
-              </a>
-            </li>
+
+            <Dropdown>
+              <Dropdown.Toggle
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color: "black",
+                  fontSize: "1.3rem",
+                  boxShadow: "none",
+                  margin: "0",
+                  padding: "0",
+                  marginTop: "0",
+                }}
+              >
+                <span className="fa fa-cog"></span>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/coupon">Create Coupan</Dropdown.Item>
+                <Dropdown.Item href="/" onClick={() => logout()}>
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
             <li>
               <a href="#">
                 <img src={Image1} alt="logo" width="15" />

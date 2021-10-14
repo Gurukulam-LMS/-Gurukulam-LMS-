@@ -199,7 +199,7 @@ function CourseLandingPage({ stack, setStack, data }) {
             </div>
             <br />
             <button className="save" onClick={courseSubmitHandler}>
-              Save
+              NEXT
             </button>
           </div>
         </div>
