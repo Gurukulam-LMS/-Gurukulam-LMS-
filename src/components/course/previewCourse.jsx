@@ -80,12 +80,7 @@ const PreviewCourse = () => {
                 <div className="col-lg-6 col-sm-8 col-11 head-1 mt-lg-5 mt-4 text-left">
                   <div className={style.courseTitleHeading}>{course.title}</div>
                   <div className={style.courseTagline}>{course.tagline}</div>
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="white" size={22} /> (1235 Rating)
-                  <br />
+
                   <div
                     className="mt-3"
                     style={{ fontSize: "large", color: "#96d6fc" }}

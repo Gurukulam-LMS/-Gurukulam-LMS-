@@ -1,12 +1,13 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import style from "../../assets/css/onboarding.module.css";
 import { useHttpClient } from "../../customHooks/httpHook";
-import { Col, Container, Image, Row, Form, Spinner } from "react-bootstrap";
+import { Container, Image, Row, Form, Spinner } from "react-bootstrap";
 import styled, { css } from "styled-components";
 import { AuthContext } from "../../context/authContext";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavHeader from "../../utils/Header";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const FormControl = styled(Form.Control)`
   border-radius: 0;
@@ -42,8 +43,13 @@ const OnBoarding2 = () => {
   let initial = { collage: "", degree: "", startYear: null, endYear: null };
   const [educationalInfo, setEducationalInfo] = useState([initial]);
 
-  const onboardingFormSubmit = () => {
+  const reRef = useRef();
+
+  const onboardingFormSubmit = async () => {
     const formData = new FormData();
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    formData.append("token", token);
     formData.append("educationalInfo", JSON.stringify(educationalInfo));
     formData.append("userId", auth.userId);
     sendRequest(
@@ -72,45 +78,45 @@ const OnBoarding2 = () => {
   return (
     <>
       <NavHeader />
-      <Container>
-        <h3 className={style.onBoardingHeader}>Onboarding</h3>
-        <Container className="mt-5">
-          <h3 className="p-3" style={{ fontFamily: "Ubuntu" }}>
-            Educational Information
-          </h3>
-          {educationalInfo.map((inp, idx) => (
-            <div key={idx} className={style.eduInputCont}>
-              <input
-                type="text"
-                placeholder="Name of College/Institute"
-                name="collage"
-                onChange={(e) => educationalInfoHandler(e, idx)}
-                className={style.input}
-              />
-              <select
-                name="degree"
-                onChange={(e) => educationalInfoHandler(e, idx)}
-                className={style.input}
-              >
-                <option hidden value>
-                  Qualification
-                </option>
-                <option value="Bachelor's Degree">Bachelor's Degree</option>
-                <option value="Master Degree">Master Degree</option>
-                <option value="Post Doctorate">Post Doctorate</option>
-              </select>
 
-              <button
-                className={style.remBtn}
-                onClick={() => {
-                  let info = [...educationalInfo];
-                  info.splice(idx, 1);
-                  setEducationalInfo(info);
-                }}
-              >
-                Remove
-              </button>
-              {/* <Col lg={4} xs={4}>
+      <h3 className={style.onBoardingHeader}>Onboarding</h3>
+      <Container className="mt-5">
+        <h3 className="p-3" style={{ fontFamily: "Ubuntu" }}>
+          Educational Information
+        </h3>
+        {educationalInfo.map((inp, idx) => (
+          <div key={idx} className={style.eduInputCont}>
+            <input
+              type="text"
+              placeholder="Name of College/Institute"
+              name="collage"
+              onChange={(e) => educationalInfoHandler(e, idx)}
+              className={style.input}
+            />
+            <select
+              name="degree"
+              onChange={(e) => educationalInfoHandler(e, idx)}
+              className={style.input}
+            >
+              <option hidden value>
+                Qualification
+              </option>
+              <option value="Bachelor's Degree">Bachelor's Degree</option>
+              <option value="Master Degree">Master Degree</option>
+              <option value="Post Doctorate">Post Doctorate</option>
+            </select>
+
+            <button
+              className={style.remBtn}
+              onClick={() => {
+                let info = [...educationalInfo];
+                info.splice(idx, 1);
+                setEducationalInfo(info);
+              }}
+            >
+              Remove
+            </button>
+            {/* <Col lg={4} xs={4}>
                 <Form.Group
                   className="mb-3"
                   controlId="formBasicName of College/Institute"
@@ -141,7 +147,7 @@ const OnBoarding2 = () => {
                   </FormControl>
                 </Form.Group>
               </Col> */}
-              {/* <Col lg={4} xs={6}>
+            {/* <Col lg={4} xs={6}>
                 <Form.Group className="mb-3" controlId="formBasiStart Year">
                   <FormControl
                     type="text"
@@ -151,7 +157,7 @@ const OnBoarding2 = () => {
                   />
                 </Form.Group>
               </Col> */}
-              {/* <Col lg={4} xs={6}>
+            {/* <Col lg={4} xs={6}>
                 <Form.Group className="mb-3" controlId="formBasicEnd Year">
                   <FormControl
                     type="text"
@@ -161,7 +167,7 @@ const OnBoarding2 = () => {
                   />
                 </Form.Group>
               </Col> */}
-              {/* <Col lg={4} xs={6}>
+            {/* <Col lg={4} xs={6}>
                 <div className="mb-3">
                   <Button
                     onClick={() => {
@@ -174,29 +180,33 @@ const OnBoarding2 = () => {
                   </Button>
                 </div>
               </Col> */}
-            </div>
-          ))}
-          <div className="mb-3 d-flex justify-content-center">
-            <button
-              className={style.remBtn}
-              onClick={() => {
-                setEducationalInfo([...educationalInfo, initial]);
-              }}
-            >
-              Add More +
-            </button>
           </div>
-          <div className="mb-3 d-flex justify-content-center">
-            {isLoading ? (
-              <Spinner animation="border" variant="primary" className="mt-5" />
-            ) : (
-              <Button color="blue" onClick={onboardingFormSubmit}>
-                Finish Onboarding
-              </Button>
-            )}
-          </div>
-        </Container>
+        ))}
+        <div className="mb-3 d-flex justify-content-center">
+          <button
+            className={style.remBtn}
+            onClick={() => {
+              setEducationalInfo([...educationalInfo, initial]);
+            }}
+          >
+            Add More +
+          </button>
+        </div>
+        <div className="mb-3 d-flex justify-content-center">
+          {isLoading ? (
+            <Spinner animation="border" variant="primary" className="mt-5" />
+          ) : (
+            <Button color="blue" onClick={onboardingFormSubmit}>
+              Finish Onboarding
+            </Button>
+          )}
+        </div>
       </Container>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        ref={reRef}
+      />
     </>
   );
 };

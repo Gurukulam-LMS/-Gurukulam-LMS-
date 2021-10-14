@@ -69,9 +69,9 @@
 }
 
 .courseCard {
-  max-width: 400px;
-  min-width: 360px;
-  margin: 10px;
+  max-width: 330px;
+  min-width: 330px;
+  margin-bottom: 50px;
   cursor: pointer;
 }
 
@@ -81,10 +81,12 @@
   justify-content: flex-start;
   margin-top: 20px;
   text-decoration: none !important;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 .courseWrapper {
-  max-width: 350px;
+  max-width: 300px;
   margin: 20px;
 }
 

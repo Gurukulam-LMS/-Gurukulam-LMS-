@@ -19,7 +19,14 @@ const Profile = () => {
   return (
     <div className={style.container}>
       <div className={style.profilePicContainer}>
-        <img src={personalInfo.profileImage || PersonIcon} alt="PersonIcon" />
+        <img
+          src={
+            !!personalInfo.profileImage
+              ? process.env.REACT_APP_API_URL + "/" + personalInfo.profileImage
+              : PersonIcon
+          }
+          alt="PersonIcon"
+        />
         <div className={style.profileName}>
           {personalInfo.firstName + " " + (personalInfo.lastName || "")}
         </div>
@@ -33,7 +40,9 @@ const Profile = () => {
           <div className={style.details}>
             <div className={style.label}>Mobile number</div>
             <div className={style.val}>
-              {personalInfo.mobileNumber || "Add mobile number"}
+              {!!personalInfo.mobileNumber
+                ? "********" + personalInfo.mobileNumber.slice(-2)
+                : "Add mobile number"}
             </div>
           </div>
         </div>

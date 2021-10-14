@@ -58,11 +58,8 @@ const LatestNews = () => {
     <div className="container last-section mt-t mb-5">
       <div className="row text-center">
         <div className="col-12">
-          <h5>Latest News</h5>
-        </div>
-        <div className="col-12">
           <h3>
-            Educational <span>Tips and Tricks</span>
+            Our <span>Blogs</span>
           </h3>
         </div>
       </div>

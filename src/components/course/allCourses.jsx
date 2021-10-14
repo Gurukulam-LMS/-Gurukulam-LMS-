@@ -1,11 +1,46 @@
 import "../../Dashboard/assets/css/mycourse.css";
 import { CourseContext } from "../../context/courseContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import style from "../../assets/css/home.module.css";
 import NavHeader from "../../utils/Header";
 import { useHistory } from "react-router";
+import { useEffect } from "react";
+import { Form } from "react-bootstrap";
 const AllCourses = () => {
   const { allCourses } = useContext(CourseContext);
+  const [courses, setCourses] = useState([]);
+  const [level, setLevel] = useState("");
+  const [allCategory, setAllCategory] = useState([]);
+  const [category, setCategory] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    setCourses(allCourses);
+    const set = new Set();
+    allCourses.forEach((course) => {
+      course?.category?.map((cat) => {
+        set.add(cat);
+      });
+    });
+    setAllCategory([...set]);
+  }, [allCourses]);
+
+  useEffect(() => {
+    // setLevel("");
+    if (category === "") return setCourses(allCourses);
+    const courseFilter = allCourses?.filter(
+      (course) => !!course.category && course.category[0] === category
+    );
+    setCourses(courseFilter);
+  }, [category]);
+
+  useEffect(() => {
+    // setCategory("");
+    if (level === "") return setCourses(allCourses);
+    const courseFilter = allCourses?.filter((course) => course.level === level);
+    setCourses(courseFilter);
+  }, [level]);
+
   const history = useHistory();
   const dateHandler = (dateString) => {
     if (!dateString) return null;
@@ -15,6 +50,16 @@ const AllCourses = () => {
       year: "numeric",
     });
   };
+
+  useEffect(() => {
+    console.log(searchValue);
+    if (searchValue === "") return setCourses(allCourses);
+    const courseFilter = allCourses?.filter((course) =>
+      course.title?.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setCourses(courseFilter);
+  }, [searchValue]);
+
   return (
     <>
       <NavHeader />
@@ -31,6 +76,11 @@ const AllCourses = () => {
                       placeholder="Search"
                       aria-label="Search"
                       aria-describedby="basic-addon1"
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      onClick={() => {
+                        setLevel("");
+                        setCategory("");
+                      }}
                     />
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">
@@ -41,170 +91,105 @@ const AllCourses = () => {
                 </form>
               </div>
               <div class="col-4 col-lg-2 mt-2">
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Subject
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      UI/UX Designer
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Development
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Data Science
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Business
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Financial
-                    </a>
-                  </div>
-                </div>
+                <Form.Select
+                  style={{ border: "none" }}
+                  onChange={(e) => setCategory(e.target.value)}
+                  onClick={() => setLevel("")}
+                  value={category}
+                >
+                  <option value="">Category</option>
+                  {allCategory?.map((cat) => {
+                    return <option value={cat}>{cat}</option>;
+                  })}
+                </Form.Select>
               </div>
               <div class="col-4 col-lg-2 mt-2">
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Level
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      Introductory
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Intermediate
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Advanced
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3 col-lg-2 mt-2">
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Avilability
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      Availavle Now
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Upcoming
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Advanced
-                    </a>
-                  </div>
-                </div>
+                <Form.Select
+                  style={{ border: "none" }}
+                  onChange={(e) => setLevel(e.target.value)}
+                  onClick={() => setCategory("")}
+                  value={level}
+                >
+                  <option value="">Level</option>
+                  <option value="Multi Level">Multi Level</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Expert">Expert</option>
+                </Form.Select>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container course-list ">
+      <div className="container course-list">
         <div className={style.courseContainer}>
-          {allCourses &&
-            allCourses.map &&
-            allCourses.map((course, index) => (
-              <div
-                className={style.courseCard}
-                key={course._id}
-                onClick={() => history.push("/previewCourse/" + course._id)}
-              >
-                <div className="courseCard" key={course._id}>
-                  <div className=""></div>
-                  <div className="card card-1">
-                    <div
-                      className="card-head"
-                      style={{ backgroundImage: `url("${course.thumbnail}")` }}
-                    ></div>
-                    <div className="card-body">
-                      <h5 className={style.courseHeader}>
-                        <span
-                          className={`badge badge-red ${
-                            index % 2 == 0 ? "badge-red" : "badge-blue"
-                          }`}
-                        >
-                          {course.category[0]}
-                        </span>
-                        <span
-                          className={`badge badge-red ${
-                            index % 2 == 1 ? "badge-red" : "badge-blue"
-                          }`}
-                        >
-                          {course.tag || "Best Seller"}
-                        </span>
-                      </h5>
+          {courses?.map((course, index) => (
+            <div
+              className={style.courseCard}
+              key={course._id}
+              onClick={() => history.push("/previewCourse/" + course._id)}
+            >
+              <div className="courseCard" key={course._id}>
+                <div className=""></div>
+                <div className="card card-1">
+                  <div
+                    className="card-head"
+                    style={{ backgroundImage: `url("${course.thumbnail}")` }}
+                  ></div>
+                  <div className="card-body">
+                    <h5 className={style.courseHeader}>
+                      <span
+                        className={`badge badge-red ${
+                          index % 2 == 0 ? "badge-red" : "badge-blue"
+                        }`}
+                      >
+                        {course.category[0]}
+                      </span>
+                      <span
+                        className={`badge badge-red ${
+                          index % 2 == 1 ? "badge-red" : "badge-blue"
+                        }`}
+                      >
+                        {course.tag || "Best Seller"}
+                      </span>
+                    </h5>
 
-                      <div className="pt-3 pl-2 pr-2">
-                        <h4 className="txt-2">{course.title}</h4>
-                        <p>
-                          <span className="time">
-                            <i className="far fa-clock"></i>{" "}
-                            <span className={style.courseUpdatedCont}>
-                              Updated
-                              <span className={style.courseDate}>
-                                {dateHandler(course.updatedAt)}
-                              </span>
+                    <div className="pt-3 pl-2 pr-2">
+                      <h4 className="txt-2">{course.title}</h4>
+                      <p>
+                        <span className="time">
+                          <i className="far fa-clock"></i>{" "}
+                          <span className={style.courseUpdatedCont}>
+                            Updated
+                            <span className={style.courseDate}>
+                              {dateHandler(course.updatedAt)}
                             </span>
                           </span>
-                          <span className="lectures">
-                            <i className="fas fa-book-open"></i>
-                            <span className={style.topicLength}>
-                              {course.courseTopic && course.courseTopic.length}{" "}
-                              lectures
-                            </span>
+                        </span>
+                        <span className="lectures">
+                          <i className="fas fa-book-open"></i>
+                          <span className={style.topicLength}>
+                            {course.courseTopic && course.courseTopic.length}{" "}
+                            lectures
                           </span>
-                        </p>
+                        </span>
+                      </p>
 
-                        <button
-                          type="button"
-                          className={`btn col-12 mt-3 mb-3 card-btn-red ${
-                            index % 2 == 1 ? "card-btn-red" : "card-btn-blue"
-                          } `}
-                        >
-                          View Course
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        className={`btn col-12 mt-3 mb-3 card-btn-red ${
+                          index % 2 == 1 ? "card-btn-red" : "card-btn-blue"
+                        } `}
+                      >
+                        View Course
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </div>
     </>

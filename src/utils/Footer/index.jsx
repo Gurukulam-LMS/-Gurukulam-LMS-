@@ -15,21 +15,14 @@ const Footer = () => {
       <div className="container gap  col-11 col-lg-9">
         <div className="row ">
           <div className="col-sm-4 col-12 col-lg-3">
-            <a className="logo" href="#">
-              <img
-                src="Images/Group 199.png"
-                className="img img-fluid"
-                alt=""
-              />
-            </a>
-            <h5>
-              Caribbean Ct <br /> Haymarker,virginia(VA)
-            </h5>
+            <a className="logo" href="#"></a>
+            <h5 className="mt-2">Gurukulam</h5>
+            <span>Hyderabad,India</span>
             <ul className="list-unstyled mt-2">
               <li>
                 <a href="#">
                   <BiEnvelope className="mr-2" />
-                  Address@gmail.com
+                  address@gmail.com
                 </a>
               </li>
               <li>
@@ -38,53 +31,37 @@ const Footer = () => {
                 </a>
               </li>
               <li className="mt-2 list-social">
-                <FaFacebookF className="m-1" />
-                <FaInstagram className="m-1" />
-                <FaTwitter className="m-1" />
-                <FaLinkedin className="m-1" />
+                <a href="https://www.facebook.com">
+                  <FaFacebookF className="m-1" />
+                </a>
+                <a href="https://www.instagram.com">
+                  <FaInstagram className="m-1" />
+                </a>
+                <a href="https://www.twitter.com">
+                  <FaTwitter className="m-1" />
+                </a>
+                <a href="https://www.linkedin.com">
+                  <FaLinkedin className="m-1" />
+                </a>
               </li>
             </ul>
           </div>
+          {/* <div className="col-sm-4 col-6 col-lg-3"></div> */}
           <div className="col-sm-4 col-6 col-lg-3">
-            <h5>Category</h5>
+            <h5 className="mt-2">Quick Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#">Fil and Video</a>
+                <a href="/allCourses">Courses</a>
               </li>
               <li>
-                <a href="#">Graphic Design</a>
+                <a href="/blogs">Blog</a>
               </li>
               <li>
-                <a href="#">UI/UX Design</a>
-              </li>
-              <li>
-                <a href="#">Business Analytics</a>
-              </li>
-              <li>
-                <a href="#">Marketing</a>
+                <a href="/contact">Contact</a>
               </li>
             </ul>
           </div>
-          <div className="col-sm-4 col-6 col-lg-3">
-            <h5>Quick Links</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="#">Privacy Plicy</a>
-              </li>
-              <li>
-                <a href="#">Discussion</a>
-              </li>
-              <li>
-                <a href="#">Terms and Conditions</a>
-              </li>
-              <li>
-                <a href="#">Custumer Support</a>
-              </li>
-              <li>
-                <a href="#">Course FAQ's</a>
-              </li>
-            </ul>
-          </div>
+          <div className="col-sm-4 col-6 col-lg-3"></div>
           <div className="col-12 col-lg-3 footer-btn">
             <h5>Subscribe</h5>
             <ul className="list-unstyled">
@@ -100,14 +77,6 @@ const Footer = () => {
                   onClick={() => history.push("/contact")}
                 >
                   Email Here
-                </button>
-              </li>
-              <li>
-                <button
-                  className="btn btn-sub col-10"
-                  style={{ backgroundColor: "blue", borderColor: "blue" }}
-                >
-                  Subscribe
                 </button>
               </li>
             </ul>

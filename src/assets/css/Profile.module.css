@@ -24,7 +24,8 @@
 
 .profilePicContainer img {
   width: 200px;
-  object-fit: contain;
+  height: 200px;
+  border-radius: 50%;
 }
 
 .profileDetailsContainer {
