@@ -54,7 +54,7 @@ const Section2 = () => {
         </div>
 
         <div className="col-lg-5 col-12 test mt-5">
-          <div className="card c2 ">
+          {/* <div className="card c2 ">
             <div className="card-body">
               <div className="d-flex ">
                 <h6 className="">Test Series</h6>
@@ -91,6 +91,7 @@ const Section2 = () => {
               </div>
             </div>
           </div>
+        </div> */}
         </div>
       </div>
     </div>

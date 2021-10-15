@@ -45,7 +45,7 @@ const Dashboard = () => {
             </div>
             <div className="row ">
               {allCourses.map((course, idx) => {
-                if (idx > 2) return;
+                if (idx > 1) return;
                 return (
                   <a
                     className="col-lg-6 col-12 mt-lg-3 mt-4"

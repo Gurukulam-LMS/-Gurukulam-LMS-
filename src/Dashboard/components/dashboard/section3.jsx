@@ -1,46 +1,51 @@
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../../context/authContext";
+import { CourseContext } from "../../../context/courseContext";
+
 const Section3 = () => {
+  const { userId } = useContext(AuthContext);
+  const { allCourses } = useContext(CourseContext);
+  const [lastWatchedId, setLastWatchedId] = useState("");
+
+  useEffect(async () => {
+    const res = await fetch(
+      process.env.REACT_APP_BASE_URL + "/auth/getLastWatch/" + userId
+    );
+    if (res.status === 200) {
+      const data = await res.json();
+      setLastWatchedId(data.lastWatched.courseId);
+    }
+  }, []);
+
+  const [lastCourse, setLastCourse] = useState({});
+  useEffect(() => {
+    const getReqCourse = allCourses?.find(
+      (course) => course._id === lastWatchedId
+    );
+    if (!!getReqCourse) setLastCourse(getReqCourse);
+  }, [allCourses, lastWatchedId]);
+
   return (
     <div className="container col-lg-9 col-12 section-3 mt-5">
       <div className="row">
-        <div className="col-lg-4 col-12 mt-4">
-          <div className="card">
-            <div className="card-body pb-5">
-              <div className="d-flex mt-3">
+        <div
+          className="col-lg-3 col-12 mt-4"
+          style={{ width: window.innerWidth > 500 ? "29%" : "100%" }}
+        >
+          <div>
+            <div>
+              <div className="d-flex mt-2">
                 <h5 className="">Last Watched</h5>
               </div>
-              <div className="media m1 border mt-4 ">
+              <div className="media m1 border mt-3 ">
                 <img
                   className="mr-3 img img-fluid"
-                  src="dashboard/Mask Group 41.png"
+                  src={lastCourse.thumbnail}
                   alt="Generic placeholder image"
+                  style={{ height: "110px" }}
                 />
                 <div className="media-body">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sint doloribus
-                  </p>
-                  <span>Lorem ipsum dolor</span>
-                  <p className="rating">
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                  </p>
-                </div>
-              </div>
-              <div className="media m1 border mt-4">
-                <img
-                  className="mr-3 img img-fluid"
-                  src="dashboard/Mask Group 41.png"
-                  alt="Generic placeholder image"
-                />
-                <div className="media-body">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sint doloribus
-                  </p>
-                  <span>Lorem ipsum dolor</span>
+                  <p>{lastCourse.title}</p>
                   <p className="rating">
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
@@ -54,34 +59,16 @@ const Section3 = () => {
           </div>
         </div>
 
-        <div className="col-lg-4 col-12 mt-4">
-          <div className="card">
-            <div className="card-body pb-5">
-              <div className="d-flex mt-3">
+        <div
+          className="col-lg-3 col-12 mt-4"
+          style={{ width: window.innerWidth > 500 ? "29%" : "100%" }}
+        >
+          <div>
+            <div>
+              <div className="d-flex mt-2">
                 <h5 className="">Upcoming Course</h5>
               </div>
-              <div className="media m1 border mt-4 ">
-                <img
-                  className="mr-3 img img-fluid"
-                  src="dashboard/Mask Group 41.png"
-                  alt="Generic placeholder image"
-                />
-                <div className="media-body">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sint doloribus
-                  </p>
-                  <span>Lorem ipsum dolor</span>
-                  <p className="rating">
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                  </p>
-                </div>
-              </div>
-              <div className="media m1 border mt-4">
+              <div className="media m1 border mt-3">
                 <img
                   className="mr-3 img img-fluid"
                   src="dashboard/Mask Group 41.png"
