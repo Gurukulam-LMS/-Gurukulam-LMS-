@@ -7,6 +7,7 @@ export const useAuth = () => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [adminId, setAdminId] = useState(null);
   const [adminDetails, setAdminDetails] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
 
   //Local-login saving-token-to-localStorage
   const login = useCallback(
@@ -68,11 +69,22 @@ export const useAuth = () => {
     }
   }, [login, token]);
 
+  useEffect(async () => {
+    const data = await fetch(
+      `${process.env.REACT_APP_API_URL}/admin/auth/getAllUsers`
+    );
+    const res = await data.json();
+    if (data.status === 200) {
+      setAllUsers(res.allUsers);
+    }
+  }, []);
+
   return {
     adminId,
     adminDetails,
     token,
     login,
     logout,
+    allUsers,
   };
 };

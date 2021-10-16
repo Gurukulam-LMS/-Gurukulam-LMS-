@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import style from "../assets/css/UserTable.module.css";
 import { Accordion } from "react-bootstrap";
-import { useHttpClient } from "../customHook/http-hook";
+import { AuthContext } from "../context/authContext";
 
 const Users = () => {
-  const { sendRequest } = useHttpClient();
-  const [allUsers, setAllUsers] = useState([]);
-  useEffect(() => {
-    sendRequest(`${process.env.REACT_APP_API_URL}/admin/auth/getAllUsers`).then(
-      (res) => {
-        if (res.status === 200) {
-          setAllUsers(res.allUsers);
-        }
-      }
-    );
-  }, []);
+  const [searchInp, setSearchInp] = useState("");
+  const { allUsers } = useContext(AuthContext);
+  const [users, setUsers] = useState([...allUsers]);
 
-  console.log(allUsers);
+  useEffect(() => {
+    setUsers(allUsers);
+  }, [allUsers]);
+
+  useEffect(() => {
+    if (searchInp === "") setUsers(allUsers);
+    const userFilter = allUsers.filter((user) => {
+      console.log(user);
+      const name = (
+        user.local.personalInfo.firstName + user.local.personalInfo.lastName
+      )?.toLowerCase();
+      return name.includes(searchInp.toLowerCase());
+    });
+    if (!!userFilter) setUsers(userFilter);
+  }, [searchInp]);
 
   const dateHandler = (dateString) => {
     if (!dateString) return null;
@@ -31,7 +37,15 @@ const Users = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <div className={style.heading}>Users</div>
+        <div className={style.containerHeader}>
+          <div className={style.heading}>Users</div>
+          <input
+            className={style.searchInput}
+            type="text"
+            placeholder="Search a user  🔎"
+            onChange={(e) => setSearchInp(e.target.value)}
+          />
+        </div>
         <div className={style.tableContainer}>
           <div className={style.header}>
             <div className={style.col1}>User Name</div>
@@ -39,7 +53,7 @@ const Users = () => {
             <div className={style.col3}>Total Courses Enrolled</div>
           </div>
           <Accordion>
-            {allUsers.map((user, idx) => {
+            {users.map((user, idx) => {
               console.log(user);
               return (
                 <Accordion.Item eventKey={idx} key={idx}>
