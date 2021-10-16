@@ -10,6 +10,20 @@
   margin-top: 50px;
 }
 
+.containerHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 0px;
+  border: none;
+  font-size: 1.2rem;
+  font-family: Ubuntu;
+  padding-left: 5px;
+}
+
 .heading {
   font-size: 2rem;
   font-weight: bold;
