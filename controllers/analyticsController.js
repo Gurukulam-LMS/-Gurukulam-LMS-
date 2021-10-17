@@ -56,40 +56,7 @@ exports.topCourses = (req, res) => {
     });
 };
 
-exports.studentWatchTime = async (req, res) => {
-  try {
-    const { userId, courseId, timeSpent } = req.body;
-    if (!userId || !courseId || !timeSpent)
-      return res.status(404).json({ message: "Data missing" });
-
-    const getUser = await Users.findById(userId);
-    if (!getUser) return res.status(404).json({ message: "User Not found" });
-
-    const courseWatchTime = getUser.local.courseWatchTime?.find(
-      (course) => course.courseId === courseId
-    );
-    if (!courseWatchTime) {
-      const watchTime = {
-        courseId,
-        watchTime: parseFloat(timeSpent),
-      };
-      getUser.local.courseWatchTime?.push(watchTime);
-    } else {
-      courseWatchTime.watchTime += parseFloat(timeSpent);
-    }
-
-    getUser.save();
-    return res.status(201).json({ message: "Time added" });
-  } catch (err) {
-    console.log(err);
-    return res
-      .status(500)
-      .json({ message: "Unable to add user watch time", err });
-  }
-};
-
 exports.getRevenueCat = (req, res) => {
-  console.log(req.params.category);
   Course.find({ category: { $elemMatch: { $eq: req.params.category } } })
     .then((topCourses) => {
       var revenue = 0;
@@ -104,7 +71,7 @@ exports.getRevenueCat = (req, res) => {
     });
 };
 
-exports.getRevenueOfAllCat = async (req, res) => {
+module.exports.getRevenueOfAllCat = async (req, res) => {
   try {
     const courses = await Course.find({});
     const catRevenue = {};

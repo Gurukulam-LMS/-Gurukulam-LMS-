@@ -7,4 +7,7 @@ router.get("/activeUsers", analyticsController.activeUsers);
 router.get("/totalRevenue", analyticsController.totalRevenue);
 router.get("/topCourses", analyticsController.topCourses);
 router.post("/studentWatchTime", analyticsController.studentWatchTime);
+router.get("/getRevenueCat/:category", analyticsController.getRevenueCat);
+router.post("/timeSpent/", analyticsController.timeSpent);
+router.get("/getRevenueAllCat", analyticsController.getRevenueOfAllCat);
 module.exports = router;
