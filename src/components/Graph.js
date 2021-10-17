@@ -1,60 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 const Graph = () => {
+  const [catRevenue, setCatRevenue] = useState({});
+  useEffect(async () => {
+    const data = await fetch(
+      process.env.REACT_APP_API_URL + "/analytics/getRevenueAllCat"
+    );
+    const res = await data.json();
+    if (data.status === 200) {
+      setCatRevenue(res.catRevenue);
+    }
+  }, []);
+
+  const [graphData, setGraphData] = useState({});
+  useEffect(() => {
+    const data = {
+      labels: [...Object.keys(catRevenue)],
+      datasets: [
+        {
+          label: "Total Revenue",
+          data: [...Object.values(catRevenue)],
+          backgroundColor: "rgb(118, 247, 182)",
+          barThickness: "35",
+          borderRadius: "25",
+        },
+      ],
+    };
+    setGraphData(data);
+  }, [catRevenue]);
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <div className="barchart">
       <div className="barchart-heading">Revenue generated each category</div>
-      <Bar
-        data={{
-          labels: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-          ],
-          datasets: [
-            {
-              label: null,
-              data: [12, 19, 3, 5, 2, 3, 9],
-              backgroundColor: "rgb(118, 247, 182)",
-              barThickness: "35",
-              borderRadius: "25",
-            },
-            {
-              label: null,
-              data: [15, 34, 33, 52, 24, 53, 45],
-              backgroundColor: "rgb(236, 234, 234)",
-              barThickness: "35",
-              borderRadius: "15",
-            },
-          ],
-        }}
-        options={{
-          scales: {
-            x: {
-              stacked: true,
-            },
-            y: {
-              stacked: true,
-            },
-          },
-          plugins: {
-            tooltip: {
-              interaction: {
-                mode: "point",
-              },
-              callbacks: {
-                label: function (context) {
-                  return `Triggering for dataset ${context.datasetIndex}`;
-                },
-              },
-            },
-          },
-        }}
-      />
+      <Bar data={graphData} options={options} />
     </div>
   );
 };
