@@ -1,11 +1,33 @@
 import "../../assets/css/student.css";
 import Section2 from "./section2";
-import Section3 from "./section3";
 import { CourseContext } from "../../../context/courseContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../context/authContext.js";
 
 const Dashboard = () => {
   const { allCourses } = useContext(CourseContext);
+  const { myCourses, userId } = useContext(AuthContext);
+
+  const [watchTimePerDays, setWatchTimeDays] = useState([0, 0, 0, 0, 0, 0, 0]);
+  useEffect(async () => {
+    const api_url = `${process.env.REACT_APP_ADMIN_URL}/analytics/watchTimePerDays/${userId}`;
+    const data = await fetch(api_url);
+    if (data.status === 200) {
+      const res = await data.json();
+      console.log(res);
+      setWatchTimeDays(res.watchTimePerDays);
+    }
+  }, [userId]);
+
+  const [totalWatchTimeInWeek, setTotalWatchTimeInWeek] = useState(0);
+  useEffect(() => {
+    var totalSum = 0;
+    watchTimePerDays.forEach((time) => {
+      totalSum += time;
+    });
+    totalSum /= 60;
+    setTotalWatchTimeInWeek(totalSum);
+  }, [watchTimePerDays]);
 
   return (
     <>
@@ -90,7 +112,7 @@ const Dashboard = () => {
                   <div className="col-6 text-center align-middle">
                     <div className="circle">
                       <p>
-                        <span>7.6</span>
+                        <span>{totalWatchTimeInWeek.toFixed(2)}</span>
                         <br />
                         Hourse Spent
                         <br />
@@ -102,7 +124,7 @@ const Dashboard = () => {
                 <div className="row mt-5 mb-4">
                   <div className="col-4 text-left">
                     <div className="box">
-                      <h5>4</h5>
+                      <h5>{myCourses.length || 0}</h5>
                       <h7>
                         Cours <br /> Entrolled
                       </h7>
@@ -110,7 +132,7 @@ const Dashboard = () => {
                   </div>
                   <div className="col-4 text-left">
                     <div className="box">
-                      <h5>2</h5>
+                      <h5>0</h5>
                       <h7>
                         Cours <br /> Completed
                       </h7>
@@ -118,7 +140,7 @@ const Dashboard = () => {
                   </div>
                   <div className="col-4 text-left">
                     <div className="box">
-                      <h5>2</h5>
+                      <h5>0</h5>
                       <h7>
                         Cours in <br /> Progress
                       </h7>
@@ -131,8 +153,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <Section2 />
-      <Section3 />
+      <Section2 watchTimePerDays={watchTimePerDays} />
     </>
   );
 };

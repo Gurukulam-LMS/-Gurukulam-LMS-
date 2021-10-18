@@ -1,5 +1,6 @@
 import { Container, Image } from "react-bootstrap";
 import SocialMediaShare from "../../utils/SocialMediaShare";
+import BlogComment from "./BlogComment";
 
 const LeftContainer = ({ blog }) => {
   return (
@@ -33,6 +34,9 @@ const LeftContainer = ({ blog }) => {
       <Container className="d-flex mt-2">
         <SocialMediaShare content={blog && blog.title} />
       </Container>
+      <br />
+      <BlogComment blogId={blog && blog._id} />
+      <br />
       <br />
     </>
   );
