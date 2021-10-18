@@ -455,3 +455,32 @@ module.exports.verifyOTP = (req, res) => {
     }
   });
 };
+
+module.exports.lastWatched = async (req, res) => {
+  try {
+    const { userId, courseId } = req.body;
+    if (!userId || !courseId)
+      return res.status(404).json({ message: "ids not found" });
+    const getUser = await User.findById(userId);
+    if (!getUser) return res.status(404).json({ message: "user not found" });
+    getUser.local.lastWatched.courseId = courseId;
+    getUser.save();
+    return res.status(201).json({ message: "Added last watch" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Unable to add last watch", err });
+  }
+};
+
+module.exports.getLastWatch = async (req, res) => {
+  const { userId } = req.params;
+  if (userId == null) return res.status(404).json({ message: "Id missing" });
+  try {
+    const getUser = await User.findById(userId);
+    if (!getUser) return res.status(404).json({ message: "user not found" });
+    return res.status(200).json({ lastWatched: getUser.local.lastWatched });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Unable to fetch last watch", err });
+  }
+};

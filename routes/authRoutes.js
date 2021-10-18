@@ -32,5 +32,7 @@ router.post(
 //Mobile_Number_Verification
 router.post("/mobileNumberVerify", authController.mobileNumberVerify);
 router.post("/verifyOTP", authController.verifyOTP);
+router.post("/addlastWatch", authController.lastWatched);
+router.get("/getLastWatch/:userId", authController.getLastWatch);
 
 module.exports = router;

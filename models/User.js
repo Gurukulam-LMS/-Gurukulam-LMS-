@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const { isEmail } = require("validator");
-const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
     method: {
       type: String,
-      enum: ["local", "google", "linkedin"],
+      enum: ["local", "google"],
       required: true,
     },
 
@@ -36,6 +36,27 @@ const userSchema = new mongoose.Schema(
           degree: String,
         },
       ],
+      usedCoupons: [
+        {
+          couponId: String,
+          finalAmount: String,
+        },
+      ],
+      courseWatchTime: [
+        {
+          courseId: String,
+          watchTime: Number,
+        },
+      ],
+      //student watch time in days sun = index0 , mon = index1, ....
+      studentWatchTimeDays: {
+        type: Array,
+        default: [0, 0, 0, 0, 0, 0, 0],
+      },
+      lastWatched: {
+        courseId: String,
+      },
+      coursesEnrolled: Array,
       verification: {
         email: {
           type: Boolean,
@@ -46,42 +67,27 @@ const userSchema = new mongoose.Schema(
           default: false,
         },
       },
-      usedCoupons: [
-        {
-          couponId: String,
-          finalAmount: String,
-        },
-      ],
-      coursesEnrolled: Array,
       secretToken: String,
       resetPasswordToken: String,
       resetPasswordExpires: Date,
     },
+
     google: {
-      id: String,
-      token: String,
-    },
-    linkedin: {
-      id: String,
-      token: String,
+      id: {
+        type: String,
+        default: "",
+      },
+      email: {
+        type: String,
+        default: "",
+      },
+      token: {
+        type: String,
+        default: "",
+      },
     },
   },
   { timestamps: true }
 );
 
-// static method to login user
-userSchema.statics.login = async function (email, password) {
-  const user = await this.findOne({ "local.personalInfo.email": email });
-  if (user) {
-    const auth = await bcrypt.compare(
-      password,
-      user.local.personalInfo.password
-    );
-    if (auth) return user;
-  }
-  return "Incorrect Credentials";
-};
-
-const User = mongoose.model("user", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("Users", UserSchema);
