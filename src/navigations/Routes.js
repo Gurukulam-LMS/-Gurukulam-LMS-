@@ -27,6 +27,7 @@ import Onboarding2 from "../components/onboarding/index2";
 import CoursePlayer from "../components/course/coursePlayer";
 import AllCourses from "../components/course/allCourses";
 import EducatorContact from "../components/contact/educatorContact";
+import ScrollToTop from "../utils/comps/ScrollToTop";
 
 function Routes() {
   const { isLoggedIn, verification } = useContext(AuthContext);
@@ -82,6 +83,7 @@ function Routes() {
   if (isLoggedIn && !!verification && verification.mobile === false) {
     return (
       <Router>
+        <ScrollToTop />
         <Header />
         <Switch>
           <Route path="/onboarding" component={OnBoarding} />
@@ -94,6 +96,7 @@ function Routes() {
   if (!isLoggedIn) {
     return (
       <Router>
+        <ScrollToTop />
         {globalRoutes}
         <Footer />
       </Router>
@@ -102,6 +105,7 @@ function Routes() {
 
   return (
     <Router>
+      <ScrollToTop />
       {afterAuthRoutes}
       <Footer />
     </Router>

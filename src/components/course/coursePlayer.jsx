@@ -35,6 +35,8 @@ const CoursePlayer = () => {
       courseId: courseId,
       timeSpent: TimeMe.getTimeOnCurrentPageInSeconds() / 60.0,
     };
+
+    //send time spent on a particular course data
     sendRequest(
       process.env.REACT_APP_ADMIN_URL + "/analytics/studentWatchTime",
       "POST",
@@ -46,6 +48,18 @@ const CoursePlayer = () => {
       .then((res) => {
         console.log(res);
       })
+      .catch((err) => console.log(err));
+
+    //sending last watched data
+    sendRequest(
+      process.env.REACT_APP_BASE_URL + "/auth/addlastWatch",
+      "POST",
+      JSON.stringify({ userId, courseId }),
+      {
+        "Content-Type": "application/json",
+      }
+    )
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   });
 
