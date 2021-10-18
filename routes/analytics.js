@@ -10,4 +10,5 @@ router.post("/studentWatchTime", analyticsController.studentWatchTime);
 router.get("/getRevenueCat/:category", analyticsController.getRevenueCat);
 router.post("/timeSpent/", analyticsController.timeSpent);
 router.get("/getRevenueAllCat", analyticsController.getRevenueOfAllCat);
+router.get("/watchTimePerDays/:userId", analyticsController.getWatchTimeByDays);
 module.exports = router;

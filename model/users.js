@@ -48,6 +48,11 @@ const UserSchema = new Schema(
           watchTime: Number,
         },
       ],
+      //student watch time in days sun = index0 , mon = index1, ....
+      studentWatchTimeDays: {
+        type: Array,
+        default: [0, 0, 0, 0, 0, 0, 0],
+      },
       lastWatched: {
         courseId: String,
       },

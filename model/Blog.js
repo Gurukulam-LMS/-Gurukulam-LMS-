@@ -18,6 +18,10 @@ const BlogSchema = new Schema(
         userName: String,
         userEmail: String,
         comment: String,
+        commentDate: {
+          type: Date,
+          default: Date.now(),
+        },
       },
     ],
   },
