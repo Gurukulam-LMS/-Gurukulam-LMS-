@@ -36,6 +36,8 @@ const App = () => {
     lastPaymentInfo,
     setLastPaymentInfoHandler,
     myCourses: auth.myCourses,
+    educationalInfoHandler: auth.educationalInfoHandler,
+    personalInfoHandler: auth.personalInfoHandler,
   };
 
   //Course-Context

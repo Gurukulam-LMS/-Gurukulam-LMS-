@@ -10,12 +10,15 @@ const Dashboard = () => {
 
   const [watchTimePerDays, setWatchTimeDays] = useState([0, 0, 0, 0, 0, 0, 0]);
   useEffect(async () => {
-    const api_url = `${process.env.REACT_APP_ADMIN_URL}/analytics/watchTimePerDays/${userId}`;
-    const data = await fetch(api_url);
-    if (data.status === 200) {
-      const res = await data.json();
-      console.log(res);
-      setWatchTimeDays(res.watchTimePerDays);
+    try {
+      const api_url = `${process.env.REACT_APP_ADMIN_URL}/analytics/watchTimePerDays/${userId}`;
+      const data = await fetch(api_url);
+      if (data.status === 200) {
+        const res = await data.json();
+        setWatchTimeDays(res.watchTimePerDays);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [userId]);
 

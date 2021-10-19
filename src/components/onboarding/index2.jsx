@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavHeader from "../../utils/Header";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useEffect } from "react";
 
 const FormControl = styled(Form.Control)`
   border-radius: 0;
@@ -38,10 +39,24 @@ const Button = styled.button`
 
 const OnBoarding2 = () => {
   const auth = useContext(AuthContext);
+  const currEduInfo = auth.educationalInfo || [];
   const { sendRequest, isLoading } = useHttpClient();
   const history = useHistory();
   let initial = { collage: "", degree: "", startYear: null, endYear: null };
   const [educationalInfo, setEducationalInfo] = useState([initial]);
+
+  useEffect(() => {
+    const prevData = [...educationalInfo];
+    currEduInfo.forEach((info) => {
+      const reqInfo = { ...info };
+      delete reqInfo["_id"];
+      prevData.unshift(reqInfo);
+    });
+    if (prevData.length != 0) {
+      prevData.pop();
+    }
+    setEducationalInfo(prevData);
+  }, []);
 
   const reRef = useRef();
 
@@ -59,7 +74,8 @@ const OnBoarding2 = () => {
     )
       .then((res) => {
         if (res.ok) {
-          toast.success("Onboarding Done", { position: "top-right" });
+          auth.educationalInfoHandler(res.educationalInfo);
+          toast.success("Onboarding Done");
           history.push("/");
         } else {
           toast.warning(res.message, { position: "top-right" });
@@ -78,7 +94,6 @@ const OnBoarding2 = () => {
   return (
     <>
       <NavHeader />
-
       <h3 className={style.onBoardingHeader}>Onboarding</h3>
       <Container className="mt-5">
         <h3 className="p-3" style={{ fontFamily: "Ubuntu" }}>
@@ -92,11 +107,13 @@ const OnBoarding2 = () => {
               name="collage"
               onChange={(e) => educationalInfoHandler(e, idx)}
               className={style.input}
+              value={educationalInfo[idx].collage}
             />
             <select
               name="degree"
               onChange={(e) => educationalInfoHandler(e, idx)}
               className={style.input}
+              value={educationalInfo[idx].degree}
             >
               <option hidden value>
                 Qualification
@@ -116,70 +133,6 @@ const OnBoarding2 = () => {
             >
               Remove
             </button>
-            {/* <Col lg={4} xs={4}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="formBasicName of College/Institute"
-                >
-                  <FormControl
-                    type="text"
-                    placeholder="Name of College/Institute"
-                    name="collage"
-                    onChange={(e) => educationalInfoHandler(e, idx)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={4} xs={4}>
-                <Form.Group className="mb-3 w-100" controlId="formBasicGender">
-                  <FormControl
-                    as="select"
-                    className="w-100"
-                    custom
-                    name="degree"
-                    onChange={(e) => educationalInfoHandler(e, idx)}
-                  >
-                    <option hidden value>
-                      Qualification
-                    </option>
-                    <option value="Bachelor's Degree">Bachelor's Degree</option>
-                    <option value="Master Degree">Master Degree</option>
-                    <option value="Post Doctorate">Post Doctorate</option>
-                  </FormControl>
-                </Form.Group>
-              </Col> */}
-            {/* <Col lg={4} xs={6}>
-                <Form.Group className="mb-3" controlId="formBasiStart Year">
-                  <FormControl
-                    type="text"
-                    placeholder="Start Year"
-                    name="startYear"
-                    onChange={(e) => educationalInfoHandler(e, idx)}
-                  />
-                </Form.Group>
-              </Col> */}
-            {/* <Col lg={4} xs={6}>
-                <Form.Group className="mb-3" controlId="formBasicEnd Year">
-                  <FormControl
-                    type="text"
-                    placeholder="End Year"
-                    name="endYear"
-                    onChange={(e) => educationalInfoHandler(e, idx)}
-                  />
-                </Form.Group>
-              </Col> */}
-            {/* <Col lg={4} xs={6}>
-                <div className="mb-3">
-                  <Button
-                    onClick={() => {
-                      let info = [...educationalInfo];
-                      info.splice(idx, 1);
-                      setEducationalInfo(info);
-                    }}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              </Col> */}
           </div>
         ))}
         <div className="mb-3 d-flex justify-content-center">

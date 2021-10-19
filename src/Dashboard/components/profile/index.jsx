@@ -15,6 +15,7 @@ const Profile = () => {
   };
 
   const { personalInfo, educationalInfo } = useContext(AuthContext);
+  console.log(personalInfo);
 
   return (
     <div className={style.container}>
