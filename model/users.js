@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const { isEmail } = require("validator");
-
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     method: {
       type: String,
-      enum: ["local", "google"],
+      enum: ["local", "google", "linkedin"],
       required: true,
     },
 
@@ -71,23 +70,16 @@ const UserSchema = new Schema(
       resetPasswordToken: String,
       resetPasswordExpires: Date,
     },
-
     google: {
-      id: {
-        type: String,
-        default: "",
-      },
-      email: {
-        type: String,
-        default: "",
-      },
-      token: {
-        type: String,
-        default: "",
-      },
+      id: String,
+      token: String,
+    },
+    linkedin: {
+      id: String,
+      token: String,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Users", UserSchema);
+module.exports = mongoose.model("user", userSchema);
