@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const { isEmail } = require("validator");
+const bcrypt = require("bcrypt");
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     method: {
       type: String,
-      enum: ["local", "google"],
+      enum: ["local", "google", "linkedin"],
       required: true,
     },
 
@@ -71,23 +72,28 @@ const UserSchema = new Schema(
       resetPasswordToken: String,
       resetPasswordExpires: Date,
     },
-
     google: {
-      id: {
-        type: String,
-        default: "",
-      },
-      email: {
-        type: String,
-        default: "",
-      },
-      token: {
-        type: String,
-        default: "",
-      },
+      id: String,
+      token: String,
+    },
+    linkedin: {
+      id: String,
+      token: String,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Users", UserSchema);
+userSchema.statics.login = async function (email, password) {
+  const user = await this.findOne({ "local.personalInfo.email": email });
+  if (user) {
+    const auth = await bcrypt.compare(
+      password,
+      user.local.personalInfo.password
+    );
+    if (auth) return user;
+  }
+  return "Incorrect Credentials";
+};
+
+module.exports = mongoose.model("user", userSchema);
