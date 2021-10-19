@@ -3,8 +3,10 @@ const verifyReCAPTCHA = require("../config/googleReCAPTCHA");
 
 exports.uploadCourse = async (req, res, next) => {
   const doc = req.body;
-  const imageurl = req.file.location;
-
+  let imageurl = null;
+  if (!!req.file) {
+    imageurl = req.file.location;
+  }
   //ReCAPTACH verification
   const verifyReCAPTCHA_token = await verifyReCAPTCHA(doc.token);
   if (!verifyReCAPTCHA_token.ok || !verifyReCAPTCHA_token.isHuman)

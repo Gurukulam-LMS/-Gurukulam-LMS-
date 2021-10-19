@@ -5,24 +5,20 @@ const courseSchema = new Schema(
   {
     title: {
       type: String,
-      require: true,
     },
     category: [
       {
         type: String,
-        require: true,
       },
     ],
     thumbnail: {
       type: String,
-      require: false,
     },
     tagline: {
       type: String,
     },
     description: {
       type: String,
-      require: true,
     },
 
     //What will you learn section
@@ -30,23 +26,19 @@ const courseSchema = new Schema(
 
     requirement: {
       type: String,
-      require: false,
     },
     language: {
       type: String,
-      required: true,
     },
     price: {
       type: String,
-      required: true,
     },
     level: {
       type: String,
-      required: true,
     },
     creator: {
       //for refrencing the person who created it
-      required: true,
+
       type: Schema.Types.ObjectId,
       ref: "Admin",
     },
@@ -60,7 +52,7 @@ const courseSchema = new Schema(
 
     purchased: {
       type: Number,
-      required: true,
+
       default: 0,
     },
 
@@ -98,23 +90,23 @@ const courseSchema = new Schema(
     rating: {
       ratingSum: {
         type: Number,
-        required: false,
+
         default: 1,
       },
       timesUpdated: {
         type: Number,
-        require: false,
+
         default: 1,
       },
       ratingFinal: {
         type: Number,
-        require: false,
+
         default: 1,
       },
     },
     totalDuration: {
       type: Number,
-      required: true,
+
       default: 0,
     },
   },

@@ -5,17 +5,23 @@ module.exports.createBlog = async (req, res) => {
   const { title, body, token } = req.body;
 
   //ReCAPTACH verification
-  const verifyReCAPTCHA_token = await verifyReCAPTCHA(doc.token);
+  const verifyReCAPTCHA_token = await verifyReCAPTCHA(token);
   if (!verifyReCAPTCHA_token.ok || !verifyReCAPTCHA_token.isHuman)
     return res.json({
       message: "Google ReCAPTACH verification failed",
       ok: false,
     });
 
-  const topics = JSON.parse(req.body.topics);
+  let topics = null;
+  if (!!req.body.topics) {
+    topics = JSON.parse(req.body.topics);
+  }
   const tags = [];
   tags.push(req.body.tags);
-  const image = req.file.location;
+  let image = null;
+  if (!!req.file) {
+    image = req.file.location;
+  }
   try {
     const newBlog = await new Blog({
       title,
