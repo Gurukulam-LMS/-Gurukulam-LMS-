@@ -158,14 +158,19 @@ module.exports.profileUpdate = async (req, res) => {
     };
 
   try {
-    await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         $set: { ...reqInfo },
       },
       { returnOriginal: false }
     );
-    return res.json({ message: "Profile Updated", ok: true });
+    return res.json({
+      message: "Profile Updated",
+      ok: true,
+      personalInfo: updatedUser.local.personalInfo,
+      educationalInfo: updatedUser.local.educationalInfo,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Profile Updation failed" });
