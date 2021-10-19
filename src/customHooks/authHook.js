@@ -148,6 +148,30 @@ export const useAuth = () => {
       .catch((err) => console.log(err));
   }, [userId]);
 
+  const personalInfoHandler = useCallback((perInfo) => {
+    setPersonalInfo(perInfo);
+    const data = JSON.parse(localStorage.getItem("userData"));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        ...data,
+        personalInfo: perInfo,
+      })
+    );
+  }, []);
+
+  const educationalInfoHandler = useCallback((eduInfo) => {
+    setEducationalInfo(eduInfo);
+    const data = JSON.parse(localStorage.getItem("userData"));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        ...data,
+        educationalInfo: eduInfo,
+      })
+    );
+  }, []);
+
   return {
     token,
     login,
@@ -158,6 +182,8 @@ export const useAuth = () => {
     verification,
     cart,
     myCourses,
+    personalInfoHandler,
+    educationalInfoHandler,
     setCartHandler,
     googleLogin,
     setVerificationStatus,

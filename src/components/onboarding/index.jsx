@@ -97,7 +97,8 @@ const OnBoarding = () => {
     )
       .then((res) => {
         if (res.ok) {
-          toast.success("Onboarding Done", { position: "top-right" });
+          auth.personalInfoHandler(res.personalInfo);
+          toast.success("Saved");
           auth.setVerificationStatus("mobile");
           history.push("/onboarding2");
         } else {

@@ -16,4 +16,6 @@ export const AuthContext = createContext({
   login: () => {},
   logout: () => {},
   googleLogin: () => {},
+  personalInfoHandler: () => {},
+  educationalInfoHandler: () => {},
 });
