@@ -25,39 +25,59 @@ function Navbar() {
               <Link to={"/courses"}>Courses</Link>
             </li>
             <li>
-              <Link to={"/create"}>Create Course</Link>
-            </li>
-
-            <li>
-              <Link to="/blog">Create Blog</Link>
-            </li>
-            <li>
               <Link to="/users">Users</Link>
             </li>
-
             <Dropdown>
               <Dropdown.Toggle
                 style={{
                   border: "none",
                   backgroundColor: "transparent",
+                  fontWeight: "400",
                   color: "black",
-                  fontSize: "1.3rem",
+                  fontSize: "18px",
                   boxShadow: "none",
-                  margin: "0",
+                  margin: "0.5px",
                   padding: "0",
                   marginTop: "0",
+                  textTransform: "none",
+                  fontFamily: "Roboto",
                 }}
               >
-                <span className="fa fa-cog"></span>
+                <span>Create</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="/coupon">Create Coupan</Dropdown.Item>
-                <Dropdown.Item href="/" onClick={() => logout()}>
+                <Dropdown.Item href="/create">Course</Dropdown.Item>
+                <Dropdown.Item href="/blog">Blog</Dropdown.Item>
+                <Dropdown.Item href="/coupon">Coupan</Dropdown.Item>
+                {/* <Dropdown.Item href="/" onClick={() => logout()}>
                   Logout
-                </Dropdown.Item>
+                </Dropdown.Item> */}
               </Dropdown.Menu>
             </Dropdown>
+
+            <li>
+              <Link
+                to="/"
+                onClick={() => logout()}
+                style={{
+                  background: "#0043ff",
+                  padding: "8px",
+                  marginLeft: "25px",
+                  borderRadius: "5px",
+                }}
+              >
+                <span
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    fontFamily: "Ubuntu",
+                  }}
+                >
+                  Logout
+                </span>
+              </Link>
+            </li>
 
             <li>
               <a href="#">
