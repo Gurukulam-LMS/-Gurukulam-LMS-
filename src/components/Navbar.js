@@ -27,6 +27,9 @@ function Navbar() {
             <li>
               <Link to="/users">Users</Link>
             </li>
+            <li>
+              <Link to="/blogs">Blogs</Link>
+            </li>
             <Dropdown>
               <Dropdown.Toggle
                 style={{

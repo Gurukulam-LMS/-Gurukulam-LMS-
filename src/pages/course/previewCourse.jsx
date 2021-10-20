@@ -9,12 +9,28 @@ import { useParams } from "react-router";
 import { CourseContext } from "../../context/courseContext";
 import style from "../../assets/css/previewCourse.module.css";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
 
 const PreviewCourse = () => {
   const { courseId } = useParams();
   const { allCourses } = useContext(CourseContext);
   const course = allCourses.find((course) => course._id === courseId);
   const history = useHistory();
+
+  const deleteCourseHandler = async () => {
+    try {
+      const api_url = `${process.env.REACT_APP_API_URL}/admin/course/deleteCourse/${courseId}`;
+      const res = await fetch(api_url);
+      if (res.status === 200) {
+        const data = await res.json();
+        toast.success(data.message);
+        window.location.replace("/courses");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <header className="header">
@@ -35,12 +51,6 @@ const PreviewCourse = () => {
                     {course && course.title}
                   </h1>
                   <p className="pl-lg-2 pl-sm-1">{course && course.tagline}</p>
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="gold" size={22} />
-                  <FaStar color="white" size={22} /> (1235 Rating)
-                  <br />
                   <div
                     className="mt-3"
                     style={{ fontSize: "large", color: "#96d6fc" }}
@@ -71,6 +81,14 @@ const PreviewCourse = () => {
                       }
                     >
                       UPDATE COURSE TOPIC
+                    </div>
+                    <br />
+                    <div
+                      className={`${style.updateBtn} mt-4`}
+                      style={{ backgroundColor: "maroon" }}
+                      onClick={deleteCourseHandler}
+                    >
+                      DELETE COURSE
                     </div>
                   </div>
                 </div>

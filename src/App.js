@@ -23,6 +23,7 @@ import Coupon from "./pages/coupon/coupon";
 import CourseDetails from "./pages/courseUpdation/courseDetails";
 import CourseTopic from "./pages/courseUpdation/courseTopic";
 import Users from "./pages/Users";
+import BlogTable from "./pages/BlogTable";
 
 function App() {
   const doc_auth = useAuth();
@@ -79,6 +80,7 @@ function App() {
                     path="/update/courseTopics/:courseId"
                     component={CourseTopic}
                   />
+                  <Route exact path="/blogs" component={BlogTable} />
                 </Switch>
               </>
             ) : (
