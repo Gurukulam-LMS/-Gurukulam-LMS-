@@ -6,8 +6,8 @@ import { AuthContext } from "../../../context/authContext.js";
 
 const Dashboard = () => {
   const { allCourses } = useContext(CourseContext);
-  const { myCourses, userId } = useContext(AuthContext);
-
+  const { myCourses, userId, personalInfo } = useContext(AuthContext);
+  console.log(window.location);
   const [watchTimePerDays, setWatchTimeDays] = useState([0, 0, 0, 0, 0, 0, 0]);
   useEffect(async () => {
     try {
@@ -108,8 +108,24 @@ const Dashboard = () => {
               <div className="card-body">
                 <div className="row align-middle mt-2">
                   <div className="col-6 text-center name">
-                    <img src="dashboard/Group 199.png" alt="" />
-                    <h6>Anne Frank</h6>
+                    <img
+                      src={
+                        !!personalInfo.profileImage
+                          ? process.env.REACT_APP_API_URL +
+                            "/" +
+                            personalInfo.profileImage
+                          : "dashboard/Group 256.png"
+                      }
+                      alt=""
+                      width={75}
+                      height={75}
+                      style={{ borderRadius: "50%" }}
+                    />
+                    <h6>
+                      {personalInfo.firstName +
+                        " " +
+                        (personalInfo.lastName || "")}
+                    </h6>
                     <h7>Student</h7>
                   </div>
                   <div className="col-6 text-center align-middle">

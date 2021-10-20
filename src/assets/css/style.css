@@ -40,6 +40,11 @@ a {
   border: 1px solid rgb(219, 209, 209) !important;
 }
 
+.errMsgInputs {
+  color: red;
+  margin-left: 5px;
+}
+
 @media (max-width: 500px) {
   .navigationContainer {
     display: none;

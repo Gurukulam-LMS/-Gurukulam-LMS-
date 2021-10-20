@@ -67,6 +67,11 @@ const Section2 = ({ watchTimePerDays }) => {
         display: false,
       },
     },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     responsive: true,
   };
 
