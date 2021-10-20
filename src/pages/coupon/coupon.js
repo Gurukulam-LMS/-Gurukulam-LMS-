@@ -11,6 +11,7 @@ const Coupon = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    formData.append("type", "public");
     const token = await reRef.current.executeAsync();
     reRef.current.reset();
     formData.append("token", token);
@@ -65,13 +66,6 @@ const Coupon = () => {
           <input type="date" className={style.inputText} name="expirytime" />
         </div>
 
-        <div className={style.row}>
-          <div className={style.label}>Coupon Type</div>
-          <select name="type" className={style.inputText}>
-            <option value="public">public</option>
-            {/* <option value="private">private</option> */}
-          </select>
-        </div>
         {isLoading ? (
           <Spinner animation="border" variant="primary" />
         ) : (

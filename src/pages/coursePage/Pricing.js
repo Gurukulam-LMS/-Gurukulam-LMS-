@@ -86,6 +86,7 @@ function Pricing({ setStack }) {
               containing Lorem Ipsum passages, and more recently with desktop
               publishing software .
             </p>
+
             <div className="pricing-buttons">
               <select
                 name="currency"
@@ -102,10 +103,15 @@ function Pricing({ setStack }) {
                 placeholder="Amount"
                 onChange={(e) => setPrice(e.target.value)}
               />
+
               {isLoading ? (
                 <Spinner animation="border" variant="primary" />
               ) : (
-                <button className="save" onClick={formSubmitHandler}>
+                <button
+                  className="save"
+                  onClick={formSubmitHandler}
+                  disabled={!price}
+                >
                   Save
                 </button>
               )}

@@ -24,6 +24,14 @@ function CourseLandingPage({ stack, setStack, data }) {
     const prevVal = { ...courseFormData };
     prevVal[name] = value;
     setCourseFormData(prevVal);
+    if (name === "tagline") return;
+    const prevErr = { ...errMsg };
+    if (value.length === 0) {
+      prevErr[name] = "Required!!";
+    } else {
+      prevErr[name] = null;
+    }
+    setErrMsg(prevErr);
   };
 
   const keyPointsHandler = (e, idx) => {
@@ -34,6 +42,7 @@ function CourseLandingPage({ stack, setStack, data }) {
   };
 
   const courseSubmitHandler = () => {
+    if (!validateInputs()) return;
     const courseDetails = { ...courseFormData };
     const category = courseFormData.category;
     let cat = [];
@@ -42,6 +51,30 @@ function CourseLandingPage({ stack, setStack, data }) {
     courseDetails["keyPoints"] = keyPoints;
     setCourseDetailsHandler(courseDetails);
     setStack((e) => e + 1);
+  };
+
+  const [errMsg, setErrMsg] = useState({
+    title: null,
+    image: null,
+    category: null,
+    description: null,
+    level: null,
+    language: null,
+  });
+
+  const validateInputs = () => {
+    let flag = true;
+    const prevErr = { ...errMsg };
+    Object.keys(prevErr).map((key) => {
+      if (!courseFormData[key]) {
+        flag = false;
+        prevErr[key] = "Required!!";
+      } else {
+        prevErr[key] = null;
+      }
+    });
+    setErrMsg(prevErr);
+    return flag;
   };
 
   return (
@@ -87,6 +120,7 @@ function CourseLandingPage({ stack, setStack, data }) {
                 value={courseFormData.title}
                 name="title"
               />
+              <div className="errMsgInput">{errMsg.title}</div>
             </div>
             <div className="form-input">
               <label for="">Categroy</label>
@@ -97,6 +131,7 @@ function CourseLandingPage({ stack, setStack, data }) {
                 value={courseFormData.category}
                 name="category"
               />
+              <div className="errMsgInput">{errMsg.category}</div>
             </div>
             <div className="form-input">
               <label for="">Tagline</label>
@@ -112,13 +147,15 @@ function CourseLandingPage({ stack, setStack, data }) {
               <Form.Label>Choose Thumbnail</Form.Label>
               <Form.Control
                 type="file"
-                onChange={(e) =>
+                onChange={(e) => {
                   setCourseFormData({
                     ...courseFormData,
                     image: e.target.files[0],
-                  })
-                }
+                  });
+                  setErrMsg({ ...errMsg, image: null });
+                }}
               />
+              <div className="errMsgInput">{errMsg.image}</div>
             </Form.Group>
             <div className="form-input">
               <label for="">Description</label>
@@ -130,6 +167,7 @@ function CourseLandingPage({ stack, setStack, data }) {
                 value={courseFormData.description}
                 rows="3"
               />
+              <div className="errMsgInput">{errMsg.description}</div>
             </div>
             <br />
             <label for="">What you will learn</label>
@@ -182,6 +220,7 @@ function CourseLandingPage({ stack, setStack, data }) {
                   <option value="Intermediate">Intermediate</option>
                   <option value="Expert">Expert</option>
                 </select>
+                <div className="errMsgInput">{errMsg.level}</div>
               </div>
               <div className="form-input col">
                 <label for="">Language</label>
@@ -195,6 +234,7 @@ function CourseLandingPage({ stack, setStack, data }) {
                   <option value="Hindi">Hindi</option>
                   <option value="Spanish">Spanish</option>
                 </select>
+                <div className="errMsgInput">{errMsg.language}</div>
               </div>
             </div>
             <br />
