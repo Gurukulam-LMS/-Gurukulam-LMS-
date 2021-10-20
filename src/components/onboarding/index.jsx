@@ -82,7 +82,35 @@ const OnBoarding = () => {
     city: "",
   });
 
+  const [errMsg, setErrMsg] = useState({
+    firstName: null,
+    lastName: null,
+    gender: null,
+    dob: null,
+    country: null,
+    mobileNumber: null,
+  });
+
+  const validateInputs = () => {
+    let flag = true;
+    const prevErr = { ...errMsg };
+    Object.keys(errMsg).map((key) => {
+      if (!personalInfo[key]) {
+        flag = false;
+        prevErr[key] = "Required!!";
+      } else {
+        prevErr[key] = null;
+      }
+    });
+    setErrMsg(prevErr);
+    return flag;
+  };
+
+  const isChanged =
+    personalInfo.mobileNumber !== auth.personalInfo.mobileNumber;
+
   const onboardingFormSubmit = async () => {
+    if (!validateInputs()) return;
     const formData = new FormData();
     const token = await reRef.current.executeAsync();
     reRef.current.reset();
@@ -154,6 +182,17 @@ const OnBoarding = () => {
     }, 500);
   };
 
+  const getDOMDate = (date) => {
+    if (!date) return null;
+    const getDate = new Date(personalInfo.dob);
+    let day = ("0" + getDate.getDate()).toString();
+    let month = ("0" + (getDate.getMonth() + 1)).toString();
+    let year = getDate.getFullYear();
+    day = day.slice(-2);
+    month = month.slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <>
       <NavHeader />
@@ -217,6 +256,7 @@ const OnBoarding = () => {
                   })
                 }
               />
+              <div className="errMsgInputs">{errMsg.firstName}</div>
             </FormGroup>
 
             <FormGroup className="mb-3" controlId="formBasicLast Name">
@@ -232,6 +272,7 @@ const OnBoarding = () => {
                   })
                 }
               />
+              <div className="errMsgInputs">{errMsg.lastName}</div>
             </FormGroup>
           </div>
           <div className={style.row}>
@@ -259,6 +300,7 @@ const OnBoarding = () => {
                 <option value="female">Female</option>
                 <option value="others">Others</option>
               </FormControl>
+              <div className="errMsgInputs">{errMsg.gender}</div>
             </FormGroup>
             <FormGroup className="mb-3" controlId="formBasicFirst Name">
               <FormLabel>Date of Birth *</FormLabel>
@@ -267,8 +309,9 @@ const OnBoarding = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, dob: e.target.value })
                 }
-                value={personalInfo.dob}
+                value={getDOMDate(personalInfo.dob)}
               />
+              <div className="errMsgInputs">{errMsg.dob}</div>
             </FormGroup>
           </div>
           <div className={style.row}>
@@ -285,13 +328,14 @@ const OnBoarding = () => {
                 }
                 value={personalInfo.country}
               />
+              <div className="errMsgInputs">{errMsg.country}</div>
             </FormGroup>
           </div>
           <div className={style.numContainer}>
             <Form.Group controlId="formBasicMobile">
               <FormLabel>Mobile Number *</FormLabel>
               <FormControl
-                type="number"
+                type="text"
                 placeholder="Mobile Number"
                 onChange={(e) =>
                   setPersonalInfo({
@@ -301,10 +345,13 @@ const OnBoarding = () => {
                 }
                 value={personalInfo.mobileNumber}
               />
+              <div className="errMsgInputs">{errMsg.mobileNumber}</div>
             </Form.Group>
-            <button className={style.otpBtn} onClick={mobileNumberVerify}>
-              Get OTP
-            </button>
+            {isChanged && (
+              <button className={style.otpBtn} onClick={mobileNumberVerify}>
+                Get OTP
+              </button>
+            )}
           </div>
           {!!otpResponseId && (
             <div className={style.numContainer}>
