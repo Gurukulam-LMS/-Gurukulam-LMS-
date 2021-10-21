@@ -128,10 +128,11 @@ const AllCourses = () => {
       <div className="container course-list">
         <div className={style.courseContainer}>
           {courses?.map((course, index) => (
-            <div
+            <a
               className={style.courseCard}
               key={course._id}
-              onClick={() => history.push("/previewCourse/" + course._id)}
+              href={"/coursePlayer/" + course._id}
+              style={{ textDecoration: "none" }}
             >
               <div className="courseCard" key={course._id}>
                 <div className=""></div>
@@ -191,7 +192,7 @@ const AllCourses = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
