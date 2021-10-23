@@ -2,11 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import style from "../assets/css/UserTable.module.css";
 import { Accordion } from "react-bootstrap";
 import { AuthContext } from "../context/authContext";
+import { CourseContext } from "../context/courseContext";
+import { useHistory } from "react-router-dom";
 
 const Users = () => {
   const [searchInp, setSearchInp] = useState("");
   const { allUsers } = useContext(AuthContext);
   const [users, setUsers] = useState([...allUsers]);
+  const { allCourses } = useContext(CourseContext);
+
+  const history = useHistory();
 
   useEffect(() => {
     setUsers(allUsers);
@@ -33,6 +38,8 @@ const Users = () => {
       year: "numeric",
     });
   };
+
+  const getCourse = (id) => allCourses?.find((course) => course._id == id);
 
   return (
     <div className={style.wrapper}>
@@ -115,11 +122,11 @@ const Users = () => {
                         </div>
                       </div>
 
-                      {user.local.educationalInfo.length > 0 && (
+                      {/* {user.local.educationalInfo.length > 0 && (
                         <div className={style.educationalInfo}>
                           EDUCATIONAL INFO
                         </div>
-                      )}
+                      )} */}
 
                       {user.local.educationalInfo.map((info, idx) => {
                         return (
@@ -137,6 +144,30 @@ const Users = () => {
                           </div>
                         );
                       })}
+                      <div className={style.row}>
+                        <div
+                          className={style.details}
+                          style={{ width: "100%" }}
+                        >
+                          <ul className={style.label}>Courses Enrolled</ul>
+                          {user.local.coursesEnrolled?.map((id) => {
+                            return (
+                              <li
+                                className={style.value}
+                                style={{
+                                  fontSize: "1.1rem",
+                                  margin: "2.2px",
+                                  cursor: "pointer",
+                                  color: "blue",
+                                }}
+                                onClick={() => history.push("/course/" + id)}
+                              >
+                                {getCourse(id)?.title}
+                              </li>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   </Accordion.Body>
                 </Accordion.Item>
