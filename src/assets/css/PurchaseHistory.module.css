@@ -1,0 +1,36 @@
+.container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 100px auto;
+  margin-bottom: 500px;
+  font-family: Ubuntu;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-family: Ubuntu;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.courseName {
+  font-size: 1.2rem;
+}
+
+.row {
+  display: flex;
+  margin: 10px;
+}
+
+.label {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-right: 20px;
+}
+
+.value {
+  font-size: 1.1rem;
+  font-family: Roboto;
+}
