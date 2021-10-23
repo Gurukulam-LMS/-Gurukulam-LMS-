@@ -76,6 +76,9 @@ const Header = ({ active }) => {
                   <span className="fa fa-cog"></span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <Dropdown.Item href="/dash/purchaseHistory">
+                    Purchase History
+                  </Dropdown.Item>
                   <Dropdown.Item
                     href="/"
                     onClick={() => {

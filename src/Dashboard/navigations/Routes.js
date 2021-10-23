@@ -6,6 +6,7 @@ import MyCourse from "../components/mycourse";
 import Account from "../components/account";
 import Profile from "../components/profile";
 import TestSeries from "../components/testseries";
+import PurchaseHistory from "../components/purchaseHistory/purchaseHistory";
 function Routes() {
   const [active, setActive] = useState("dashboard");
   return (
@@ -46,6 +47,13 @@ function Routes() {
           component={() => {
             setActive("testseries");
             return <TestSeries />;
+          }}
+        />
+        <Route
+          path="/dash/purchaseHistory"
+          component={() => {
+            setActive("purchaseHistory") ;
+            return <PurchaseHistory/> ;
           }}
         />
       </Switch>
