@@ -56,7 +56,6 @@ const PaymentSuccess = () => {
             >
               Close
             </button>
-            <button className={style.btns}>Print</button>
           </div>
         </div>
       </div>
